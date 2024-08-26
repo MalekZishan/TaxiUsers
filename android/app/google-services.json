@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "27377273579",
+    "project_id": "drive-easy-87ac7",
+    "storage_bucket": "drive-easy-87ac7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:27377273579:android:52dd3073fbbbfeeca7ccae",
+        "android_client_info": {
+          "package_name": "com.amin.taxiusers"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBnDndW1WJYuf7lEjcWAwOSvudsZ3BJFk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
