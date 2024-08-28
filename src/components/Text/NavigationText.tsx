@@ -32,8 +32,8 @@ const NavigationText = ({title, onPress, Prestext}: Props) => {
       <Text style={styles.dontHaveAn}>{title}</Text>
       <Text
         style={{
-          fontFamily: Fonts.semiBold,
-          color: Colors.green,
+          fontFamily: Fonts.bold,
+          color: Colors.blue,
           fontSize: moderateScale(15),
           marginLeft: 2,
         }}>

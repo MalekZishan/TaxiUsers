@@ -24,7 +24,7 @@ const Splash = () => {
       <Animated.Image
         entering={BounceIn.duration(1800).damping(0.1)}
         exiting={BounceOut.duration(1300).damping(0.3)}
-        source={Images.logo}
+        source={Images.intro}
         resizeMode="contain"
         style={{
           width: moderateScale(190),

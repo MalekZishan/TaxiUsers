@@ -109,7 +109,7 @@ export {
 };
 
 export const Styles = StyleSheet.create({
-  flex1: {flex: 1, backgroundColor: '#FAFAFA'},
+  flex1: {flex: 1, backgroundColor: Colors.white},
   flexDirectionRow: {
     flexDirection: 'row',
   },
@@ -133,8 +133,8 @@ export const Styles = StyleSheet.create({
     alignItems: 'center',
   },
   normalFontStyle: {
-    fontFamily: Fonts.THICCCBOISEMIBOLD,
-    fontSize: F(18),
+    fontFamily: Fonts.medium,
+    fontSize: F(15),
     color: Colors.black,
 
     //  color: Colors.Natural.Natural800,

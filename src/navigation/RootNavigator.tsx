@@ -39,7 +39,7 @@ const RootNavigator = (props: Props) => {
               if (c) ProgressDialog.dialogInstance = c;
             }}
           />
-          {isUserAuthenticated ? <AuthNavigator /> : <UnAuthNavigator />}
+          {true ? <AuthNavigator /> : <UnAuthNavigator />}
         </NavigationContainer>
       ) : (
         <Splash />

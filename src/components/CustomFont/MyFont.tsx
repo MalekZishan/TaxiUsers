@@ -90,12 +90,12 @@ export const light = (SIZE: number, colors?: string): any => ({
   color: colors ? colors : Colors.black,
 });
 export const medium = (SIZE: number, colors?: string): any => ({
-  fontFamily: Fonts.THICCCBOMedium,
+  fontFamily: Fonts.medium,
   fontSize: SIZE,
   color: colors ? colors : Colors.black,
 });
 export const regular = (SIZE: number, colors?: string): any => ({
-  fontFamily: Fonts.THICCCBORegular,
+  fontFamily: Fonts.regular,
   fontSize: SIZE,
   color: colors ? colors : Colors.black,
 });
@@ -104,7 +104,7 @@ export const semiBold = (
   colors?: string,
   light?: number,
 ): any => ({
-  fontFamily: Fonts.THICCCBOISEMIBOLD,
+  fontFamily: Fonts.semiBold,
   fontSize: SIZE,
 
   color: colors ? colors : Colors.black,

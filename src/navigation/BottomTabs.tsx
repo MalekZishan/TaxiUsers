@@ -79,15 +79,14 @@ const BottomTabs = (props: Props) => {
         tabBarStyle: {
           height: DEVICE_TYPE == 'ios' ? 90 : 70,
           padding: 15,
-          borderTopRightRadius: 20,
-          borderTopLeftRadius: 20,
           display: isKeyboardVisible ? 'none' : 'flex',
-          backgroundColor: '#ffffff',
-          elevation: 10,
+          backgroundColor: '#ffff',
+          justifyContent: 'space-between',
+          elevation: 1,
           shadowOpacity: 0.2,
           shadowRadius: 2,
           shadowOffset: {
-            height: -2,
+            height: 2,
             width: 1,
           },
         },
@@ -155,18 +154,18 @@ const BT_Button: React.FC<BT_ButtonProps> = ({
             height: 24,
           },
         ]}
-        tintColor={focused ? Colors.green : '#BEBEBE'}
+        tintColor={focused ? Colors.blue : '#A5AAB5'}
         source={focused ? activeImg : img}
       />
       <Text
         style={{
-          fontFamily: Fonts.THICCCBOISEMIBOLD,
-          fontSize: moderateScale(12),
+          fontFamily: Fonts.regular,
+          fontSize: moderateScale(11),
           lineHeight: 13,
           marginTop: 4,
-          color: focused ? Colors.green : '#BEBEBE',
+          color: focused ? Colors.blue : '#A5AAB5',
         }}>
-        {name}
+        {name == 'Home' ? 'My Bookings' : 'My Profile'}
       </Text>
     </View>
   );

@@ -107,9 +107,10 @@ const InputFields: React.FC<InputFieldsProps> = ({
       <View
         style={[
           {
-            marginVertical: moderateScaleVertical(6),
+            marginVertical: moderateScaleVertical(9),
             // elevation: 2,j
-            borderRadius: moderateScale(8),
+            borderRadius: moderateScale(50),
+            backgroundColor: '#F8F8F8',
             height: moderateScale(48),
           },
           style,
@@ -119,54 +120,25 @@ const InputFields: React.FC<InputFieldsProps> = ({
             {
               borderWidth: 1,
               padding: DEVICE_TYPE == 'ios' ? 10 : 0,
-              paddingHorizontal: moderateScale(10),
-              borderColor: '#E6E6E6',
+              paddingHorizontal: moderateScale(15),
+              borderColor: '#F8F8F8',
               flexDirection: 'row',
               height: moderateScale(48),
 
               alignItems: 'center',
-              borderRadius: moderateScale(8),
+              borderRadius: moderateScale(50),
             },
             containerStyle,
           ]}>
-          {isCountryCode ? (
-            <TouchableOpacity onPress={CountryCode}>
-              <Text
-                style={{
-                  color: '#A7A5A5',
-                  fontSize: 14,
-                  fontFamily: Fonts.THICCCBORegular,
-                  marginEnd: 8,
-                }}>
-                {code}
-              </Text>
-            </TouchableOpacity>
-          ) : (
-            lImg && (
-              <Image
-                source={lImg}
-                resizeMode={'contain'}
-                style={{
-                  width: moderateScale(24),
-                  height: moderateScale(24),
-                  marginRight: Platform.OS == 'android' ? 6 : 10,
-                  ...lImageStyle,
-                }}
-              />
-            )
-          )}
-          {isline && (
-            <View
+          {lImg && (
+            <Image
+              source={lImg}
+              resizeMode={'contain'}
               style={{
-                width: 18,
-                marginStart: Platform.OS == 'ios' ? -5 : 0,
-                borderColor: '#9E9FA6',
-                borderWidth: 1,
-                transform: [
-                  {
-                    rotate: '-90deg',
-                  },
-                ],
+                width: moderateScale(24),
+                height: moderateScale(24),
+                marginRight: Platform.OS == 'android' ? 6 : 12,
+                ...lImageStyle,
               }}
             />
           )}
@@ -175,12 +147,12 @@ const InputFields: React.FC<InputFieldsProps> = ({
             placeholder={placeholder}
             value={value}
             clearTextOnFocus
-            cursorColor={Colors.green}
+            cursorColor={Colors.blue}
             onBlur={onBlur}
             secureTextEntry={isSecure != undefined ? isSecure : secureTextEntry}
             keyboardType={keyboardType}
             onChangeText={onChangeText}
-            placeholderTextColor={'#A7A5A5'}
+            placeholderTextColor={'#A2A2A4'}
             autoCapitalize="none"
             caretHidden={false}
             {...(keyboardType == 'email-address' && {
@@ -235,7 +207,7 @@ export default InputFields;
 
 const styles = StyleSheet.create({
   textInputStyle: {
-    fontFamily: Fonts.THICCCBORegular,
+    fontFamily: Fonts.regular,
     flex: 1,
     color: '#1E1B1E',
     paddingVertical: DEVICE_TYPE == 'android' ? 8 : 0,

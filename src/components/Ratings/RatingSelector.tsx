@@ -1,6 +1,6 @@
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {Styles, WIDTH, SQUARE} from '../../constants/Utils';
+import {Styles, WIDTH, SQUARE, moderateScale} from '../../constants/Utils';
 import Images from '../../constants/Images';
 
 type RatingSelectorProps = {
@@ -15,7 +15,7 @@ const RatingSelector = ({onPress, selectedRating}: RatingSelectorProps) => {
       style={{
         flexDirection: 'row',
         ...Styles.centerDiv,
-        marginVertical: WIDTH / 15,
+        marginVertical: WIDTH / 20,
       }}>
       {rating.map((val, index) => {
         return (
@@ -26,7 +26,11 @@ const RatingSelector = ({onPress, selectedRating}: RatingSelectorProps) => {
                   ? Images.filledstar
                   : Images.unfilledstar
               }
-              style={{...SQUARE(WIDTH / 17), margin: 5}}
+              style={{
+                margin: 5,
+                height: moderateScale(39),
+                width: moderateScale(39),
+              }}
               resizeMode={'contain'}
             />
           </Pressable>

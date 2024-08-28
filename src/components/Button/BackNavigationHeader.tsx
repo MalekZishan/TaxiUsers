@@ -42,7 +42,7 @@ const BackNavigationHeader: React.FC<BackNavigationHeaderProps> = ({
   title,
   rImg,
   onrPress,
-  leftImgColor = Colors.gray300,
+  leftImgColor = Colors.black,
   onLeftPress,
   lImg,
   notificationCount,
@@ -69,31 +69,16 @@ const BackNavigationHeader: React.FC<BackNavigationHeaderProps> = ({
         )}
       </Animated.View>
 
-      {CenterImg ? (
-        <View
-          style={{
-            flex: 1,
-            marginHorizontal: moderateScale(15),
-            alignItems: 'center',
-          }}>
-          <Image
-            source={Images.LoginLogo}
-            resizeMode={'contain'}
-            style={{width: moderateScale(73), height: moderateScale(30)}}
-          />
-        </View>
-      ) : (
-        <Animated.Text
-          entering={FadeInDown.delay(50)}
-          style={{
-            flex: 1,
-            textAlign: 'center',
-            ...Styles.normalFontStyle,
-            color: titlelcr,
-          }}>
-          {title}
-        </Animated.Text>
-      )}
+      <Animated.Text
+        entering={FadeInDown.delay(50)}
+        style={{
+          flex: 1,
+          textAlign: 'center',
+          ...Styles.normalFontStyle,
+          color: titlelcr,
+        }}>
+        {title}
+      </Animated.Text>
 
       {rImg && (
         <Pressable
@@ -109,7 +94,7 @@ const BackNavigationHeader: React.FC<BackNavigationHeaderProps> = ({
                 position: 'absolute',
                 right: moderateScale(-10),
                 top: moderateScale(-15),
-                backgroundColor: Colors.green,
+                backgroundColor: Colors.blue,
                 borderRadius: 100,
                 height: moderateScale(24),
                 width: moderateScale(24),
@@ -133,31 +118,6 @@ const BackNavigationHeader: React.FC<BackNavigationHeaderProps> = ({
               alignSelf: 'flex-end',
             }}
             resizeMode="contain"
-          />
-        </Pressable>
-      )}
-      {rImgChat && (
-        <Pressable
-          onPress={() => {
-            navigate('AdminChat');
-          }}
-          style={{
-            height: moderateScale(38),
-            width: moderateScale(38),
-            backgroundColor: Colors.white,
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderRadius: 10,
-            marginEnd: 20,
-            borderWidth: 1,
-            borderColor: Colors.gray100,
-          }}>
-          <Image
-            source={Images.Help}
-            style={{
-              width: moderateScale(16),
-              height: moderateScale(16),
-            }}
           />
         </Pressable>
       )}

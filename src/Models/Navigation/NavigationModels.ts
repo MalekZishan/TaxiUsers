@@ -25,37 +25,11 @@ export type UnUnAuthStackParamsList = {
 
 export type AuthStack = {
   BottomTabs: undefined;
-  ChargePayment: undefined;
-  CheckProgress: undefined;
-  OrderDetails: undefined;
-  AppoinmentDetails: undefined;
+  BookingRequirement: undefined;
   EditProfile: undefined;
-  AddBike: undefined;
   Setting: undefined;
-  TremCon: undefined;
-  Privacypolicy: undefined;
-  PaymentMethod: undefined;
-  Notification: undefined;
-  RentalsAppoinment2: undefined;
-  MyBike: undefined;
-  CheckoutRantals: undefined;
-  RentalsAppoinment1: undefined;
-  Rentalsdetails: undefined;
-  AppointmentsServices1: undefined;
-  AppointmentsServices2: undefined;
-  AppointmentsServices3: undefined;
-  AppointmentsAvailability: undefined;
-  AppointmentDetails: undefined;
-  AppointmentsAddProblem: undefined;
-  AppointmentCheckout: undefined;
-  ChoseAddress: undefined;
-  ShopDetails: undefined;
-  AssignVan: undefined;
-  SeeallShop: undefined;
-  ViewShopCart: undefined;
-  CheckoutShopping: undefined;
-  ProductDetails: undefined;
-  AdminChat: undefined;
+  ChangePassword: undefined;
+  Wallet: undefined;
 };
 
 export type BottomTabStackParamsList = {

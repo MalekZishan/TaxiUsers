@@ -37,9 +37,9 @@ const LabelInputField: React.FC<PropsLabelInputFieldProps> = props => {
         <Text
           style={[
             {
-              fontFamily: Fonts.THICCCBOIBold,
-              fontSize: moderateScale(18),
-              color: '#828282',
+              fontFamily: Fonts.regular,
+              fontSize: moderateScale(14),
+              color: Colors.black,
             },
             props.TextStyle,
           ]}>

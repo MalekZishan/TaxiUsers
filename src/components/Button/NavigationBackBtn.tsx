@@ -25,7 +25,7 @@ type Props = {
 
 const NavigationBackBtn = ({
   onLeftPress,
-  imgColor = Colors.gray300,
+  imgColor = Colors.black,
   lImg = Images.backArr,
 }: Props) => {
   const navigation = useNavigation();
@@ -41,7 +41,7 @@ const NavigationBackBtn = ({
       hitSlop={10}
       style={{
         marginVertical: DEVICE_TYPE == 'android' ? 10 : 0,
-        marginHorizontal: DEVICE_TYPE == 'android' ? 15 : 10,
+        paddingHorizontal: DEVICE_TYPE == 'android' ? 15 : 15,
       }}>
       <Image
         source={lImg}

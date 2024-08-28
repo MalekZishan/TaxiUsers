@@ -93,9 +93,9 @@ const DropDown = ({
         <Text
           style={[
             {
-              fontFamily: Fonts.THICCCBOIBold,
-              color: '#828282',
-              fontSize: moderateScale(18),
+              fontFamily: Fonts.regular,
+              fontSize: moderateScale(14),
+              color: Colors.black,
             },
             texStyle,
           ]}>
@@ -134,17 +134,17 @@ const DropDown = ({
         closeModalWhenSelectedItem
         selectedTextProps={{
           style: {
-            color: Colors.black,
-            fontSize: moderateScale(15),
-            fontFamily: Fonts.THICCCBOMedium,
-            marginEnd: 10,
+            color: Colors.gray,
+            fontSize: moderateScale(14),
+            fontFamily: Fonts.regular,
+            marginStart: 10,
             ...textStyle,
           },
         }}
         containerStyle={{
           borderRadius: moderateScale(15),
         }}
-        valueField="value"
+        valueField="label"
         searchPlaceholder="Search  brand"
         placeholder={placeholder}
         {...{value}}
@@ -152,7 +152,7 @@ const DropDown = ({
         renderRightIcon={() => (
           <>
             <Image
-              source={Images.arrow_right}
+              source={Images.arrow_rightdown}
               resizeMode="contain"
               style={SQUARE(moderateScale(label ? 27 : 16))}
             />
@@ -182,14 +182,14 @@ export default DropDown;
 
 const styles = StyleSheet.create({
   dropdown: {
-    borderWidth: 1,
     paddingHorizontal: moderateScale(10),
     borderColor: '#E6E6E6',
 
-    height: moderateScale(48),
-    borderRadius: moderateScale(8),
     color: Colors.black,
-    fontFamily: Fonts.THICCCBORegular,
+    fontFamily: Fonts.regular,
+    borderRadius: moderateScale(50),
+    backgroundColor: '#F8F8F8',
+    height: moderateScale(48),
     paddingVertical: moderateScaleVertical(5),
   },
   noDataView: {
@@ -200,16 +200,5 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(14),
     color: Colors.black,
     marginBottom: moderateScale(10),
-  },
-  addButton: {
-    backgroundColor: Colors.green,
-    paddingHorizontal: moderateScale(10),
-    paddingVertical: moderateScaleVertical(5),
-    borderRadius: moderateScale(5),
-  },
-  addButtonText: {
-    color: '#ffff',
-    fontSize: moderateScale(12),
-    fontFamily: Fonts.medium,
   },
 });

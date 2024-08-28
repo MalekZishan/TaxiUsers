@@ -11,10 +11,28 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		19E1279D31C445F9B5244A2C /* BeVietnamPro-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0B654AD8E8BB4839B65874F0 /* BeVietnamPro-ExtraBoldItalic.ttf */; };
+		224DA035F0E14D90B8280845 /* BeVietnamPro-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5D37A1658824444BB8A42326 /* BeVietnamPro-Bold.ttf */; };
+		2A74B77DB9E949E39E2965D2 /* BeVietnamPro-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3DD02F93751C44EF8956DF3A /* BeVietnamPro-Italic.ttf */; };
+		3DCB897B1DB643ECBDF52409 /* BeVietnamPro-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5715E7FD654C48179C58321E /* BeVietnamPro-Black.ttf */; };
+		4E922432CCDB4B029B4692A8 /* BeVietnamPro-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 714C7220A5DD44C291E66DC1 /* BeVietnamPro-ThinItalic.ttf */; };
+		505E99B4CC1F4CF29314D995 /* BeVietnamPro-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52E69510B6FD4956A96FECED /* BeVietnamPro-SemiBold.ttf */; };
+		59EAE49BADBD48B5AD8A95D8 /* BeVietnamPro-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FDDBFC9B0260400F84C2543B /* BeVietnamPro-Light.ttf */; };
 		63704D6A952A354C5A7EA7CC /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = D479CDD01725448FF0E50605 /* PrivacyInfo.xcprivacy */; };
-		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		646E1AE12C7EEA2D00DA91F6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 646E1AE02C7EEA2D00DA91F6 /* GoogleService-Info.plist */; };
+		7C34AF01C45443B19D823AC3 /* BeVietnamPro-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 177D250B76BE422087F67279 /* BeVietnamPro-Thin.ttf */; };
+		7D15EABA214448BB9D48BB8A /* BeVietnamPro-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0F57A95B98DC43F091987FE8 /* BeVietnamPro-Medium.ttf */; };
+		81914688E9B44F2DA7DECCEF /* BeVietnamPro-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 74D26A9DDA1B4063810666D0 /* BeVietnamPro-BlackItalic.ttf */; };
 		92D0B9BA4124D330C1796359 /* Pods_TaxiUsers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82B1A2D3D72560B058ED05C /* Pods_TaxiUsers.framework */; };
+		986A26B9315040C4A98E904A /* BeVietnamPro-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C05EB5485B54EF094AD013C /* BeVietnamPro-LightItalic.ttf */; };
+		AC3FE54999A94F1AA66F3C6E /* BeVietnamPro-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9E0968C29CFD41BE9A527C0A /* BeVietnamPro-SemiBoldItalic.ttf */; };
+		AD81FE4CFE174A2E87BC20C1 /* BeVietnamPro-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6332DBD0247A4817BEF1901C /* BeVietnamPro-ExtraBold.ttf */; };
+		B0908C7792B44B1488730AF5 /* BeVietnamPro-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 72D823F6D2A648B18DBF5978 /* BeVietnamPro-ExtraLight.ttf */; };
 		D25059740DA24DD614B3ABAB /* Pods_TaxiUsers_TaxiUsersTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 079D52B0F8519152F8752D6B /* Pods_TaxiUsers_TaxiUsersTests.framework */; };
+		D5927295A9BC4F79A89E22A8 /* BeVietnamPro-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D0887D386154BB6BF035B59 /* BeVietnamPro-MediumItalic.ttf */; };
+		D5CCA79B9886411E8A8A9E9E /* BeVietnamPro-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 91F8D42AC1C543DCA5C9B367 /* BeVietnamPro-ExtraLightItalic.ttf */; };
+		F736BD110D044CA08C3FCE67 /* BeVietnamPro-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 92FB82DA250B4832ACE96D64 /* BeVietnamPro-BoldItalic.ttf */; };
+		F9572F6A4E0545058A96609F /* BeVietnamPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A1E5454133DE4F5ABB934C93 /* BeVietnamPro-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,6 +50,9 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* TaxiUsersTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaxiUsersTests.m; sourceTree = "<group>"; };
 		079D52B0F8519152F8752D6B /* Pods_TaxiUsers_TaxiUsersTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TaxiUsers_TaxiUsersTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0B654AD8E8BB4839B65874F0 /* BeVietnamPro-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "BeVietnamPro-ExtraBoldItalic.ttf"; path = "../src/assets/fonts/BeVietnamPro-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		0C05EB5485B54EF094AD013C /* BeVietnamPro-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "BeVietnamPro-LightItalic.ttf"; path = "../src/assets/fonts/BeVietnamPro-LightItalic.ttf"; sourceTree = "<group>"; };
+		0F57A95B98DC43F091987FE8 /* BeVietnamPro-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "BeVietnamPro-Medium.ttf"; path = "../src/assets/fonts/BeVietnamPro-Medium.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* TaxiUsers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaxiUsers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = TaxiUsers/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = TaxiUsers/AppDelegate.mm; sourceTree = "<group>"; };
@@ -39,14 +60,29 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = TaxiUsers/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = TaxiUsers/main.m; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = TaxiUsers/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		177D250B76BE422087F67279 /* BeVietnamPro-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "BeVietnamPro-Thin.ttf"; path = "../src/assets/fonts/BeVietnamPro-Thin.ttf"; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-TaxiUsers.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaxiUsers.debug.xcconfig"; path = "Target Support Files/Pods-TaxiUsers/Pods-TaxiUsers.debug.xcconfig"; sourceTree = "<group>"; };
+		3DD02F93751C44EF8956DF3A /* BeVietnamPro-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "BeVietnamPro-Italic.ttf"; path = "../src/assets/fonts/BeVietnamPro-Italic.ttf"; sourceTree = "<group>"; };
+		52E69510B6FD4956A96FECED /* BeVietnamPro-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "BeVietnamPro-SemiBold.ttf"; path = "../src/assets/fonts/BeVietnamPro-SemiBold.ttf"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-TaxiUsers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaxiUsers.release.xcconfig"; path = "Target Support Files/Pods-TaxiUsers/Pods-TaxiUsers.release.xcconfig"; sourceTree = "<group>"; };
+		5715E7FD654C48179C58321E /* BeVietnamPro-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "BeVietnamPro-Black.ttf"; path = "../src/assets/fonts/BeVietnamPro-Black.ttf"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-TaxiUsers-TaxiUsersTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaxiUsers-TaxiUsersTests.debug.xcconfig"; path = "Target Support Files/Pods-TaxiUsers-TaxiUsersTests/Pods-TaxiUsers-TaxiUsersTests.debug.xcconfig"; sourceTree = "<group>"; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = TaxiUsers/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		5D37A1658824444BB8A42326 /* BeVietnamPro-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "BeVietnamPro-Bold.ttf"; path = "../src/assets/fonts/BeVietnamPro-Bold.ttf"; sourceTree = "<group>"; };
+		6332DBD0247A4817BEF1901C /* BeVietnamPro-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "BeVietnamPro-ExtraBold.ttf"; path = "../src/assets/fonts/BeVietnamPro-ExtraBold.ttf"; sourceTree = "<group>"; };
+		646E1AE02C7EEA2D00DA91F6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		714C7220A5DD44C291E66DC1 /* BeVietnamPro-ThinItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "BeVietnamPro-ThinItalic.ttf"; path = "../src/assets/fonts/BeVietnamPro-ThinItalic.ttf"; sourceTree = "<group>"; };
+		72D823F6D2A648B18DBF5978 /* BeVietnamPro-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "BeVietnamPro-ExtraLight.ttf"; path = "../src/assets/fonts/BeVietnamPro-ExtraLight.ttf"; sourceTree = "<group>"; };
+		74D26A9DDA1B4063810666D0 /* BeVietnamPro-BlackItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "BeVietnamPro-BlackItalic.ttf"; path = "../src/assets/fonts/BeVietnamPro-BlackItalic.ttf"; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-TaxiUsers-TaxiUsersTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaxiUsers-TaxiUsersTests.release.xcconfig"; path = "Target Support Files/Pods-TaxiUsers-TaxiUsersTests/Pods-TaxiUsers-TaxiUsersTests.release.xcconfig"; sourceTree = "<group>"; };
-		D479CDD01725448FF0E50605 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = TaxiUsers/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		8D0887D386154BB6BF035B59 /* BeVietnamPro-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "BeVietnamPro-MediumItalic.ttf"; path = "../src/assets/fonts/BeVietnamPro-MediumItalic.ttf"; sourceTree = "<group>"; };
+		91F8D42AC1C543DCA5C9B367 /* BeVietnamPro-ExtraLightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "BeVietnamPro-ExtraLightItalic.ttf"; path = "../src/assets/fonts/BeVietnamPro-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
+		92FB82DA250B4832ACE96D64 /* BeVietnamPro-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "BeVietnamPro-BoldItalic.ttf"; path = "../src/assets/fonts/BeVietnamPro-BoldItalic.ttf"; sourceTree = "<group>"; };
+		9E0968C29CFD41BE9A527C0A /* BeVietnamPro-SemiBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "BeVietnamPro-SemiBoldItalic.ttf"; path = "../src/assets/fonts/BeVietnamPro-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		A1E5454133DE4F5ABB934C93 /* BeVietnamPro-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "BeVietnamPro-Regular.ttf"; path = "../src/assets/fonts/BeVietnamPro-Regular.ttf"; sourceTree = "<group>"; };
+		D479CDD01725448FF0E50605 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = TaxiUsers/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		D82B1A2D3D72560B058ED05C /* Pods_TaxiUsers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TaxiUsers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		FDDBFC9B0260400F84C2543B /* BeVietnamPro-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "BeVietnamPro-Light.ttf"; path = "../src/assets/fonts/BeVietnamPro-Light.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,11 +125,11 @@
 		13B07FAE1A68108700A75B9A /* TaxiUsers */ = {
 			isa = PBXGroup;
 			children = (
+				646E1AE02C7EEA2D00DA91F6 /* GoogleService-Info.plist */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */,
 				D479CDD01725448FF0E50605 /* PrivacyInfo.xcprivacy */,
@@ -127,6 +163,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				9C42C2EE1B8349D19581745C /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -140,6 +177,31 @@
 				00E356EE1AD99517003FC87E /* TaxiUsersTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		9C42C2EE1B8349D19581745C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				5715E7FD654C48179C58321E /* BeVietnamPro-Black.ttf */,
+				74D26A9DDA1B4063810666D0 /* BeVietnamPro-BlackItalic.ttf */,
+				5D37A1658824444BB8A42326 /* BeVietnamPro-Bold.ttf */,
+				92FB82DA250B4832ACE96D64 /* BeVietnamPro-BoldItalic.ttf */,
+				6332DBD0247A4817BEF1901C /* BeVietnamPro-ExtraBold.ttf */,
+				0B654AD8E8BB4839B65874F0 /* BeVietnamPro-ExtraBoldItalic.ttf */,
+				72D823F6D2A648B18DBF5978 /* BeVietnamPro-ExtraLight.ttf */,
+				91F8D42AC1C543DCA5C9B367 /* BeVietnamPro-ExtraLightItalic.ttf */,
+				3DD02F93751C44EF8956DF3A /* BeVietnamPro-Italic.ttf */,
+				FDDBFC9B0260400F84C2543B /* BeVietnamPro-Light.ttf */,
+				0C05EB5485B54EF094AD013C /* BeVietnamPro-LightItalic.ttf */,
+				0F57A95B98DC43F091987FE8 /* BeVietnamPro-Medium.ttf */,
+				8D0887D386154BB6BF035B59 /* BeVietnamPro-MediumItalic.ttf */,
+				A1E5454133DE4F5ABB934C93 /* BeVietnamPro-Regular.ttf */,
+				52E69510B6FD4956A96FECED /* BeVietnamPro-SemiBold.ttf */,
+				9E0968C29CFD41BE9A527C0A /* BeVietnamPro-SemiBoldItalic.ttf */,
+				177D250B76BE422087F67279 /* BeVietnamPro-Thin.ttf */,
+				714C7220A5DD44C291E66DC1 /* BeVietnamPro-ThinItalic.ttf */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
@@ -247,9 +309,27 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				63704D6A952A354C5A7EA7CC /* PrivacyInfo.xcprivacy in Resources */,
+				3DCB897B1DB643ECBDF52409 /* BeVietnamPro-Black.ttf in Resources */,
+				81914688E9B44F2DA7DECCEF /* BeVietnamPro-BlackItalic.ttf in Resources */,
+				224DA035F0E14D90B8280845 /* BeVietnamPro-Bold.ttf in Resources */,
+				F736BD110D044CA08C3FCE67 /* BeVietnamPro-BoldItalic.ttf in Resources */,
+				AD81FE4CFE174A2E87BC20C1 /* BeVietnamPro-ExtraBold.ttf in Resources */,
+				19E1279D31C445F9B5244A2C /* BeVietnamPro-ExtraBoldItalic.ttf in Resources */,
+				B0908C7792B44B1488730AF5 /* BeVietnamPro-ExtraLight.ttf in Resources */,
+				D5CCA79B9886411E8A8A9E9E /* BeVietnamPro-ExtraLightItalic.ttf in Resources */,
+				2A74B77DB9E949E39E2965D2 /* BeVietnamPro-Italic.ttf in Resources */,
+				59EAE49BADBD48B5AD8A95D8 /* BeVietnamPro-Light.ttf in Resources */,
+				986A26B9315040C4A98E904A /* BeVietnamPro-LightItalic.ttf in Resources */,
+				7D15EABA214448BB9D48BB8A /* BeVietnamPro-Medium.ttf in Resources */,
+				D5927295A9BC4F79A89E22A8 /* BeVietnamPro-MediumItalic.ttf in Resources */,
+				F9572F6A4E0545058A96609F /* BeVietnamPro-Regular.ttf in Resources */,
+				505E99B4CC1F4CF29314D995 /* BeVietnamPro-SemiBold.ttf in Resources */,
+				AC3FE54999A94F1AA66F3C6E /* BeVietnamPro-SemiBoldItalic.ttf in Resources */,
+				7C34AF01C45443B19D823AC3 /* BeVietnamPro-Thin.ttf in Resources */,
+				4E922432CCDB4B029B4692A8 /* BeVietnamPro-ThinItalic.ttf in Resources */,
+				646E1AE12C7EEA2D00DA91F6 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -498,7 +578,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.amin.taxiusers;
 				PRODUCT_NAME = TaxiUsers;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -524,7 +604,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.amin.taxiusers;
 				PRODUCT_NAME = TaxiUsers;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";

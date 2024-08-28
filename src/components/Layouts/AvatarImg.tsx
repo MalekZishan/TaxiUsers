@@ -4,11 +4,15 @@ import {
   ImageStyle,
   Pressable,
   StyleSheet,
+  Text,
   TextStyle,
   ViewStyle,
 } from 'react-native';
 import React, {memo} from 'react';
 import Images from '../../constants/Images';
+import Fonts from '../../constants/Fonts';
+import Colors from '../../constants/Colors';
+import {moderateScale} from '../../constants/Utils';
 
 type Props = {
   img?: ImageSourcePropType;
@@ -66,6 +70,16 @@ const AvatarImg: React.FC<Props> = ({img, defaultSource, Onpress}) => {
           bottom: 10,
         }}
       />
+      <Text
+        style={{
+          fontFamily: Fonts.regular,
+          color: Colors.gray,
+          marginTop: 13,
+          textAlign: 'center',
+          fontSize: moderateScale(13),
+        }}>
+        Upload profile pic or Company Logo
+      </Text>
     </Pressable>
   );
 };

@@ -35,6 +35,7 @@ type Props = {
   textStyle?: TextStyle;
   Mystyle?: ViewStyle;
   isbottom?: boolean;
+  mt?: number;
 };
 
 const AuthButton = ({
@@ -43,13 +44,28 @@ const AuthButton = ({
   image,
   index,
   Mystyle,
+  mt,
   textStyle,
 
   isbottom,
 }: Props) => {
   return (
-    <Pressable style={[styles.container, Mystyle]} {...{onPress}}>
-      <Text style={[styles.text, textStyle]}>{title}</Text>
+    <Pressable
+      style={{
+        marginBottom: isbottom ? 30 : 0,
+        paddingHorizontal: isbottom ? 20 : 0,
+      }}>
+      <Pressable
+        style={[
+          styles.container,
+          Mystyle,
+          {
+            marginTop: mt,
+          },
+        ]}
+        {...{onPress}}>
+        <Text style={[styles.text, textStyle]}>{title}</Text>
+      </Pressable>
     </Pressable>
   );
 };
@@ -58,18 +74,18 @@ export default AuthButton;
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: moderateScale(8),
+    borderRadius: moderateScale(60),
     width: '100%',
-    height: moderateScale(50),
+    height: moderateScale(45),
 
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: Colors.green,
+    backgroundColor: Colors.blue,
   },
   text: {
-    fontFamily: Fonts.THICCCBOISEMIBOLD,
+    fontFamily: Fonts.semiBold,
     color: '#fff',
-    fontSize: moderateScale(18),
+    fontSize: moderateScale(14),
     // lineHeight: 1
     top: Platform.OS == 'ios' ? 0 : -2,
   },

@@ -110,12 +110,12 @@ const RatingModal = ({visible, setVisible, data, callback}: Props) => {
           <View style={styles.container}>
             <Text
               style={[
-                semiBold(21),
+                semiBold(moderateScale(21)),
                 {
                   alignSelf: 'center',
                 },
               ]}>
-              {'Rate Now'}
+              {'Rate Driver'}
             </Text>
 
             <Pressable
@@ -127,7 +127,7 @@ const RatingModal = ({visible, setVisible, data, callback}: Props) => {
                 }, 200);
               }}>
               <Image
-                source={Images.Close}
+                source={Images.close}
                 resizeMode="contain"
                 style={SQUARE(F(25))}
               />
@@ -142,43 +142,79 @@ const RatingModal = ({visible, setVisible, data, callback}: Props) => {
                 marginTop: moderateScale(15),
               }}>
               <Image
-                source={{
-                  uri: data?.teaImage,
-                }}
+                source={Images.pic}
                 style={{
-                  width: 83,
-                  borderRadius: 5,
+                  width: moderateScale(96),
+                  borderRadius: moderateScale(96),
                   backgroundColor: '#ccc',
-                  height: 83,
+                  height: moderateScale(96),
                 }}
               />
             </View>
 
             {/* name  */}
-            <Text style={{...styles.headingFont, fontSize: moderateScale(15)}}>
-              {data?.teaName}
+            <Text
+              style={{
+                fontFamily: Fonts.semiBold,
+                alignSelf: 'center',
+                marginTop: 8,
+                color: Colors.black,
+              }}>
+              Jordan Ball
             </Text>
 
+            <View
+              style={{
+                alignSelf: 'center',
+                alignItems: 'center',
+                marginTop: 15,
+                flexDirection: 'row',
+                borderRadius: 48,
+                backgroundColor: '#EAF1FF',
+                width: moderateScale(119),
+                height: moderateScale(46),
+                justifyContent: 'center',
+              }}>
+              <Image
+                source={Images.phone}
+                style={{
+                  width: moderateScale(20),
+                  height: moderateScale(20),
+                  resizeMode: 'contain',
+                }}
+              />
+              <Text
+                style={{
+                  fontFamily: Fonts.bold,
+                  fontSize: 14,
+                  color: Colors.blue,
+                  marginLeft: 20,
+                }}>
+                Call
+              </Text>
+            </View>
             <RatingSelector
               selectedRating={selectedRating}
               onPress={val => setSelectedRating(val)}
             />
 
             <LabelInputField
-              placeholder={'Write here'}
-              label={'Review'}
+              placeholder={'Write a Review'}
+              label={'Write a Review'}
               value={review}
               containerStyle={{
                 height: moderateScale(125),
-
                 borderRadius: 8,
+                backgroundColor: '#F8F8F8',
+                overflow: 'hidden',
               }}
               TextInputProps={{
-                maxLength: 135,
                 multiline: true,
                 style: {
                   height: moderateScale(Platform.OS == 'android' ? 125 : 90),
-                  borderRadius: 8,
+                  borderRadius: 1,
+
+                  overflow: 'hidden',
                   textAlignVertical: 'top',
                 },
               }}
@@ -187,14 +223,7 @@ const RatingModal = ({visible, setVisible, data, callback}: Props) => {
 
             <View style={{margin: 8, top: 100}}>
               {/* <AuthButton title="Submit" onPress={onSubmit} /> */}
-              <PrimaryBtn
-                title={'Submit'}
-                pdVr={13}
-                borderRadius={10}
-                bgColor={Colors.yellow}
-                onPress={onSubmit}
-                isDisabled={!selectedRating || !review.trim()}
-              />
+              <AuthButton title="Submit" />
             </View>
           </View>
         </Animated.View>

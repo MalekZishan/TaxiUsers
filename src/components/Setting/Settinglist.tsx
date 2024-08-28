@@ -1,7 +1,6 @@
 import {
   Image,
   ImageSourcePropType,
-  Platform,
   Pressable,
   StyleSheet,
   Text,
@@ -13,7 +12,6 @@ import {moderateScale, SQUARE, Styles} from '../../constants/Utils';
 import Colors from '../../constants/Colors';
 import Flex1 from '../Layouts/Flex1';
 import Fonts from '../../constants/Fonts';
-import FlexDirRow from '../Layouts/FlexDirRow';
 import Images from '../../constants/Images';
 
 export interface SettingsListProps {
@@ -32,64 +30,55 @@ const SettingList: React.FC<SettingsListProps> = ({
   const navigation = useNavigation<NavigationProp<any>>();
 
   return (
-    <View style={{}}>
-      <Pressable
-        style={[styles.container, {}]}
-        onPress={() => {
-          onpress ? onpress() : navigation.navigate(screenName as any);
+    <Pressable
+      style={[styles.container, {}]}
+      onPress={() => {
+        onpress ? onpress() : navigation.navigate(screenName as any);
+      }}>
+      <View
+        style={{
+          width: moderateScale(42),
+          backgroundColor: Colors.blue,
+          height: moderateScale(42),
+          top: -4,
+          alignItems: 'center',
+          borderRadius: moderateScale(41),
+          justifyContent: 'center',
+        }}>
+        <Image source={icon} style={{...SQUARE(22)}} />
+      </View>
+      <Flex1
+        style={{
+          borderBottomWidth: 1,
+          borderBottomColor: '#E6EAE9',
+          flex: 1,
+          marginLeft: 25,
+          paddingBottom: 15,
         }}>
         <View
           style={{
+            flexDirection: 'row',
             alignItems: 'center',
-            justifyContent: 'center',
-            width: moderateScale(50),
-            height: moderateScale(50),
-            borderRadius: 12,
-            backgroundColor: '#F0F0F0',
+            justifyContent: 'space-between',
           }}>
+          <Text
+            style={{
+              fontFamily: Fonts.medium,
+              color: Colors.black,
+              fontSize: moderateScale(15),
+            }}>
+            {title}
+          </Text>
           <Image
-            source={icon}
+            source={Images.arrow_right1}
             style={{
               width: 24,
               height: 24,
             }}
           />
         </View>
-        <FlexDirRow
-          style={{
-            flex: 1,
-            marginLeft: 20,
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            paddingBottom: 5,
-          }}>
-          <Text
-            style={{
-              fontFamily: Fonts.THICCCBOMedium,
-              color: Colors.black,
-              fontSize: 16,
-              // top: Platform.OS == 'android' ? 1 : 3,
-            }}>
-            {title}
-          </Text>
-          <Image
-            source={Images.Right_Arrow}
-            resizeMode="contain"
-            style={{
-              width: 6,
-              height: 10,
-            }}
-          />
-        </FlexDirRow>
-      </Pressable>
-      <View
-        style={{
-          width: '100%',
-          borderBottomWidth: 1,
-          borderBottomColor: '#F0F0F0',
-        }}
-      />
-    </View>
+      </Flex1>
+    </Pressable>
   );
 };
 
@@ -99,13 +88,12 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
     flexDirection: 'row',
-    paddingHorizontal: 20,
-
-    padding: 10,
+    marginVertical: 7.5,
     alignItems: 'center',
+    marginLeft: 10,
   },
   text: {
-    // ...Styles.normalFontStyle,
+    ...Styles.normalFontStyle,
     color: 'black',
   },
 });

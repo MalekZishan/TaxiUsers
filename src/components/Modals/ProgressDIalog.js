@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { ActivityIndicator, View, StyleSheet } from 'react-native';
-import { Dialog, ScaleAnimation } from 'react-native-popup-dialog';
+import React, {Component} from 'react';
+import {ActivityIndicator, View, StyleSheet} from 'react-native';
+import {Dialog, ScaleAnimation} from 'react-native-popup-dialog';
 import Images from '../../constants/Images';
-import { SQUARE, WIDTH } from '../../constants/Utils';
-import LottieView from 'lottie-react-native';
+import {SQUARE, WIDTH} from '../../constants/Utils';
+// import LottieView from 'lottie-react-native';
 import Colors from '../../constants/Colors';
 
 export default class ProgressDialog extends Component {
@@ -41,9 +41,8 @@ export default class ProgressDialog extends Component {
         dialogStyle={styles.styleDialogContent}
         footer={null}
         visible={this.state.visible}>
-        <View style={{
-        }}>
-          <LottieView
+        <View style={{}}>
+          {/* <LottieView
             source={Images.Loader
 
             }
@@ -55,9 +54,8 @@ export default class ProgressDialog extends Component {
               height: 140,
               alignSelf: 'center',
             }}
-          />
+          /> */}
         </View>
-
       </Dialog>
     );
   }
