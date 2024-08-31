@@ -1,5 +1,8 @@
 import {ScreenTypes} from '../Models/Navigation/NavigationModels';
 import BookingRequirement from '../Screens/AuthScreens/Bottomtabscreens/Home/Screens/BookingRequirement';
+import Chat from '../Screens/AuthScreens/Bottomtabscreens/Home/Screens/Chat';
+import DriverLocation from '../Screens/AuthScreens/Bottomtabscreens/Home/Screens/DriverLocation';
+import Paynow from '../Screens/AuthScreens/Bottomtabscreens/Home/Screens/Paynow';
 import ChangePassword from '../Screens/AuthScreens/Bottomtabscreens/Profile/componets/ChangePassword';
 import EditProfile from '../Screens/AuthScreens/Bottomtabscreens/Profile/componets/EditProfile';
 import Setting from '../Screens/AuthScreens/Bottomtabscreens/Profile/componets/Setting';
@@ -42,6 +45,24 @@ export const Screens: ScreenTypes = [
     name: 'Wallet',
     title: 'Wallet',
     Component: Wallet,
+    options: {headerShown: false},
+  },
+  {
+    name: 'DriverLocation',
+    title: 'DriverLocation',
+    Component: DriverLocation,
+    options: {headerShown: false},
+  },
+  {
+    name: 'Chat',
+    title: 'Chat',
+    Component: Chat,
+    options: {headerShown: false},
+  },
+  {
+    name: 'Paynow',
+    title: 'Paynow',
+    Component: Paynow,
     options: {headerShown: false},
   },
 ];

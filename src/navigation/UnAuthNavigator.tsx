@@ -46,7 +46,7 @@ const UnAuthNavigator = () => {
     <>
       <StatusBar translucent backgroundColor={'transparent'} />
       <Stack.Navigator
-        initialRouteName={'Login'}
+        initialRouteName={'OnBoardScreen'}
         screenOptions={({}) => ({
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
           headerTitleAlign: 'center',

@@ -4,6 +4,7 @@ import Fonts from '../../../../../constants/Fonts';
 import Images from '../../../../../constants/Images';
 import {moderateScale} from '../../../../../constants/Utils';
 import Colors from '../../../../../constants/Colors';
+import {navigate} from '../../../../../Services/NavigationService';
 
 const Drivercard = () => {
   return (
@@ -16,7 +17,10 @@ const Drivercard = () => {
           <View style={styles.driverNameContainer}>
             <Text style={styles.driverNameText}>Brooklyn Simmons</Text>
             <View style={styles.contactIconsContainer}>
-              <Pressable>
+              <Pressable
+                onPress={() => {
+                  navigate('Chat');
+                }}>
                 <Image
                   source={Images.msg}
                   resizeMode="contain"
@@ -33,10 +37,14 @@ const Drivercard = () => {
             </View>
           </View>
 
-          <View style={styles.directionContainer}>
+          <Pressable
+            onPress={() => {
+              navigate('DriverLocation');
+            }}
+            style={styles.directionContainer}>
             <Image source={Images.direction} style={styles.directionIcon} />
             <Text style={styles.directionText}>Get Direction</Text>
-          </View>
+          </Pressable>
         </View>
       </View>
     </View>

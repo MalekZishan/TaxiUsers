@@ -1,4 +1,4 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import Colors from '../../../constants/Colors';
 import NavHeader from '../../../components/Headers/NavHeader';
@@ -11,6 +11,8 @@ import LabelInputField from '../../../components/InputText/LableInputField';
 import AuthButton from '../../../components/Button/AuthButton';
 import NavigationText from '../../../components/Text/NavigationText';
 import {goBack} from '../../../Services/NavigationService';
+import {store} from '../../../Store/Store';
+import {UserisUserAuthenticated} from '../../../Store/Data/Auth/AuthSlice';
 
 const Register = () => {
   return (
@@ -25,14 +27,19 @@ const Register = () => {
           marginTop: useGetStatusBarHeight(),
           flex: 1,
         }}>
-        <Image
-          source={Images.backArr}
-          style={{
-            width: 24,
-            height: 24,
-            tintColor: Colors.black,
-          }}
-        />
+        <Pressable
+          onPress={() => {
+            goBack();
+          }}>
+          <Image
+            source={Images.backArr}
+            style={{
+              width: 24,
+              height: 24,
+              tintColor: Colors.black,
+            }}
+          />
+        </Pressable>
         <Text
           style={{
             fontFamily: Fonts.semiBold,
@@ -62,7 +69,13 @@ const Register = () => {
             keyboardType="email-address"
           />
           <LabelInputField label="Create Password" placeholder="Password" />
-          <AuthButton title="Register" mt={20} />
+          <AuthButton
+            title="Register"
+            mt={20}
+            onPress={() => {
+              store.dispatch(UserisUserAuthenticated(true));
+            }}
+          />
         </MyKeyboardAvoidingScrollView>
       </View>
       <NavigationText

@@ -9,6 +9,8 @@ import {moderateScale} from '../../../../constants/Utils';
 import New from './components/New';
 import MyKeyboardAvoidingScrollView from '../../../../components/Scrollview/MyKeyboardAvoidingScrollView';
 import Post from './components/Post';
+import {requestLocationPermission} from '../../../../Services/PermissionsServices';
+import {fetchCurrentLocation} from '../../../../Hooks/useGetCurrentLocation';
 
 const Home = () => {
   const [Visible, setVisible] = useState(false);
@@ -29,13 +31,38 @@ const Home = () => {
     }, 3000);
   }, []);
 
+  const enableLocation = () => {
+    requestLocationPermission()
+      .then(async () => {
+        fetchCurrentLocation()
+          .then(res => {
+            const lat = res.coords.latitude;
+            const long = res.coords.longitude;
+            // console.log(lat, long);
+          })
+          .catch(err => {
+            console.log(err);
+            // isRequesting.current = false
+            // console.log(err);
+          })
+          .finally(() => {});
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    enableLocation();
+  }, []);
+
   return (
     <View
       style={{
         flex: 1,
         backgroundColor: Colors.white,
       }}>
-      {/* <Usersreqestmodal {...{Visible, setVisible}} /> */}
+      <Usersreqestmodal {...{Visible, setVisible}} />
       <NavHeader title="My Bookings" />
       <View style={styles.statusContainer}>
         {StatusData.map((item, index) => (

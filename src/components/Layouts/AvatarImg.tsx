@@ -37,7 +37,9 @@ const AvatarImg: React.FC<Props> = ({img, defaultSource, Onpress}) => {
       }}>
       {defaultSource ? (
         <Image
-          source={defaultSource}
+          source={{
+            uri: defaultSource,
+          }}
           resizeMode="cover"
           style={{
             width: 147,

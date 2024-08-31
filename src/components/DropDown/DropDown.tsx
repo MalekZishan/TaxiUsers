@@ -46,6 +46,7 @@ export interface DropDownProps {
   OnpressAdd?: () => void;
   texStyle?: TextStyle;
   callback?: () => void;
+  isD?: boolean;
 }
 const DropDown = ({
   label,
@@ -57,6 +58,7 @@ const DropDown = ({
   placeholder,
   placeholderStyle,
   texStyle,
+  isD,
   OnpressAdd,
   textStyle,
   isearch,

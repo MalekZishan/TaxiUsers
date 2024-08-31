@@ -45,7 +45,7 @@ export const BottomSheetImg = ({
         console.log(res.mime);
         const uri = {uri: res.path};
         setBottomSheetVisible(false);
-        setUserProfileImage(uri);
+        setUserProfileImage(res.path);
       })
       .catch(err => {
         console.log('🚀 ~ choosefromGallary ~ err:', err);

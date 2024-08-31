@@ -30,6 +30,9 @@ export type AuthStack = {
   Setting: undefined;
   ChangePassword: undefined;
   Wallet: undefined;
+  Chat: undefined;
+  DriverLocation: undefined;
+  Paynow: undefined;
 };
 
 export type BottomTabStackParamsList = {

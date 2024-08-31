@@ -6,6 +6,7 @@ import MyKeyboardAvoidingScrollView from '../../../../../components/Scrollview/M
 import LabelInputField from '../../../../../components/InputText/LableInputField';
 import DropDown from '../../../../../components/DropDown';
 import AuthButton from '../../../../../components/Button/AuthButton';
+import {goBack} from '../../../../../Services/NavigationService';
 
 const BookingRequirement = () => {
   return (
@@ -32,7 +33,13 @@ const BookingRequirement = () => {
         />
         <DropDown items={data} label="Car Type" placeholder="Car Type" />
       </MyKeyboardAvoidingScrollView>
-      <AuthButton title="Submit" isbottom />
+      <AuthButton
+        title="Submit"
+        isbottom
+        onPress={() => {
+          goBack();
+        }}
+      />
     </View>
   );
 };

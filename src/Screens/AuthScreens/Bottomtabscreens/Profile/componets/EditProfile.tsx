@@ -1,5 +1,5 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import Colors from '../../../../../constants/Colors';
 import NavHeader from '../../../../../components/Headers/NavHeader';
 import AvatarImg from '../../../../../components/Layouts/AvatarImg';
@@ -7,8 +7,12 @@ import MyKeyboardAvoidingScrollView from '../../../../../components/Scrollview/M
 import LabelInputField from '../../../../../components/InputText/LableInputField';
 import {moderateScale} from '../../../../../constants/Utils';
 import AuthButton from '../../../../../components/Button/AuthButton';
+import {BottomSheetImg} from '../../../../../components/Modals/BottomSheetImg';
 
 const EditProfile = () => {
+  const [bottomSheetVisible, setBottomSheetVisible] = useState(false);
+  const [UserProfileImage, setsetUserProfileImage] = useState('');
+
   return (
     <View
       style={{
@@ -16,11 +20,20 @@ const EditProfile = () => {
         backgroundColor: Colors.white,
       }}>
       <NavHeader title="Edit Profile" />
+      <BottomSheetImg
+        {...{bottomSheetVisible, setBottomSheetVisible}}
+        setUserProfileImage={setsetUserProfileImage}
+      />
       <MyKeyboardAvoidingScrollView
         style={{
           paddingHorizontal: 20,
         }}>
-        <AvatarImg Onpress={() => {}} />
+        <AvatarImg
+          defaultSource={UserProfileImage}
+          Onpress={() => {
+            setBottomSheetVisible(true);
+          }}
+        />
 
         <View
           style={{

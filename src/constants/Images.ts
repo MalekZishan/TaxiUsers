@@ -40,4 +40,13 @@ export default {
   filledstar: require('../assets/images/filledstar.png'),
   unfilledstar: require('../assets/images/unfilledstar.png'),
   phone: require('../assets/images/phone.png'),
+  MyLocation: require('../assets/images/MyLocation.png'),
+  CarLocation: require('../assets/images/CarLocation.png'),
+  angle: require('../assets/images/angle.png'),
+  smile: require('../assets/images/smile.png'),
+  send: require('../assets/images/send.png'),
+  ChatBG: require('../assets/images/ChatBG.png'),
+  Card: require('../assets/images/Card.png'),
+  card1: require('../assets/images/card1.png'),
+  gallery_ic: require('../assets/images/gallery_ic.png'),
 };
