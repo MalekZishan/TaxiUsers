@@ -1,4 +1,7 @@
-import ImageCropPicker, {ImageOrVideo} from 'react-native-image-crop-picker';
+import ImageCropPicker, {
+  ImageOrVideo,
+  Options,
+} from 'react-native-image-crop-picker';
 import {
   check,
   AndroidPermission,
@@ -24,7 +27,7 @@ export const getPermissionStatus = (permission: permissionType) => {
   });
 };
 
-export const getImage = (from: 'gallery' | 'camera', rectangle?: boolean) => {
+export const getImage = (from: 'gallery' | 'camera', options?: Options) => {
   let permissionString: permissionType = permissionsStrings(from);
 
   const getImage = async () => {
@@ -33,13 +36,15 @@ export const getImage = (from: 'gallery' | 'camera', rectangle?: boolean) => {
         from == 'gallery'
           ? ImageCropPicker.openPicker
           : ImageCropPicker.openCamera;
-
-      const res = await picker({
-        compressImageQuality: 0.9,
-        multiple: rectangle,
-
-        // Set the value between 0 and 1
-      });
+      const res = await picker(
+        options
+          ? options
+          : {
+              width: 300,
+              height: 400,
+              cropping: true,
+            },
+      );
       return res;
     } catch (error: any) {
       return Promise.reject(error);
@@ -48,11 +53,7 @@ export const getImage = (from: 'gallery' | 'camera', rectangle?: boolean) => {
 
   return new Promise((resolve: (val: ImageOrVideo) => void, reject) => {
     request(permissionString).then(result => {
-      if (
-        result == 'granted' ||
-        result == 'unavailable' ||
-        result == 'limited'
-      ) {
+      if (result == 'granted' || result == 'unavailable') {
         getImage()
           .then(result => {
             resolve(result);

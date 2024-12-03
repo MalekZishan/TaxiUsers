@@ -10,113 +10,27 @@ import MapViewDirections from 'react-native-maps-directions';
 import Images from '../../../../../constants/Images'; // Update with your path
 import {MapStyle} from './Mapstyle';
 import {GOOGLE_MAP_API} from '../../../../../map/KeyMap'; // Update with your path
+import {NewBookingResponse} from '../../../../../Models/Booking/booking.modal';
+import {CIRCLE, moderateScale, Styles} from '../../../../../constants/Utils';
+import {BCOLOR} from '../../../../../components/CustomFont/MyFont';
+import {userByID, userCollection} from '../../../../../Firebase/firebaseCommon';
+import Colors from '../../../../../constants/Colors';
+import Fonts from '../../../../../constants/Fonts';
+import {calculateETA} from '../../../../../Hooks/useGetCurrentLocation';
 
-const Mapviewshow: React.FC = () => {
+const Mapviewshow = (bookingData: NewBookingResponse) => {
   const [routeCoordinates, setRouteCoordinates] = useState<LatLng[]>([]);
   const [duration, setDuration] = useState<number>(0);
-  const carPosition = useRef(
-    new AnimatedRegion({
-      latitude: 40.7808, // Initial latitude for the car
-      longitude: -73.9772, // Initial longitude for the car
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421,
-    }),
-  ).current;
   const mapRef = useRef<MapView | null>(null);
-  const angleRef = useRef<number>(0);
+  const pickupLocation: LatLng = {
+    latitude: bookingData?.pick_up_lat,
+    longitude: bookingData?.pick_up_lng,
+  }; // Update with your pickup location
+  const deliveryLocation: LatLng = {
+    latitude: bookingData?.drop_of_lat,
+    longitude: bookingData?.drop_of_lng,
+  }; // Update with your delivery location
 
-  const pickupLocation: LatLng = {latitude: 40.7808, longitude: -73.9772}; // Update with your pickup location
-  const deliveryLocation: LatLng = {latitude: 40.781, longitude: -73.9857}; // Update with your delivery location
-
-  useEffect(() => {
-    if (routeCoordinates.length > 1) {
-      // animateCar();
-    }
-  }, [routeCoordinates]);
-
-  const animateCar = () => {
-    routeCoordinates.forEach((coordinate, index) => {
-      if (index === 0) return; // Skip the first coordinate
-
-      setTimeout(() => {
-        const nextCoordinate = routeCoordinates[index];
-        const prevCoordinate = routeCoordinates[index - 1];
-        const bearing = calculateBearing(prevCoordinate, nextCoordinate);
-        angleRef.current = Number(bearing.toFixed(0));
-
-        carPosition
-          .timing({
-            latitude: nextCoordinate.latitude,
-            longitude: nextCoordinate.longitude,
-            duration: 1000, // Adjust duration for each step
-            useNativeDriver: false,
-          })
-          .start(() => {
-            // Check if the car has reached the final destination coordinate
-            if (index === routeCoordinates.length - 1) {
-              const distanceToDestination = getDistance(
-                nextCoordinate,
-                deliveryLocation,
-              );
-
-              if (distanceToDestination < 10) {
-                // 10 meters tolerance
-                Alert.alert(
-                  'Reached Destination',
-                  'You have arrived at your destination.',
-                );
-              }
-            }
-          });
-
-        if (mapRef.current) {
-          mapRef.current.animateCamera(
-            {
-              center: nextCoordinate,
-              pitch: 45,
-              altitude: 100,
-              heading: bearing,
-              zoom: 18, // Zoom level as per your requirement
-            },
-            {duration: 1000},
-          );
-        }
-      }, index * 1000); // Adjust delay to sync with the duration of each step
-    });
-  };
-
-  const calculateBearing = (start: LatLng, end: LatLng): number => {
-    const lat1 = (start.latitude * Math.PI) / 360;
-    const lon1 = (start.longitude * Math.PI) / 360;
-    const lat2 = (end.latitude * Math.PI) / 360;
-    const lon2 = (end.longitude * Math.PI) / 360;
-
-    const dLon = lon2 - lon1;
-    const y = Math.sin(dLon) * Math.cos(lat2);
-    const x =
-      Math.cos(lat1) * Math.sin(lat2) -
-      Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLon);
-    const brng = Math.atan2(y, x);
-
-    return ((brng * 180) / Math.PI + 360) % 360;
-  };
-
-  const getDistance = (start: LatLng, end: LatLng): number => {
-    const R = 6371e3; // Earth's radius in meters
-    const φ1 = (start.latitude * Math.PI) / 180; // φ, λ in radians
-    const φ2 = (end.latitude * Math.PI) / 180;
-    const Δφ = ((end.latitude - start.latitude) * Math.PI) / 180;
-    const Δλ = ((end.longitude - start.longitude) * Math.PI) / 180;
-
-    const a =
-      Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
-      Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-    const distance = R * c; // in meters
-    return distance;
-  };
-  console.log(angleRef.current);
   return (
     <View style={{flex: 1}}>
       <MapView
@@ -133,8 +47,8 @@ const Mapviewshow: React.FC = () => {
         scrollDuringRotateOrZoomEnabled
         style={{flex: 1}}
         initialRegion={{
-          latitude: 40.7808, // Set initial region latitude
-          longitude: -73.9772, // Set initial region longitude
+          latitude: bookingData?.pick_up_lat, // Set initial region latitude
+          longitude: bookingData?.pick_up_lng, // Set initial region longitude
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
@@ -163,43 +77,41 @@ const Mapviewshow: React.FC = () => {
           }}
         />
 
-        <Marker.Animated
-          coordinate={carPosition}
-          // rotation={angleRef.current}
-        >
+        {bookingData?.driver_id && (
+          <CarLocation driverId={bookingData?.driver_id} />
+        )}
+        <Marker coordinate={pickupLocation} tracksViewChanges={false}>
+          <View
+            style={[CIRCLE(18), {backgroundColor: 'black'}, Styles.centerDiv]}>
+            <View style={[CIRCLE(4), BCOLOR('white')]}></View>
+          </View>
+        </Marker>
+        {/* Destination Marker with Time Estimate */}
+        <Marker
+          coordinate={deliveryLocation}
+          tracksViewChanges={false}
+          pointerEvents="auto"
+          anchor={{x: 1, y: 1}}>
           <Image
-            source={Images.CarLocation}
+            source={Images.MyLocation}
             resizeMode="contain"
             style={{
-              width: 40,
-              height: 40,
+              height: 43,
+              width: 18,
               resizeMode: 'contain',
-              transform: [{rotate: `${'-110'}deg`}], // Rotate the car image based on the bearing angle
             }}
           />
-        </Marker.Animated>
-
-        {/* Destination Marker with Time Estimate */}
-        <Marker coordinate={deliveryLocation} image={Images.MyLocation}>
           <Callout
             tooltip
+            pointerEvents="auto"
             style={{
               paddingBottom: 5,
+              height: 40,
+              width: 100,
             }}>
             <View style={styles.calloutContainer}>
-              <Text style={styles.calloutText}>{`${Math.round(
-                duration,
-              )} mins`}</Text>
+              <Text style={styles.calloutText}>{`10 mins`}</Text>
             </View>
-            <Image
-              source={Images.angle}
-              style={{
-                width: 15,
-                height: 8.5,
-                resizeMode: 'contain',
-                alignSelf: 'center',
-              }}
-            />
           </Callout>
         </Marker>
       </MapView>
@@ -227,6 +139,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderRadius: 20,
     alignItems: 'center',
+    height: 40,
+    width: 100,
+    justifyContent: 'center',
     padding: 8,
   },
   calloutText: {
@@ -234,49 +149,94 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 14,
   },
+  etaContainer: {
+    height: moderateScale(34),
+    borderRadius: moderateScale(44),
+    backgroundColor: Colors.blue,
+    width: moderateScale(109),
+    alignSelf: 'flex-end',
+    marginTop: 20,
+    marginEnd: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  etaText: {
+    fontFamily: Fonts.semiBold,
+    color: Colors.white,
+    fontSize: moderateScale(12),
+  },
 });
 
-// import {StyleSheet, Text, View} from 'react-native';
-// import React from 'react';
-// import MapView from 'react-native-maps';
-// import {MapStyle} from './Mapstyle';
+const CarLocation = ({driverId}: {driverId: number}) => {
+  const [carPosition, setCarPosition] = useState<LatLng>({
+    latitude: 0,
+    longitude: 0,
+  });
+  console.log('🚀 ~ CarLocation ~ carPosition:', carPosition, driverId);
+  useEffect(() => {
+    userByID(String(driverId)).onSnapshot(doc => {
+      setCarPosition({
+        latitude: doc.data()?.latitude,
+        longitude: doc.data()?.longitude,
+      });
+    });
+  }, []);
+  return (
+    <>
+      <Marker.Animated
+        coordinate={carPosition}
+        // tracksViewChanges={false}
+        // rotation={angleRef.current}
+      >
+        <Image
+          source={Images.CarLocation}
+          resizeMode="contain"
+          style={{
+            width: 40,
+            height: 40,
+            resizeMode: 'contain',
+            transform: [{rotate: `${'-110'}deg`}], // Rotate the car image based on the bearing angle
+          }}
+        />
+      </Marker.Animated>
+    </>
+  );
+};
 
-// const Mapviewshow = () => {
-//   return (
-//    <View style={
-//     {
-//      flex:1
-//     }
-//     }>
-//       <MapView
-//         userLocationCalloutEnabled={true}
-//         userLocationPriority="high"
-//         showsTraffic={false}
-//         pitchEnabled={false}
-//         scrollEnabled
-//         followsUserLocation={true}
-//         zoomControlEnabled
-//         zoomTapEnabled
-//         zoomEnabled
-//         scrollDuringRotateOrZoomEnabled
-//         style={{flex: 1}}
-//         initialRegion={{
-//           latitude: 40.7808, // Set initial region latitude
-//           longitude: -73.9772, // Set initial region longitude
-//           latitudeDelta: 0.0922,
-//           longitudeDelta: 0.0421,
-//         }}
-//         provider="google"
-//         customMapStyle={MapStyle}
-//         showsCompass={true}
-//         showsBuildings={false}
-//         showsIndoors={false}
-//         showsScale={false}
-//         showsIndoorLevelPicker={false}></MapView>
-//     </View>
-//   );
-// };
-
-// export default Mapviewshow;
-
-// const styles = StyleSheet.create({});
+export const ETA = (bookingData: NewBookingResponse) => {
+  const [eta, setEta] = useState<number>(0);
+  useEffect(() => {
+    userByID(String(bookingData?.driver_id))
+      .get()
+      .then(doc => {
+        const driverLatitude = doc.data()?.latitude;
+        const driverLongitude = doc.data()?.longitude;
+        calculateETA(
+          driverLatitude,
+          driverLongitude,
+          bookingData?.status == '2'
+            ? bookingData?.pick_up_lat
+            : bookingData?.drop_of_lat,
+          bookingData?.status == '2'
+            ? bookingData?.pick_up_lng
+            : bookingData?.drop_of_lng,
+        ).then(eta => {
+          setEta(eta);
+        });
+      });
+  }, []);
+  return (
+    <>
+      {eta !== 0 && bookingData?.status == '2' && (
+        <View style={styles.etaContainer}>
+          <Text style={styles.etaText}>ETA: {eta}</Text>
+        </View>
+      )}
+      {eta !== 0 && bookingData?.status == '3' && (
+        <View style={styles.etaContainer}>
+          <Text style={styles.etaText}>{eta}</Text>
+        </View>
+      )}
+    </>
+  );
+};

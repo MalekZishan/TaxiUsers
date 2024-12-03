@@ -25,7 +25,10 @@ import Images from '../../constants/Images';
 import Animated, {FadeInUp} from 'react-native-reanimated';
 import LinearGradient from 'react-native-linear-gradient';
 import Fonts from '../../constants/Fonts';
-import {useGetStatusBarHeight} from '../../Hooks/dimentionHook';
+import {
+  useBottomBarHeight,
+  useGetStatusBarHeight,
+} from '../../Hooks/dimentionHook';
 
 type Props = {
   title: string;
@@ -36,6 +39,7 @@ type Props = {
   Mystyle?: ViewStyle;
   isbottom?: boolean;
   mt?: number;
+  disabled?: boolean;
 };
 
 const AuthButton = ({
@@ -46,27 +50,31 @@ const AuthButton = ({
   Mystyle,
   mt,
   textStyle,
-
+  disabled,
   isbottom,
 }: Props) => {
   return (
-    <Pressable
-      style={{
-        marginBottom: isbottom ? 30 : 0,
-        paddingHorizontal: isbottom ? 20 : 0,
-      }}>
+    <>
       <Pressable
-        style={[
-          styles.container,
-          Mystyle,
-          {
-            marginTop: mt,
-          },
-        ]}
-        {...{onPress}}>
-        <Text style={[styles.text, textStyle]}>{title}</Text>
+        disabled={disabled}
+        style={{
+          marginBottom: isbottom ? useBottomBarHeight() : 0,
+          paddingHorizontal: isbottom ? 20 : 0,
+        }}>
+        <Pressable
+          disabled={disabled}
+          style={[
+            styles.container,
+            Mystyle,
+            {
+              marginTop: mt,
+            },
+          ]}
+          {...{onPress}}>
+          <Text style={[styles.text, textStyle]}>{title}</Text>
+        </Pressable>
       </Pressable>
-    </Pressable>
+    </>
   );
 };
 
@@ -77,7 +85,6 @@ const styles = StyleSheet.create({
     borderRadius: moderateScale(60),
     width: '100%',
     height: moderateScale(45),
-
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: Colors.blue,

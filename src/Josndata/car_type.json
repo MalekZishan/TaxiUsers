@@ -1,0 +1,17 @@
+[
+  {"id": 1, "english_type": "Economy"},
+  {"id": 2, "english_type": "Compact"},
+  {"id": 3, "english_type": "Sedan"},
+  {"id": 4, "english_type": "SUV"},
+  {"id": 5, "english_type": "Luxury"},
+  {"id": 6, "english_type": "Minivan"},
+  {"id": 7, "english_type": "Van"},
+  {"id": 8, "english_type": "Electric"},
+  {"id": 9, "english_type": "Hybrid"},
+  {"id": 10, "english_type": "Crossover"},
+  {"id": 11, "english_type": "Pickup Truck"},
+  {"id": 12, "english_type": "Premium SUV"},
+  {"id": 13, "english_type": "Executive"},
+  {"id": 14, "english_type": "Shuttle"},
+  {"id": 15, "english_type": "Accessible Vehicle"}
+]

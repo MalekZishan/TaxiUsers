@@ -135,3 +135,45 @@ export const calculateDistance = async (
     return null;
   }
 };
+
+export const calculateETA = async (
+  originLat: any,
+  originLon: any,
+  destLat: any,
+  destLon: any,
+) => {
+  try {
+    const MapKey = GOOGLE_MAP_API;
+    if (!(originLat && originLon && destLat && destLon)) return 0;
+    const origin = `${originLat},${originLon}`;
+    const destination = `${destLat},${destLon}`;
+    const apiKeyParam = `key=${MapKey}`;
+
+    const apiUrl = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${origin}&destinations=${destination}&${apiKeyParam}`;
+
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+
+    if (
+      data.status === 'OK' &&
+      data.rows.length > 0 &&
+      data.rows[0].elements.length > 0
+    ) {
+      // Extracting the distance in meters from the response
+      const duration = data.rows[0].elements[0].duration.text;
+
+      if (duration !== undefined) {
+        return duration;
+      } else {
+        console.error('duration value not found in API response.');
+        return null;
+      }
+    } else {
+      console.error('Error in API response:', data.status);
+      return null;
+    }
+  } catch (error) {
+    console.error('Error fetching data from API:', error);
+    return null;
+  }
+};

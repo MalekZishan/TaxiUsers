@@ -13,102 +13,73 @@ import {useGetStatusBarHeight} from '../../../../../Hooks/dimentionHook';
 import Images from '../../../../../constants/Images';
 import Fonts from '../../../../../constants/Fonts';
 import Colors from '../../../../../constants/Colors';
-import {moderateScale, width} from '../../../../../constants/Utils';
+import {CIRCLE, moderateScale, width} from '../../../../../constants/Utils';
 import {goBack} from '../../../../../Services/NavigationService';
-import {
-  KeyboardAvoidingView,
-  useGenericKeyboardHandler,
-} from 'react-native-keyboard-controller';
+import {KeyboardAvoidingView} from 'react-native-keyboard-controller';
 import {FlatList} from 'react-native-gesture-handler';
 import InputFields from '../../../../../components/InputText/InputFields';
 import useKeyboardOffsetHeight from '../../../../../Hooks/useKeyboardOffsetHeight';
+import {NavigationProps} from '../../../../../Models/Navigation/NavigationModels';
+import {imgSrc} from '../../../../../ApiService/core/ApiRequest';
 
-const Chat = () => {
+import moment from 'moment';
+import {
+  chatCollectionByRoomID,
+  onSend,
+} from '../../../../../Firebase/chatServices';
+import {messageType} from '../../../../../Models/Chat/messageService';
+import {useAppSelector} from '../../../../../Hooks/ReduxHooks';
+import {userDataSelector} from '../../../../../Store/Data/Auth/AuthSlice';
+
+const Chat = ({navigation, route}: NavigationProps<'Chat'>) => {
+  const [message, setMessage] = React.useState('');
+  const [chats, setChats] = React.useState<messageType[]>([]);
+  const routeData = route.params;
   const height = useKeyboardOffsetHeight();
-  console.log('🚀 ~ Chat ~ height:', height);
-  let data = [
-    {
-      id: 1,
-      name: 'John Doe',
-      message: 'Hi, how are you?',
-      time: '10:00 AM',
-      type: 'user',
-    },
-    {
-      id: 2,
-      name: 'Admin',
-      message: 'Hello, I am here to help you.',
-      time: '10:05 AM',
-      type: 'admin',
-    },
-    {
-      id: 3,
-      name: 'John Doe',
-      message: 'What can I help you with?',
-      time: '10:10 AM',
-      type: 'user',
-    },
-    {
-      id: 4,
-      name: 'Admin',
-      message:
-        'Sure, I can help you with that. Please provide me with your contact information.',
-      time: '10:15 AM',
-      type: 'admin',
-    },
-    {
-      id: 5,
-      name: 'John Doe',
-      message: 'Thank you for your information. I will contact you soon.',
-      time: '10:20 AM',
-      type: 'user',
-    },
+  const senderId = String(useAppSelector(userDataSelector).data?.id);
+  const receiverId = String(routeData?.id);
+  // Here roomId is the id of the booking
+  const roomId = String(routeData?.id);
 
-    {
-      id: 6,
-      name: 'Admin',
-      message: 'I have sent a confirmation email to your provided information.',
-      time: '10:25 AM',
-      type: 'admin',
-    },
-
-    {
-      id: 7,
-      name: 'John Doe',
-      message: 'Thank you for your confirmation. I will contact you soon.',
-      time: '10:25 AM',
-      type: 'user',
-    },
-    {
-      id: 8,
-      name: 'Admin',
-      message: 'You have a new support ticket. Please check your inbox.',
-      time: '10:30 AM',
-      type: 'admin',
-    },
-    {
-      id: 9,
-      name: 'John Doe',
-      message: 'You have a new support ticket. Please check your inbox.',
-      time: '10:30 AM',
-      type: 'user',
-    },
-  ];
   const ref = useRef<FlatList>(null);
   useEffect(() => {
-    const keyboardDidShowListener = Keyboard.addListener(
-      'keyboardDidShow',
-      () => {
-        if (ref.current) {
-          ref.current.scrollToEnd({animated: true});
-        }
-      },
-    );
-
-    return () => {
-      keyboardDidShowListener.remove();
-    };
+    chatCollectionByRoomID(roomId)
+      .orderBy('createdAt', 'desc')
+      .onSnapshot(snap => {
+        const data = snap.docs.map(doc => doc.data());
+        setChats(data as messageType[]);
+      });
+    const unsubScribe = chatCollectionByRoomID(roomId)
+      .where('isRead', '==', false)
+      .where('senderId', '==', receiverId)
+      .onSnapshot(snap => {
+        snap.docs.forEach(doc => {
+          doc.ref.update({isRead: true});
+        });
+      });
+    return () => unsubScribe();
   }, []);
+  const handleSend = () => {
+    // Here senderId is the id of the user who is sending the message
+    // receiverId is the id of the booking who is receiving the message
+    const commonData = {
+      senderId: senderId,
+      receiverId: receiverId,
+      createdAt: new Date().getTime(),
+      isRead: false,
+      msgId: `${Math.random()}`,
+    };
+    if (message) {
+      onSend(
+        {
+          message: message,
+          ...commonData,
+        },
+        roomId,
+      );
+    }
+    setMessage('');
+  };
   return (
     <View
       style={{
@@ -128,11 +99,8 @@ const Chat = () => {
         }}>
         <View
           style={{
-            // flexDirection: 'row',
-            // marginTop: useGetStatusBarHeight(),
             alignItems: 'center',
             backgroundColor: '#ffff',
-            // height: 100,
             paddingBottom: 20,
           }}>
           <View
@@ -171,12 +139,8 @@ const Chat = () => {
                 justifyContent: 'center',
               }}>
               <Image
-                source={Images.ProfilePi}
-                style={{
-                  width: 27,
-                  height: 27,
-                  marginStart: 10,
-                }}
+                source={{uri: imgSrc(routeData?.driver_detail?.profile_pic)}}
+                style={[CIRCLE(30)]}
               />
               <Text
                 style={{
@@ -185,7 +149,7 @@ const Chat = () => {
                   fontSize: moderateScale(16),
                   marginStart: 10,
                 }}>
-                Brooklyn Simmons
+                {routeData?.full_name}
               </Text>
             </View>
           </View>
@@ -204,21 +168,28 @@ const Chat = () => {
             flex: 1,
           }}>
           <FlatList
-            data={data}
+            data={chats}
             style={{
               paddingHorizontal: 20,
             }}
+            inverted
             ref={ref}
             renderItem={({item}) => {
-              return item.type == 'user' ? (
-                <UserSideChat data={item} />
+              return item.senderId == senderId ? (
+                <>
+                  <UserSideChat {...item} />
+                </>
               ) : (
-                <AdminSideChat data={item} />
+                <>
+                  <AdminSideChat
+                    {...item}
+                    image={routeData?.driver_detail?.profile_pic}
+                  />
+                </>
               );
             }}
           />
         </ImageBackground>
-
         <View
           style={{
             paddingHorizontal: 20,
@@ -243,12 +214,14 @@ const Chat = () => {
                 style={{
                   height: 40,
                 }}
+                value={message}
+                onChangeText={setMessage}
                 containerStyle={{
                   height: 40,
                 }}
               />
             </View>
-            <Pressable>
+            <Pressable onPress={handleSend}>
               <Image
                 source={Images.send}
                 style={{
@@ -267,7 +240,11 @@ const Chat = () => {
 
 export default Chat;
 
-const AdminSideChat = (data: any) => {
+interface othserSideChatProps extends messageType {
+  image: string;
+}
+
+const AdminSideChat = (data: othserSideChatProps) => {
   return (
     <View
       style={{
@@ -277,11 +254,10 @@ const AdminSideChat = (data: any) => {
       <View
         style={{
           flexDirection: 'row',
-          // alignItems: 'center',
           maxWidth: width / 1.5,
         }}>
         <Image
-          source={Images.pic}
+          source={{uri: imgSrc(data.image)}}
           style={{
             width: 24,
             height: 24,
@@ -302,7 +278,7 @@ const AdminSideChat = (data: any) => {
               color: Colors.white,
               fontFamily: Fonts.semiBold,
             }}>
-            {data.data.message}
+            {data.message}
           </Text>
         </View>
       </View>
@@ -314,13 +290,14 @@ const AdminSideChat = (data: any) => {
           marginTop: 5,
           fontFamily: Fonts.regular,
         }}>
-        {'08:00 pm'}
+        {data?.createdAt && moment(data?.createdAt).format('hh:mm A')}
       </Text>
     </View>
   );
 };
 
-const UserSideChat = (data: any) => {
+interface mySideChatProps extends messageType {}
+const UserSideChat = (data: mySideChatProps) => {
   return (
     <View
       style={{
@@ -340,7 +317,7 @@ const UserSideChat = (data: any) => {
               color: Colors.black,
               fontFamily: Fonts.semiBold,
             }}>
-            {data.data.message}
+            {data?.message}
           </Text>
         </View>
       </View>
@@ -351,7 +328,7 @@ const UserSideChat = (data: any) => {
           marginTop: 5,
           fontFamily: Fonts.regular,
         }}>
-        {'08:00 pm'}
+        {data?.createdAt && moment(data?.createdAt).format('hh:mm A')}
       </Text>
     </View>
   );

@@ -1,4 +1,5 @@
 import {useEffect, useState} from 'react';
+import {Platform} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 export const useGetStatusBarHeight = () => {
@@ -9,5 +10,5 @@ export const useGetStatusBarHeight = () => {
 
 export const useBottomBarHeight = () => {
   const insets = useSafeAreaInsets();
-  return insets.bottom;
+  return Platform.OS == 'ios' ? insets.bottom : insets.bottom + 10;
 };

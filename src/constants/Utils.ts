@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import Colors from './Colors';
 import Fonts from './Fonts';
+import Toast from 'react-native-simple-toast';
 // import * as yup from 'yup';
 
 export const WIDTH = Dimensions.get('window').width;
@@ -17,7 +18,7 @@ export const HEIGHT = Dimensions.get('window').height;
 export const DEVICE_TYPE = Platform.OS;
 export const DEFAULT_COUNTRY = 'IN';
 export const DEFAULT_CODE = '91';
-
+export const DEV_MODE = __DEV__;
 export let emailReg =
   /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -53,11 +54,18 @@ const textScale = (percent: number) => {
   const heightPercent = (percent * deviceHeight) / 100;
   return Math.round(heightPercent);
 };
+export const showToast = (
+  message: string,
+  duration: 'short' | 'long' = 'short',
+) => {
+  let tDuration = duration == 'short' ? Toast.LONG : Toast.LONG;
+  Toast.show(message ?? '', tDuration);
+};
 
 export const MH = (val: number): any => ({
   marginHorizontal: F(val),
 });
-
+console.log(Platform.OS);
 export const MV = (val: number): any => ({
   marginVertical: moderateScaleVertical(val),
 });
@@ -207,6 +215,27 @@ export const Styles = StyleSheet.create({
   },
   regular: {
     fontFamily: Fonts.regular,
+  },
+  commonShadow: {
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 4},
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+  },
+  commonShadow1: {
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 0},
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+  },
+  commonShadow2: {
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
   },
 });
 

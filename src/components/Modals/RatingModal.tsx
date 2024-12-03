@@ -1,6 +1,8 @@
 import {
+  ActivityIndicator,
   Image,
   KeyboardAvoidingView,
+  Linking,
   Modal,
   Platform,
   Pressable,
@@ -32,19 +34,22 @@ import {semiBold} from '../CustomFont/MyFont';
 import Colors from '../../constants/Colors';
 import AuthButton from '../Button/AuthButton';
 import {Detailsmodal} from '../../Models/Home/Home.modal';
-import {apiWithToken} from '../../ApiService/core/ApiRequest';
+import {apiWithToken, imgSrc} from '../../ApiService/core/ApiRequest';
 import MyKeyboardAvoidingScrollView from '../Scrollview/MyKeyboardAvoidingScrollView';
+import {PastBoookingResponse} from '../../Models/Booking/booking.modal';
+import {ENDPOINTS} from '../../constants/API.Constants';
 
 type Props = {
   visible: boolean;
   setVisible: Dispatch<SetStateAction<boolean>>;
-  data?: Detailsmodal;
-  callback: () => void;
+  data: PastBoookingResponse;
+  callback: ({rate}: {rate: number}) => void;
 };
 
 const RatingModal = ({visible, setVisible, data, callback}: Props) => {
   const [selectedRating, setSelectedRating] = useState(-1);
   const [review, setReview] = useState('');
+  const [loadng, setLoadng] = useState(false);
 
   const Scale = useSharedValue(0);
 
@@ -62,26 +67,27 @@ const RatingModal = ({visible, setVisible, data, callback}: Props) => {
     if (!visible) return;
     setSelectedRating(-1);
     setReview('');
+    setLoadng(false);
   }, [visible]);
 
   const onSubmit = () => {
-    Scale.value = withSpring(0);
-    setTimeout(() => {
-      setVisible(false);
-    }, 200);
-    console.log(data?.id);
-    apiWithToken('user/review/add-review', 'POST', {
-      teaId: data?.id,
-      review: review,
-      rating: selectedRating + 1,
-    })
+    if (selectedRating == -1) {
+      return;
+    }
+    setLoadng(true);
+    const submitData = {
+      booking_id: data?.id + '', // required
+      rate: selectedRating.toFixed(2), // required
+      details: review, // optional
+    };
+    apiWithToken(ENDPOINTS.RateDriver, 'POST', submitData, true, true)
       .then(res => {
-        console.log(res);
-        callback();
+        callback({rate: selectedRating});
       })
       .catch(err => {
         console.log(err);
-      });
+      })
+      .finally(() => setLoadng(false));
   };
 
   return (
@@ -142,7 +148,7 @@ const RatingModal = ({visible, setVisible, data, callback}: Props) => {
                 marginTop: moderateScale(15),
               }}>
               <Image
-                source={Images.pic}
+                source={{uri: imgSrc(data?.driver_detail?.profile_pic)}}
                 style={{
                   width: moderateScale(96),
                   borderRadius: moderateScale(96),
@@ -160,10 +166,10 @@ const RatingModal = ({visible, setVisible, data, callback}: Props) => {
                 marginTop: 8,
                 color: Colors.black,
               }}>
-              Jordan Ball
+              {data?.driver_detail?.full_name}
             </Text>
 
-            <View
+            <Pressable
               style={{
                 alignSelf: 'center',
                 alignItems: 'center',
@@ -174,6 +180,9 @@ const RatingModal = ({visible, setVisible, data, callback}: Props) => {
                 width: moderateScale(119),
                 height: moderateScale(46),
                 justifyContent: 'center',
+              }}
+              onPress={() => {
+                Linking.openURL(`tel:${data?.driver_detail?.phone_number}`);
               }}>
               <Image
                 source={Images.phone}
@@ -192,7 +201,7 @@ const RatingModal = ({visible, setVisible, data, callback}: Props) => {
                 }}>
                 Call
               </Text>
-            </View>
+            </Pressable>
             <RatingSelector
               selectedRating={selectedRating}
               onPress={val => setSelectedRating(val)}
@@ -222,8 +231,11 @@ const RatingModal = ({visible, setVisible, data, callback}: Props) => {
             />
 
             <View style={{margin: 8, top: 100}}>
-              {/* <AuthButton title="Submit" onPress={onSubmit} /> */}
-              <AuthButton title="Submit" />
+              {loadng ? (
+                <ActivityIndicator size="large" color={Colors.blue} />
+              ) : (
+                <AuthButton title="Submit" onPress={onSubmit} />
+              )}
             </View>
           </View>
         </Animated.View>

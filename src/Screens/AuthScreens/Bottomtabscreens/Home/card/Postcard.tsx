@@ -1,27 +1,54 @@
-import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
+import {Image, Linking, Pressable, StyleSheet, Text, View} from 'react-native';
 import React, {memo, useState} from 'react';
-import {moderateScale} from '../../../../../constants/Utils';
+import {moderateScale, SQUARE} from '../../../../../constants/Utils';
 import Fonts from '../../../../../constants/Fonts';
 import Colors from '../../../../../constants/Colors';
 import Images from '../../../../../constants/Images';
 import AuthButton from '../../../../../components/Button/AuthButton';
-import Drivercard from './Drivercard';
 import RatingModal from '../../../../../components/Modals/RatingModal';
+import {PastBoookingResponse} from '../../../../../Models/Booking/booking.modal';
+import {CarData} from '../Screens/BookingRequirement';
+import {imgSrc} from '../../../../../ApiService/core/ApiRequest';
+import {
+  medium,
+  ML,
+  MR,
+  semiBold,
+} from '../../../../../components/CustomFont/MyFont';
+import FlexDirRow from '../../../../../components/Layouts/FlexDirRow';
 
-const Postcard = (data: any) => {
+interface PastCardProps extends PastBoookingResponse {}
+
+const Postcard = (data: PastCardProps) => {
   const [visible, setVisible] = useState(false);
+  const [isRated, setIsRated] = useState(data?.user_rate);
+
+  const onSubmitRating = ({rate}: {rate: number}) => {
+    setVisible(false);
+    setIsRated(rate);
+  };
   return (
-    <View>
-      <RatingModal {...{visible, setVisible}} />
+    <View style={{padding: 10}}>
+      <RatingModal
+        data={data}
+        visible={visible}
+        setVisible={setVisible}
+        callback={onSubmitRating}
+      />
       <View style={styles.container}>
         <View style={styles.header}>
           <View>
             <View style={styles.headerRow}>
-              <Text style={styles.dateText}>22 Aug 2024</Text>
-              <Text style={styles.priceText}>$ 178</Text>
+              <Text style={styles.dateText}>{data?.date_created}</Text>
+              <Text style={styles.priceText}>$ {data?.price}</Text>
             </View>
             <View style={[styles.headerRow, styles.headerRowMargin]}>
-              <Text style={styles.carTypeText}>Sedan Car</Text>
+              <Text style={styles.carTypeText}>
+                {
+                  CarData?.filter(i => i?.value == parseInt(data?.car_type))[0]
+                    .label
+                }
+              </Text>
               <Text style={styles.paymentText}>
                 Payment: <Text style={styles.paymentMethodText}>Cash</Text>
               </Text>
@@ -39,14 +66,12 @@ const Postcard = (data: any) => {
               <View style={styles.addressContainer}>
                 <View style={styles.addressBlock}>
                   <Text style={styles.labelText}>From</Text>
-                  <Text style={styles.addressText}>
-                    8502 Preston Rd, Maine 98380
-                  </Text>
+                  <Text style={styles.addressText}>{data?.pick_up_adds}</Text>
                 </View>
                 <View style={styles.addressBlockTo}>
                   <Text style={styles.labelText}>To</Text>
                   <Text style={styles.addressText} lineBreakMode="clip">
-                    Mesa, New Jersey 45463
+                    {data?.drop_of_adds}
                   </Text>
                 </View>
               </View>
@@ -59,14 +84,21 @@ const Postcard = (data: any) => {
             <Image source={Images.Person} style={styles.detailIcon} />
             <View style={styles.detailTextContainer}>
               <Text style={styles.detailLabelText}>Persons</Text>
-              <Text style={styles.detailValueText}>4</Text>
+              <Text style={styles.detailValueText}>
+                {data?.total_passenger}
+              </Text>
             </View>
           </Pressable>
           <Pressable style={[styles.detailsBlock, styles.detailsBlockMargin]}>
             <Image source={Images.car} style={styles.detailIcon} />
             <View style={styles.detailTextContainer}>
               <Text style={styles.detailLabelText}>Car Type</Text>
-              <Text style={styles.detailValueText}>Sedan</Text>
+              <Text style={styles.detailValueText}>
+                {
+                  CarData?.filter(i => i?.value == parseInt(data?.car_type))[0]
+                    .label
+                }
+              </Text>
             </View>
           </Pressable>
         </View>
@@ -75,30 +107,68 @@ const Postcard = (data: any) => {
           <View style={styles.bookingForTextContainer}>
             <Text style={styles.detailLabelText}>Booking For</Text>
             <View style={styles.bookingForDetails}>
-              <Text style={styles.bookingForName}>Leslie Alexander</Text>
+              <Text style={styles.bookingForName}>{data?.full_name}</Text>
               <View style={styles.divider} />
-              <Text style={styles.bookingForContact}>Mo: +1 98980 98980</Text>
+              <Text style={styles.bookingForContact}>
+                Mo: {data?.phone_number}
+              </Text>
             </View>
           </View>
         </Pressable>
         <View style={styles.separatorLine} />
         <View style={styles.driverInfoContainer}>
-          <Image source={Images.pic} style={styles.driverImage} />
+          <Image
+            source={{uri: imgSrc(data?.driver_detail?.profile_pic)}}
+            style={styles.driverImage}
+          />
           <View style={styles.driverDetails}>
-            <Text style={styles.driverName}>Annette Black</Text>
-            <Image source={Images.call} style={styles.callIcon} />
+            <Text style={styles.driverName}>
+              {data?.driver_detail?.full_name}
+            </Text>
+            <Pressable
+              onPress={() => {
+                Linking.openURL(`tel:${data?.driver_detail?.phone_number}`);
+              }}>
+              <Image source={Images.call} style={styles.callIcon} />
+            </Pressable>
           </View>
         </View>
-        <View style={styles.buttonContainer}>
-          <AuthButton
-            textStyle={styles.authButtonText}
-            onPress={() => {
-              setVisible(true);
-            }}
-            title={'Rate Now'}
-            Mystyle={styles.authButton}
-          />
-        </View>
+        {data?.payment_status == '4' && isRated == null ? (
+          <View style={styles.buttonContainer}>
+            <AuthButton
+              textStyle={styles.authButtonText}
+              onPress={() => setVisible(true)}
+              title={'Rate Now'}
+              Mystyle={styles.authButton}
+            />
+          </View>
+        ) : isRated != null ? (
+          <>
+            <View
+              style={[
+                {
+                  borderTopWidth: 1,
+                  marginTop: moderateScale(24),
+                  borderColor: '#E5E5E5',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  paddingTop: moderateScale(15),
+                },
+              ]}>
+              <FlexDirRow>
+                <Text style={medium(13, '#7B7B7B')}>You Rated</Text>
+                <Image
+                  source={Images.filledstar}
+                  tintColor={Colors.yellow}
+                  style={[SQUARE(16), MR(5), ML(15)]}
+                />
+                <Text style={semiBold(13)}>{data?.user_rate?.toFixed(1)}</Text>
+              </FlexDirRow>
+            </View>
+          </>
+        ) : (
+          <></>
+        )}
       </View>
     </View>
   );

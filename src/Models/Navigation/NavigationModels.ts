@@ -7,6 +7,7 @@ import {ImageSourcePropType} from 'react-native';
 
 import {BottomTabNavigationOptions} from '@react-navigation/bottom-tabs';
 import {FirebaseAuthTypes} from '@react-native-firebase/auth';
+import {NewBookingResponse} from '../Booking/booking.modal';
 
 export type UnUnAuthStackParamsList = {
   Login: undefined;
@@ -21,6 +22,12 @@ export type UnUnAuthStackParamsList = {
   ClientRegister: undefined;
   PublicProfile: undefined;
   PersonalInformation: undefined;
+  EmployeeLists: undefined;
+  AddEmployee: undefined;
+  EmailVerification: {
+    email: string;
+    data: any;
+  };
 };
 
 export type AuthStack = {
@@ -30,8 +37,8 @@ export type AuthStack = {
   Setting: undefined;
   ChangePassword: undefined;
   Wallet: undefined;
-  Chat: undefined;
-  DriverLocation: undefined;
+  Chat: NewBookingResponse;
+  DriverLocation: NewBookingResponse;
   Paynow: undefined;
 };
 

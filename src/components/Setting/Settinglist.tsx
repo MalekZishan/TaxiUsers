@@ -45,7 +45,7 @@ const SettingList: React.FC<SettingsListProps> = ({
           borderRadius: moderateScale(41),
           justifyContent: 'center',
         }}>
-        <Image source={icon} style={{...SQUARE(22)}} />
+        <Image source={icon} style={{...SQUARE(22)}} tintColor={'white'} />
       </View>
       <Flex1
         style={{

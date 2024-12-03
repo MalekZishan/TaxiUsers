@@ -22,10 +22,7 @@ const NavigationText = ({title, onPress, Prestext}: Props) => {
       style={{
         flexDirection: 'row',
         alignSelf: 'center',
-        paddingBottom:
-          Platform.OS == 'android'
-            ? useGetStatusBarHeight() - 10
-            : useBottomBarHeight(),
+        marginBottom: useBottomBarHeight(),
 
         alignItems: 'center',
       }}>

@@ -10,6 +10,7 @@ import OnBoardScreen from '../Screens/UnAuthScreens/OnBoardScreen/OnBoardScreen'
 import Register from '../Screens/UnAuthScreens/Register/Register';
 import {userDataSelector} from '../Store/Data/Auth/AuthSlice';
 import {useAppSelector} from '../Hooks/ReduxHooks';
+import EmailVerification from '../Screens/UnAuthScreens/Register/EmailVerification';
 
 const UnAuthNavigator = () => {
   const {Issplash} = useAppSelector(userDataSelector);
@@ -21,7 +22,12 @@ const UnAuthNavigator = () => {
       Component: Login,
       options: {headerShown: false},
     },
-
+    {
+      name: 'EmailVerification',
+      title: 'EmailVerification',
+      Component: EmailVerification,
+      options: {headerShown: false},
+    },
     {
       name: 'Register',
       title: 'Register',

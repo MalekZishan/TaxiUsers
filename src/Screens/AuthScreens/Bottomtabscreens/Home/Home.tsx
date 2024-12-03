@@ -1,18 +1,27 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Colors from '../../../../constants/Colors';
 import Usersreqestmodal from '../../../../components/Modals/Usersreqestmodal';
 import AuthButton from '../../../../components/Button/AuthButton';
 import {navigate} from '../../../../Services/NavigationService';
 import NavHeader from '../../../../components/Headers/NavHeader';
-import {moderateScale} from '../../../../constants/Utils';
+import {
+  CIRCLE,
+  moderateScale,
+  SQUARE,
+  Styles,
+} from '../../../../constants/Utils';
 import New from './components/New';
 import MyKeyboardAvoidingScrollView from '../../../../components/Scrollview/MyKeyboardAvoidingScrollView';
 import Post from './components/Post';
 import {requestLocationPermission} from '../../../../Services/PermissionsServices';
 import {fetchCurrentLocation} from '../../../../Hooks/useGetCurrentLocation';
+import {useAppSelector} from '../../../../Hooks/ReduxHooks';
+import {userDataSelector} from '../../../../Store/Data/Auth/AuthSlice';
+import Images from '../../../../constants/Images';
 
 const Home = () => {
+  const data = useAppSelector(userDataSelector);
   const [Visible, setVisible] = useState(false);
   const [Status, setStatus] = useState<'New' | 'Past'>('New');
   let StatusData = [
@@ -25,11 +34,11 @@ const Home = () => {
       name: 'Past',
     },
   ];
-  useEffect(() => {
-    setTimeout(() => {
-      setVisible(true);
-    }, 3000);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setVisible(true);
+  //   }, 3000);
+  // }, []);
 
   const enableLocation = () => {
     requestLocationPermission()
@@ -38,7 +47,6 @@ const Home = () => {
           .then(res => {
             const lat = res.coords.latitude;
             const long = res.coords.longitude;
-            // console.log(lat, long);
           })
           .catch(err => {
             console.log(err);
@@ -57,44 +65,61 @@ const Home = () => {
   }, []);
 
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: Colors.white,
-      }}>
-      <Usersreqestmodal {...{Visible, setVisible}} />
-      <NavHeader title="My Bookings" />
-      <View style={styles.statusContainer}>
-        {StatusData.map((item, index) => (
-          <View
-            key={index}
-            style={{
-              marginLeft: index === 0 ? 0 : 15,
-              flex: 1,
-            }}>
-            <AuthButton
-              Mystyle={{
-                backgroundColor: item.name === Status ? Colors.blue : '#EFEFEF',
-              }}
+    <>
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: Colors.white,
+        }}>
+        <Usersreqestmodal {...{Visible, setVisible}} />
+        <NavHeader title="My Bookings" hideBackBtn />
+        <View style={styles.statusContainer}>
+          {StatusData.map((item, index) => (
+            <View
               key={index}
-              title={item.name}
-              onPress={() => {
-                setStatus(item?.name as any);
-                // navigate('BookingList', {status: item.name});
-              }}
-              textStyle={{
-                fontSize: moderateScale(12),
-                color: item.name === Status ? Colors.white : Colors.black,
-              }}
-            />
-          </View>
-        ))}
+              style={{
+                marginLeft: index === 0 ? 0 : 15,
+                flex: 1,
+              }}>
+              <AuthButton
+                Mystyle={{
+                  backgroundColor:
+                    item.name === Status ? Colors.blue : '#EFEFEF',
+                }}
+                key={index}
+                title={item.name}
+                onPress={() => {
+                  setStatus(item?.name as any);
+                  // navigate('BookingList', {status: item.name});
+                }}
+                textStyle={{
+                  fontSize: moderateScale(12),
+                  color: item.name === Status ? Colors.white : Colors.black,
+                }}
+              />
+            </View>
+          ))}
+        </View>
+        <MyKeyboardAvoidingScrollView>
+          {/* <New /> */}
+          {Status === 'New' ? <New /> : <Post />}
+        </MyKeyboardAvoidingScrollView>
       </View>
-      <MyKeyboardAvoidingScrollView>
-        {/* <New /> */}
-        {Status === 'New' ? <New /> : <Post />}
-      </MyKeyboardAvoidingScrollView>
-    </View>
+      <Pressable
+        style={[
+          CIRCLE(50),
+          {
+            backgroundColor: Colors.blue,
+            position: 'absolute',
+            bottom: moderateScale(30),
+            right: moderateScale(30),
+          },
+          Styles.centerDiv,
+        ]}
+        onPress={() => navigate('BookingRequirement')}>
+        <Image source={Images.add} style={SQUARE(24)} tintColor={'white'} />
+      </Pressable>
+    </>
   );
 };
 

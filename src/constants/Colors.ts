@@ -4,4 +4,9 @@ export default {
 
   white: '#ffffff',
   blue: '#266FFF',
+
+  imageLoad: '#d1cfcf',
+  placeholder: '#A2A2A4',
+
+  yellow: '#FFB902',
 };

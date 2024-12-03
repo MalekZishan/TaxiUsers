@@ -1,33 +1,42 @@
-import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
+import {Image, Linking, Pressable, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import Fonts from '../../../../../constants/Fonts';
 import Images from '../../../../../constants/Images';
 import {moderateScale} from '../../../../../constants/Utils';
 import Colors from '../../../../../constants/Colors';
 import {navigate} from '../../../../../Services/NavigationService';
+import {Driver_detail} from '../../../../../Models/Booking/booking.modal';
+import {imgSrc} from '../../../../../ApiService/core/ApiRequest';
 
-const Drivercard = () => {
+interface DrivercardProps extends Driver_detail {
+  onGetDirection: () => void;
+  onMessage: () => void;
+}
+const Drivercard = (props: DrivercardProps) => {
   return (
     <View style={styles.container}>
       <Text style={styles.headerText}>Driver Details</Text>
 
       <View style={styles.driverInfoContainer}>
-        <Image source={Images.pic} style={styles.driverImage} />
+        <Image
+          source={{uri: imgSrc(props?.profile_pic)}}
+          style={styles.driverImage}
+        />
         <View style={styles.driverDetailsContainer}>
           <View style={styles.driverNameContainer}>
-            <Text style={styles.driverNameText}>Brooklyn Simmons</Text>
+            <Text style={styles.driverNameText}>{props?.full_name}</Text>
             <View style={styles.contactIconsContainer}>
-              <Pressable
-                onPress={() => {
-                  navigate('Chat');
-                }}>
+              <Pressable onPress={props.onMessage}>
                 <Image
                   source={Images.msg}
                   resizeMode="contain"
                   style={styles.contactIcon}
                 />
               </Pressable>
-              <Pressable>
+              <Pressable
+                onPress={() => {
+                  Linking.openURL(`tel:${props?.phone_number}`);
+                }}>
                 <Image
                   resizeMode="contain"
                   source={Images.call}
@@ -38,9 +47,7 @@ const Drivercard = () => {
           </View>
 
           <Pressable
-            onPress={() => {
-              navigate('DriverLocation');
-            }}
+            onPress={() => props?.onGetDirection()}
             style={styles.directionContainer}>
             <Image source={Images.direction} style={styles.directionIcon} />
             <Text style={styles.directionText}>Get Direction</Text>
@@ -71,6 +78,7 @@ const styles = StyleSheet.create({
     width: moderateScale(40),
     height: moderateScale(40),
     borderRadius: moderateScale(40),
+    backgroundColor: Colors.imageLoad,
   },
   driverDetailsContainer: {
     marginStart: 13,

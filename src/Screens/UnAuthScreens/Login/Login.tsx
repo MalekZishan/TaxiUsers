@@ -1,7 +1,7 @@
-import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
+import {Image, Platform, Pressable, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import Colors from '../../../constants/Colors';
-import {moderateScale} from '../../../constants/Utils';
+import {DEV_MODE, moderateScale} from '../../../constants/Utils';
 import MyKeyboardAvoidingScrollView from '../../../components/Scrollview/MyKeyboardAvoidingScrollView';
 import {useGetStatusBarHeight} from '../../../Hooks/dimentionHook';
 import Images from '../../../constants/Images';
@@ -10,8 +10,46 @@ import InputFields from '../../../components/InputText/InputFields';
 import AuthButton from '../../../components/Button/AuthButton';
 import NavigationText from '../../../components/Text/NavigationText';
 import {navigate} from '../../../Services/NavigationService';
+import {apiWithToken} from '../../../ApiService/core/ApiRequest';
+import {ENDPOINTS} from '../../../constants/API.Constants';
+import {useFormik} from 'formik';
+import {store} from '../../../Store/Store';
+import {
+  setUserData,
+  setUserToken,
+  UserisUserAuthenticated,
+} from '../../../Store/Data/Auth/AuthSlice';
+import {loginSchema} from '../../../utils/schema/Auth.schema';
+import {generateToken} from '../../../Services/notificationServices';
 
 const Login = () => {
+  const initialValues = {
+    email: DEV_MODE ? 'test@gmail.com' : '',
+    password: DEV_MODE ? '123456789' : '',
+  };
+  const formik = useFormik({
+    initialValues,
+    onSubmit: async values => {
+      let deviceId = await generateToken();
+      // console.log(values);
+      const data = {
+        email: values.email,
+        password: values.password,
+        device_token: deviceId,
+        device_type: Platform.OS === 'ios' ? '2' : '1',
+      };
+      apiWithToken(ENDPOINTS.login, 'POST', data)
+        .then(res => {
+          store.dispatch(setUserToken(res.token));
+          store.dispatch(setUserData(res.data));
+          store.dispatch(UserisUserAuthenticated(true));
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    validationSchema: loginSchema,
+  });
   return (
     <View style={styles.container}>
       <MyKeyboardAvoidingScrollView>
@@ -32,11 +70,15 @@ const Login = () => {
               placeholder="Email"
               lImg={Images.email}
               keyboardType="email-address"
+              {...{formik}}
+              name="email"
             />
             <InputFields
               placeholder="Password"
               lImg={Images.Password}
               rImg={Images.eye_close}
+              {...{formik}}
+              name="password"
             />
 
             <Pressable
@@ -45,7 +87,13 @@ const Login = () => {
               }}>
               <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
             </Pressable>
-            <AuthButton title="Login" mt={moderateScale(20)} />
+            <AuthButton
+              title="Login"
+              mt={moderateScale(20)}
+              onPress={() => {
+                formik.handleSubmit();
+              }}
+            />
           </View>
         </View>
       </MyKeyboardAvoidingScrollView>

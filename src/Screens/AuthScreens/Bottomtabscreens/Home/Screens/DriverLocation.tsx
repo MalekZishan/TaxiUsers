@@ -1,36 +1,48 @@
-import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
+import {Image, Linking, Pressable, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import MapView from 'react-native-maps';
 import NavHeader from '../../../../../components/Headers/NavHeader';
-import Mapviewshow from '../components/Mapviewshow';
+import Mapviewshow, {ETA} from '../components/Mapviewshow';
 import Images from '../../../../../constants/Images';
 import {moderateScale} from '../../../../../constants/Utils';
 import Fonts from '../../../../../constants/Fonts';
 import Colors from '../../../../../constants/Colors';
-import AuthButton from '../../../../../components/Button/AuthButton';
+import {NavigationProps} from '../../../../../Models/Navigation/NavigationModels';
+import {imgSrc} from '../../../../../ApiService/core/ApiRequest';
 import {navigate} from '../../../../../Services/NavigationService';
+import NewMessageCard from '../../../../../components/Card/NewMessageCard';
 
-const DriverLocation = () => {
+const DriverLocation = ({
+  navigation,
+  route,
+}: NavigationProps<'DriverLocation'>) => {
+  const bookingData = route.params;
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <NavHeader />
-
         <View style={styles.infoContainer}>
           <View style={styles.infoCard}>
             <View style={styles.driverNameContainer}>
-              <Image source={Images.pic} style={styles.driverImage} />
+              <Image
+                source={{uri: imgSrc(bookingData?.driver_detail?.profile_pic)}}
+                style={styles.driverImage}
+              />
               <View style={styles.driverInfoContainer}>
-                <Text style={styles.driverNameText}>Brooklyn Simmons</Text>
+                <Text style={styles.driverNameText}>
+                  {bookingData?.full_name}
+                </Text>
                 <View style={styles.contactIconsContainer}>
-                  <Pressable>
+                  <Pressable onPress={() => navigate('Chat', bookingData)}>
                     <Image
                       source={Images.msg}
                       resizeMode="contain"
                       style={styles.contactIcon}
                     />
                   </Pressable>
-                  <Pressable>
+                  <Pressable
+                    onPress={() => {
+                      Linking.openURL(`tel:${bookingData?.phone_number}`);
+                    }}>
                     <Image
                       resizeMode="contain"
                       source={Images.call}
@@ -59,35 +71,33 @@ const DriverLocation = () => {
                 <View style={styles.addressBlock}>
                   <Text style={styles.labelText}>From</Text>
                   <Text style={styles.addressText}>
-                    8502 Preston Rd, Maine 98380
+                    {bookingData?.pick_up_adds}
                   </Text>
                 </View>
                 <View style={styles.addressBlockTo}>
                   <Text style={styles.labelText}>To</Text>
                   <Text style={styles.addressText} lineBreakMode="clip">
-                    Mesa, New Jersey 45463
+                    {bookingData?.drop_of_adds}
                   </Text>
                 </View>
               </View>
             </View>
             <View style={styles.buttonContainer}>
-              <AuthButton
+              {/* <AuthButton
                 title="Pay Now"
                 onPress={() => {
                   navigate('Paynow');
                 }}
                 mt={20}
                 Mystyle={styles.payButton}
-              />
+              /> */}
             </View>
           </View>
         </View>
-
-        <View style={styles.etaContainer}>
-          <Text style={styles.etaText}>ETA: 26 mins</Text>
-        </View>
+        <NewMessageCard bookingData={bookingData} />
+        <ETA {...bookingData} />
       </View>
-      <Mapviewshow />
+      <Mapviewshow {...bookingData} />
     </View>
   );
 };
@@ -209,21 +219,5 @@ const styles = StyleSheet.create({
   },
   payButton: {
     height: 40,
-  },
-  etaContainer: {
-    height: moderateScale(34),
-    borderRadius: moderateScale(44),
-    backgroundColor: Colors.blue,
-    width: moderateScale(109),
-    alignSelf: 'flex-end',
-    marginTop: 20,
-    marginEnd: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  etaText: {
-    fontFamily: Fonts.semiBold,
-    color: Colors.white,
-    fontSize: moderateScale(12),
   },
 });

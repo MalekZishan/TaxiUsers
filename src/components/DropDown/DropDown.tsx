@@ -54,12 +54,9 @@ const DropDown = ({
   setValue,
   style,
   value,
-  callback,
   placeholder,
   placeholderStyle,
   texStyle,
-  isD,
-  OnpressAdd,
   textStyle,
   isearch,
   formik,
@@ -78,7 +75,6 @@ const DropDown = ({
   }
 
   const onChange = (item: ItemType) => {
-    console.log(item);
     setValue && setValue(String(item.value));
     if (formik && name) {
       formik.setFieldValue(name, item.value?.toString());

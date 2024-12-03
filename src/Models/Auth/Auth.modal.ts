@@ -1,11 +1,11 @@
 export interface UsersTypes {
-  userId: number;
-  fullName: string;
-  mobileNumber: string;
+  account_status: string;
+  company_name: string;
   email: string;
-  countryCode: string;
-  token: string;
-  profileImage: 'http://54.215.4.97:3000/uploads/default.png';
-  deviceToken: string;
-  deviceType: string;
+  full_name: string;
+  id: number;
+  package_tier_id: string;
+  phone_number: string;
+  profile_pic: string;
+  user_type: string;
 }

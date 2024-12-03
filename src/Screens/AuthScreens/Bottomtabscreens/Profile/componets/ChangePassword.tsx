@@ -1,4 +1,4 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, View} from 'react-native';
 import React from 'react';
 import {Styles} from '../../../../../constants/Utils';
 import MyKeyboardAvoidingScrollView from '../../../../../components/Scrollview/MyKeyboardAvoidingScrollView';
@@ -6,13 +6,38 @@ import NavHeader from '../../../../../components/Headers/NavHeader';
 import Images from '../../../../../constants/Images';
 import InputFields from '../../../../../components/InputText/InputFields';
 import AuthButton from '../../../../../components/Button/AuthButton';
+import {changePassSchema} from '../../../../../utils/schema/Auth.schema';
+import {ENDPOINTS} from '../../../../../constants/API.Constants';
+import {goBack} from '../../../../../Services/NavigationService';
+import {apiWithToken} from '../../../../../ApiService/core/ApiRequest';
+import {useFormik} from 'formik';
 
 const ChangePassword = () => {
   const initialValues = {
     oldPassword: '',
     newPassword: '',
-    password: '',
+    confirmPassword: '',
   };
+
+  const formik = useFormik({
+    initialValues,
+    onSubmit: values => {
+      apiWithToken(ENDPOINTS.ChangePassword, 'PUT', {
+        old_password: values.oldPassword,
+        new_password: values.newPassword,
+      })
+        .then(res => {
+          goBack();
+        })
+        .catch(err => {
+          console.log(
+            '🚀 ~ file: UserRegister.tsx:36 ~ apiWithToken ~ err:',
+            err.response.data,
+          );
+        });
+    },
+    validationSchema: changePassSchema,
+  });
 
   return (
     <View style={Styles.flex1}>
@@ -41,19 +66,22 @@ const ChangePassword = () => {
           <InputFields
             placeholder="Current Password"
             lImg={Images.Password}
-            rImg={Images.eye_open}
+            {...{formik}}
             name="oldPassword"
+            rImg={Images.eye_open}
           />
           <InputFields
             placeholder="New Password"
             rImg={Images.eye_open}
+            {...{formik}}
             lImg={Images.Password}
             name={'newPassword'}
           />
           <InputFields
             placeholder="Confirm New Password"
             lImg={Images.Password}
-            name={'password'}
+            {...{formik}}
+            name={'confirmPassword'}
           />
         </View>
       </MyKeyboardAvoidingScrollView>
@@ -62,7 +90,7 @@ const ChangePassword = () => {
         title="Reset Password"
         isbottom
         onPress={() => {
-          console.log('d');
+          formik.handleSubmit();
         }}
       />
     </View>

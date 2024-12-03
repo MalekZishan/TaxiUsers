@@ -19,7 +19,10 @@ const UsersRequestModal: FC<Props> = ({setVisible, Visible}) => {
       visible={Visible}>
       <View style={styles.overlay}>
         <View style={styles.modalContent}>
-          <Pressable>
+          <Pressable
+            onPress={() => {
+              setVisible(false);
+            }}>
             <Image source={Images.close} style={styles.closeIcon} />
           </Pressable>
           <Image

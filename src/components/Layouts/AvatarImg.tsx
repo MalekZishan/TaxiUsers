@@ -20,7 +20,7 @@ type Props = {
   size?: number;
   styles?: ViewStyle | ImageStyle | TextStyle;
   lable?: string;
-  Onpress: () => void;
+  Onpress?: () => void;
   lStyle?: ViewStyle | ImageStyle | TextStyle;
   blurRadius?: number;
 };
@@ -61,27 +61,33 @@ const AvatarImg: React.FC<Props> = ({img, defaultSource, Onpress}) => {
           }}
         />
       )}
-      <Image
-        resizeMode="contain"
-        source={Images.Camera}
-        style={{
-          width: 38,
-          height: 38,
-          position: 'absolute',
-          right: 4,
-          bottom: 10,
-        }}
-      />
-      <Text
-        style={{
-          fontFamily: Fonts.regular,
-          color: Colors.gray,
-          marginTop: 13,
-          textAlign: 'center',
-          fontSize: moderateScale(13),
-        }}>
-        Upload profile pic or Company Logo
-      </Text>
+      {Onpress ? (
+        <>
+          <Image
+            resizeMode="contain"
+            source={Images.Camera}
+            style={{
+              width: 38,
+              height: 38,
+              position: 'absolute',
+              right: 4,
+              bottom: 10,
+            }}
+          />
+          <Text
+            style={{
+              fontFamily: Fonts.regular,
+              color: Colors.gray,
+              marginTop: 13,
+              textAlign: 'center',
+              fontSize: moderateScale(13),
+            }}>
+            Upload profile pic or Company Logo
+          </Text>
+        </>
+      ) : (
+        <></>
+      )}
     </Pressable>
   );
 };

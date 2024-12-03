@@ -49,4 +49,7 @@ export default {
   Card: require('../assets/images/Card.png'),
   card1: require('../assets/images/card1.png'),
   gallery_ic: require('../assets/images/gallery_ic.png'),
+  Verify: require('../assets/images/Verify.png'),
+  employee: require('../assets/images/employee.png'),
+  add: require('../assets/images/add.png'),
 };

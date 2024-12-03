@@ -13,7 +13,7 @@ const MyKeyboardAvoidingScrollView = ({children, ref, ...props}: Props) => {
   return (
     <KeyboardAwareScrollView
       {...props}
-      bounces={false}
+    
       bottomOffset={30}
       showsVerticalScrollIndicator={false}
       showsHorizontalScrollIndicator={false}

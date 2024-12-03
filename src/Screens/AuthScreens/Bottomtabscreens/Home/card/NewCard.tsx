@@ -6,17 +6,23 @@ import Colors from '../../../../../constants/Colors';
 import Images from '../../../../../constants/Images';
 import AuthButton from '../../../../../components/Button/AuthButton';
 import Drivercard from './Drivercard';
+import {NewBookingResponse} from '../../../../../Models/Booking/booking.modal';
+import {navigate} from '../../../../../Services/NavigationService';
 
-const NewCard = (data: any) => {
+interface NewCardProps extends NewBookingResponse {}
+const NewCard = (data: NewCardProps) => {
+  const onGetDirection = () => {
+    navigate('DriverLocation', {...data});
+  };
   return (
     <View>
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.dateText}>22 Aug 2024</Text>
-          <Text style={styles.priceText}>$ 178</Text>
+          <Text style={styles.dateText}>{data?.date_created}</Text>
+          <Text style={styles.priceText}>$ {data?.price}</Text>
         </View>
         <Text style={styles.bookingIdText}>
-          Booking ID: <Text style={styles.bookingIdValueText}>HF88345</Text>
+          Booking ID: <Text style={styles.bookingIdValueText}>{data?.id}</Text>
         </Text>
         <View style={styles.locationContainer}>
           <View style={styles.locationRow}>
@@ -33,17 +39,17 @@ const NewCard = (data: any) => {
                 style={styles.locationIcon}
               />
             </View>
-            <View style={styles.addressContainer}>
+            <View style={[styles.addressContainer, {flex: 1}]}>
               <View style={styles.addressBlock}>
                 <Text style={styles.labelText}>From</Text>
-                <Text style={styles.addressText}>
-                  8502 Preston Rd, Maine 98380
+                <Text style={[styles.addressText, {width: '100%', flex: 1}]}>
+                  {data?.pick_up_adds}
                 </Text>
               </View>
               <View style={styles.addressBlockTo}>
                 <Text style={styles.labelText}>To</Text>
-                <Text style={styles.addressText} lineBreakMode="clip">
-                  Mesa, New Jersey 45463
+                <Text style={[styles.addressText, {width: '100%'}]}>
+                  {data?.drop_of_adds}
                 </Text>
               </View>
             </View>
@@ -54,14 +60,16 @@ const NewCard = (data: any) => {
             <Image source={Images.Person} style={styles.detailIcon} />
             <View style={styles.detailTextContainer}>
               <Text style={styles.detailLabelText}>Persons</Text>
-              <Text style={styles.detailValueText}>4</Text>
+              <Text style={styles.detailValueText}>
+                {data?.total_passenger}
+              </Text>
             </View>
           </Pressable>
           <Pressable style={[styles.detailsBlock, styles.detailsBlockMargin]}>
             <Image source={Images.car} style={styles.detailIcon} />
             <View style={styles.detailTextContainer}>
               <Text style={styles.detailLabelText}>Car Type</Text>
-              <Text style={styles.detailValueText}>Sedan</Text>
+              <Text style={styles.detailValueText}>{data?.car_type}</Text>
             </View>
           </Pressable>
         </View>
@@ -70,14 +78,18 @@ const NewCard = (data: any) => {
           <View style={styles.bookingForTextContainer}>
             <Text style={styles.detailLabelText}>Booking For</Text>
             <View style={styles.bookingForDetails}>
-              <Text style={styles.bookingForName}>Leslie Alexander</Text>
+              <Text style={styles.bookingForName} numberOfLines={1}>
+                {data?.full_name}
+              </Text>
               <View style={styles.divider} />
-              <Text style={styles.bookingForContact}>Mo: +1 98980 98980</Text>
+              <Text style={styles.bookingForContact}>
+                Mo: {data?.phone_number}
+              </Text>
             </View>
           </View>
         </Pressable>
 
-        {!data.data.isDrirver && (
+        {data?.driver_id == null && (
           <AuthButton
             title="Driver details assigned soon"
             mt={20}
@@ -86,7 +98,17 @@ const NewCard = (data: any) => {
           />
         )}
       </View>
-      {data.data.isDrirver && <Drivercard />}
+      {data?.driver_detail ? (
+        <Drivercard
+          {...data?.driver_detail}
+          onGetDirection={onGetDirection}
+          onMessage={() => {
+            navigate('Chat', data);
+          }}
+        />
+      ) : (
+        <></>
+      )}
       <View style={styles.separator} />
     </View>
   );
@@ -246,6 +268,7 @@ const styles = StyleSheet.create({
   },
   authButtonText: {
     color: Colors.blue,
+    fontSize: moderateScale(15),
   },
   separator: {
     height: 2,

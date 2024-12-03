@@ -10,6 +10,7 @@ import Colors from '../../../constants/Colors';
 import {store} from '../../../Store/Store';
 import {medium, regular, semiBold} from '../../../components/CustomFont/MyFont';
 import {navigate} from '../../../Services/NavigationService';
+import {setIsSplash} from '../../../Store/Data/Auth/AuthSlice';
 
 const OnBoardScreen = () => {
   const flatlistRef = useRef<FlatList<number>>(null);
@@ -26,7 +27,7 @@ const OnBoardScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {}]}>
       <View style={[styles.header, {top: useGetStatusBarHeight() + 20}]}>
         <Text style={[semiBold(moderateScale(26), Colors.black)]}>
           {ImagesData[Index]?.HeaderTxt}
@@ -67,7 +68,7 @@ const OnBoardScreen = () => {
       <Text style={[styles.description, regular(15, Colors.gray)]}>
         {ImagesData[Index]?.Text}
       </Text>
-      <View style={[styles.BottomView, {bottom: useGetStatusBarHeight()}]}>
+      <View style={[styles.BottomView, {bottom: useBottomBarHeight()}]}>
         <View style={styles.ellipsContainer}>
           {ImagesData.map((item, index) => {
             return <Ellips Index={index} scrollindex={Index} key={index} />;
@@ -77,6 +78,7 @@ const OnBoardScreen = () => {
           <Text
             onPress={() => {
               navigate('Login');
+              store.dispatch(setIsSplash(true));
             }}
             style={[
               medium(moderateScale(14)),
@@ -91,6 +93,7 @@ const OnBoardScreen = () => {
           {Index === 2 ? (
             <Pressable
               onPress={() => {
+                store.dispatch(setIsSplash(true));
                 navigate('Login');
               }}>
               <Image

@@ -1,7 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {RootState} from '../../Store';
 import {firebase} from '@react-native-firebase/firestore';
-import {act} from 'react-test-renderer';
 import {UsersTypes} from '../../../Models/Auth/Auth.modal';
 
 export type userType = UsersTypes & {
@@ -24,12 +23,11 @@ type userData = {
   };
 };
 const initialState: userData = {
-  data: undefined,
+  data: '' as any,
   token: '',
   Issplash: false,
   fcmToken: '',
   Location: {latitude: 0, longitude: 0},
-
   isUserAuthenticated: false,
   notificationCount: 0,
 };
@@ -43,11 +41,10 @@ const UserSlice = createSlice({
         const myCollection = firebase
           .firestore()
           .collection('Users')
-          .doc(String(String(action.payload.userId)));
+          .doc(String(String(action.payload.id)));
         const data = {
           ...action.payload,
         };
-
         myCollection.get().then((doc: {exists: any}) => {
           if (!doc.exists) {
             myCollection.set(data);
@@ -55,6 +52,24 @@ const UserSlice = createSlice({
         });
       }
       state.data = action.payload;
+    },
+    updateUserData: (state, action: PayloadAction<userData['data']>) => {
+      if (action.payload) {
+        const myCollection = firebase
+          .firestore()
+          .collection('Users')
+          .doc(String(String(action.payload.id)));
+        const data = {
+          ...state.data,
+          ...action.payload,
+        };
+        myCollection.get().then((doc: {exists: any}) => {
+          if (!doc.exists) {
+            myCollection.set(data);
+          }
+        });
+        state.data = {...state.data, ...action.payload};
+      }
     },
     setUserToken: (state, action: PayloadAction<userData['token']>) => {
       state.token = action.payload;
@@ -91,4 +106,5 @@ export const {
   logOut,
   setIsSplash,
   UserisUserAuthenticated,
+  updateUserData,
 } = UserSlice.actions;

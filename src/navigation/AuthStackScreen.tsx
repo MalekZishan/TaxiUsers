@@ -7,6 +7,8 @@ import ChangePassword from '../Screens/AuthScreens/Bottomtabscreens/Profile/comp
 import EditProfile from '../Screens/AuthScreens/Bottomtabscreens/Profile/componets/EditProfile';
 import Setting from '../Screens/AuthScreens/Bottomtabscreens/Profile/componets/Setting';
 import Wallet from '../Screens/AuthScreens/Bottomtabscreens/Profile/componets/Wallet';
+import AddEmployee from '../Screens/UnAuthScreens/AddEmployee/AddEmployee';
+import EmployeeLists from '../Screens/UnAuthScreens/EmployeeLists/EmployeeLists';
 
 import BottomTabs from './BottomTabs';
 
@@ -63,6 +65,18 @@ export const Screens: ScreenTypes = [
     name: 'Paynow',
     title: 'Paynow',
     Component: Paynow,
+    options: {headerShown: false},
+  },
+  {
+    name: 'EmployeeLists',
+    title: 'EmployeeLists',
+    Component: EmployeeLists,
+    options: {headerShown: false},
+  },
+  {
+    name: 'AddEmployee',
+    title: 'AddEmployee',
+    Component: AddEmployee,
     options: {headerShown: false},
   },
 ];

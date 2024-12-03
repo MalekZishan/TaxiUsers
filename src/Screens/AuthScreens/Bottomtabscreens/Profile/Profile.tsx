@@ -8,8 +8,13 @@ import Fonts from '../../../../constants/Fonts';
 import Flex1 from '../../../../components/Layouts/Flex1';
 import SettingList from '../../../../components/Setting/Settinglist';
 import LogoutModal from '../../../../components/Modals/LogoutModal';
+import {useAppSelector} from '../../../../Hooks/ReduxHooks';
+import {userDataSelector} from '../../../../Store/Data/Auth/AuthSlice';
+import {imgSrc} from '../../../../ApiService/core/ApiRequest';
 
 const Profile = () => {
+  const userData = useAppSelector(userDataSelector).data;
+
   const [visible, setVisible] = useState(false);
   let Data = [
     {
@@ -18,16 +23,20 @@ const Profile = () => {
       title: 'Edit Profile',
     },
     {
-      icon: Images.wallet,
-      screenName: 'Wallet',
-      title: 'Wallet',
+      icon: Images.employee,
+      screenName: 'EmployeeLists',
+      title: 'Employee List',
     },
+    // {
+    //   icon: Images.wallet,
+    //   screenName: 'Wallet',
+    //   title: 'Wallet',
+    // },
     {
       icon: Images.settings,
       screenName: 'Setting',
       title: 'Setting',
     },
-
     {
       icon: Images.terms_and_condition,
       screenName: 'TremCon',
@@ -42,6 +51,7 @@ const Profile = () => {
       },
     },
   ];
+  console.log(imgSrc(userData?.profile_pic));
   return (
     <View
       style={{
@@ -52,8 +62,13 @@ const Profile = () => {
       <NavHeader hideBackBtn title="My Profile" />
       <View style={styles.profileContainer}>
         <View style={styles.profileInfo}>
-          <Image source={Images.ProfilePi} style={styles.profileImage} />
-          <Text style={styles.profileName}>{`Guy \nHawkins`}</Text>
+          <Image
+            source={{uri: imgSrc(userData?.profile_pic)}}
+            style={[styles.profileImage, {backgroundColor: Colors.imageLoad}]}
+          />
+          <Text style={[styles.profileName, {flex: 1}]}>
+            {userData?.full_name}
+          </Text>
         </View>
       </View>
       <Flex1 style={{...Styles.container, backgroundColor: 'white'}}>

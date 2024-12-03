@@ -16,16 +16,16 @@ import {
   SQUARE,
   Styles,
   WIDTH,
-  height,
   moderateScaleVertical,
 } from '../../constants/Utils';
 import Colors from '../../constants/Colors';
 import Popup from './Popup';
 import Modal from 'react-native-modal';
+import {Options} from 'react-native-image-crop-picker';
 
 type BottomSheetImgPropType = {
   bottomSheetVisible: boolean;
-  rectangle?: boolean;
+  rectangle?: Options;
   setBottomSheetVisible: Dispatch<SetStateAction<boolean>>;
   setUserProfileImage: Dispatch<SetStateAction<any>>;
 };
@@ -42,10 +42,8 @@ export const BottomSheetImg = ({
   const choosefromGallary = async () => {
     getImage('gallery', rectangle)
       .then(res => {
-        console.log(res.mime);
-        const uri = {uri: res.path};
         setBottomSheetVisible(false);
-        setUserProfileImage(res.path);
+        setUserProfileImage(res);
       })
       .catch(err => {
         console.log('🚀 ~ choosefromGallary ~ err:', err);
@@ -62,9 +60,8 @@ export const BottomSheetImg = ({
   const choosefromCamera = async () => {
     getImage('camera', rectangle)
       .then(res => {
-        const uri = {uri: res.path};
         setBottomSheetVisible(false);
-        setUserProfileImage(uri);
+        setUserProfileImage(res);
       })
       .catch(err => {
         console.log('🚀 ~ choosefromCamera ~ err:', err);
@@ -81,7 +78,7 @@ export const BottomSheetImg = ({
   };
 
   const headingText = 'Allow Permission';
-  const text = `Allow  Gocyc to access this device ${
+  const text = `Allow  Taxiusers to access this device ${
     isCamera ? 'camera' : 'gallery'
   } Permission?`;
   const Img = isCamera ? Images.Camera : Images.gallery_ic;
@@ -138,7 +135,7 @@ export const BottomSheetImg = ({
           />
           <Text
             style={{
-              fontFamily: Fonts.THICCCBOIBold,
+              fontFamily: Fonts.bold,
               fontSize: 15,
               color: 'black',
               paddingVertical: 15,
@@ -153,7 +150,6 @@ export const BottomSheetImg = ({
                   marginHorizontal: 10,
                   ...SQUARE(WIDTH / 6),
                   borderColor: Colors.black,
-
                   padding: 10,
                   borderRadius: 100,
                   borderWidth: 1,
@@ -177,12 +173,7 @@ export const BottomSheetImg = ({
                 }}>
                 <Image
                   source={Images.gallery_ic}
-                  style={[
-                    {...SQUARE(WIDTH / 11)},
-                    {
-                      tintColor: Colors.green,
-                    },
-                  ]}
+                  style={[{...SQUARE(WIDTH / 11)}]}
                 />
               </Pressable>
               <Text style={styles.text2}>Gallery</Text>
@@ -195,7 +186,7 @@ export const BottomSheetImg = ({
 };
 const styles = StyleSheet.create({
   text2: {
-    fontFamily: Fonts.THICCCBOISEMIBOLD,
+    fontFamily: Fonts.semiBold,
     color: 'black',
     fontSize: 15,
     textAlign: 'center',

@@ -1,10 +1,6 @@
-import {StatusBar, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-
-import {useSelector} from 'react-redux';
-
-import ProgressDialog from '../components/Modals/ProgressDIalog';
 import {createStackNavigator} from '@react-navigation/stack';
 import {RootStackParamsList} from '../Models/Navigation/NavigationModels';
 import {navigationRef} from '../Services/NavigationService';
@@ -13,6 +9,7 @@ import AuthNavigator from './AuthNavigator';
 import Splash from '../Screens/UnAuthScreens/Spash/Spash';
 import {userDataSelector} from '../Store/Data/Auth/AuthSlice';
 import {useAppSelector} from '../Hooks/ReduxHooks';
+import LoadingIndicator from '../comman/LoadingIndicator';
 
 type Props = {};
 
@@ -34,9 +31,11 @@ const RootNavigator = (props: Props) => {
     <>
       {isSplashComplete ? (
         <NavigationContainer ref={navigationRef}>
-          <ProgressDialog
-            onRef={(c: any) => {
-              if (c) ProgressDialog.dialogInstance = c;
+          <LoadingIndicator
+            onRef={(ref: any) => {
+              if (ref) {
+                LoadingIndicator.dialogInstance = ref;
+              }
             }}
           />
           {isUserAuthenticated ? <AuthNavigator /> : <UnAuthNavigator />}
