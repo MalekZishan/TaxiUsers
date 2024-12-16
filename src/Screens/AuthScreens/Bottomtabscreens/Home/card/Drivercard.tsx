@@ -7,6 +7,7 @@ import Colors from '../../../../../constants/Colors';
 import {navigate} from '../../../../../Services/NavigationService';
 import {Driver_detail} from '../../../../../Models/Booking/booking.modal';
 import {imgSrc} from '../../../../../ApiService/core/ApiRequest';
+import {t} from 'i18next';
 
 interface DrivercardProps extends Driver_detail {
   onGetDirection: () => void;
@@ -15,7 +16,7 @@ interface DrivercardProps extends Driver_detail {
 const Drivercard = (props: DrivercardProps) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.headerText}>Driver Details</Text>
+      <Text style={styles.headerText}>{t('Driver Details')}</Text>
 
       <View style={styles.driverInfoContainer}>
         <Image
@@ -50,7 +51,7 @@ const Drivercard = (props: DrivercardProps) => {
             onPress={() => props?.onGetDirection()}
             style={styles.directionContainer}>
             <Image source={Images.direction} style={styles.directionIcon} />
-            <Text style={styles.directionText}>Get Direction</Text>
+            <Text style={styles.directionText}>{t('Get Direction')}</Text>
           </Pressable>
         </View>
       </View>

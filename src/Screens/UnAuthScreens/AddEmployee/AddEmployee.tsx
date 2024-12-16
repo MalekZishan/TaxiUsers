@@ -1,10 +1,9 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import React from 'react';
 import NavHeader from '../../../components/Headers/NavHeader';
 import Colors from '../../../constants/Colors';
 import MyKeyboardAvoidingScrollView from '../../../components/Scrollview/MyKeyboardAvoidingScrollView';
 import AvatarImg from '../../../components/Layouts/AvatarImg';
-import {moderateScale} from '../../../constants/Utils';
 import AuthButton from '../../../components/Button/AuthButton';
 import LabelInputField from '../../../components/InputText/LableInputField';
 import Images from '../../../constants/Images';
@@ -15,6 +14,7 @@ import {ENDPOINTS} from '../../../constants/API.Constants';
 import {store} from '../../../Store/Store';
 import {updateUserData} from '../../../Store/Data/Auth/AuthSlice';
 import {goBack} from '../../../Services/NavigationService';
+import {t} from 'i18next';
 
 type Props = {};
 
@@ -26,7 +26,7 @@ const AddEmployee = (props: Props) => {
       email: '',
       password: '',
     },
-    validationSchema: AddEmployeeSchema,
+    validationSchema: AddEmployeeSchema(),
     onSubmit: values => {
       apiWithToken(
         ENDPOINTS.AddEmployee,
@@ -48,36 +48,37 @@ const AddEmployee = (props: Props) => {
           flex: 1,
           backgroundColor: Colors.white,
         }}>
-        <NavHeader title="Add Employee" />
+        <NavHeader title={t('Add Employee')} />
         <MyKeyboardAvoidingScrollView
           style={{
-            paddingHorizontal: 20,
+            width: '90%',
+            alignSelf: 'center',
           }}>
           <AvatarImg defaultSource={''} />
           <View>
             <LabelInputField
-              placeholder="Full Name"
-              label="Full Name"
+              placeholder={t('Full Name')}
+              label={t('Full Name')}
               name="full_name"
               {...{formik}}
             />
             <LabelInputField
-              placeholder="Mobile Number"
-              label="Mobile Number"
+              placeholder={t('Mobile Number')}
+              label={t('Mobile Number')}
               {...{formik}}
               name="phone_number"
               keyboardType="numeric"
             />
             <LabelInputField
-              placeholder="Email Address"
-              label="Email Address"
+              placeholder={t('Email Address')}
+              label={t('Email Address')}
               {...{formik}}
               name="email"
               keyboardType="email-address"
             />
             <LabelInputField
-              placeholder="Password"
-              label="Password"
+              placeholder={t('Password')}
+              label={t('Password')}
               lImg={Images.Password}
               rImg={Images.eye_close}
               {...{formik}}
@@ -85,7 +86,7 @@ const AddEmployee = (props: Props) => {
             />
           </View>
         </MyKeyboardAvoidingScrollView>
-        <AuthButton title="Save" isbottom onPress={formik.handleSubmit} />
+        <AuthButton title={t('Save')} isbottom onPress={formik.handleSubmit} />
       </View>
     </>
   );

@@ -24,14 +24,15 @@ import {regular} from '../components/CustomFont/MyFont';
 import Home from '../Screens/AuthScreens/Bottomtabscreens/Home/Home';
 import Profile from '../Screens/AuthScreens/Bottomtabscreens/Profile/Profile';
 import {useIsFocused} from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
+import {t} from 'i18next';
 
 type Props = {};
 
 const Tab = createBottomTabNavigator<BottomTabStackParamsList>();
 
 const BottomTabs = (props: Props) => {
-  // const { t } = useTranslation();
-
+  const {t} = useTranslation();
   const Screens: BottomTabsScreenTypes = [
     {
       name: 'Home',
@@ -165,7 +166,7 @@ const BT_Button: React.FC<BT_ButtonProps> = ({
           marginTop: 4,
           color: focused ? Colors.blue : '#A5AAB5',
         }}>
-        {name == 'Home' ? 'My Bookings' : 'My Profile'}
+        {name == 'Home' ? t('My Bookings') : t('My Profile')}
       </Text>
     </View>
   );

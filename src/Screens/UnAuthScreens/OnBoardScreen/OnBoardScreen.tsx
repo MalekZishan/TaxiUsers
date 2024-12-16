@@ -49,6 +49,9 @@ const OnBoardScreen = () => {
               Math.floor(event.nativeEvent.contentOffset.x) /
                 Math.floor(event.nativeEvent.layoutMeasurement.width),
             );
+            if (index < 0) {
+              return;
+            }
             setIndex(index);
           }}
           showsHorizontalScrollIndicator={false}

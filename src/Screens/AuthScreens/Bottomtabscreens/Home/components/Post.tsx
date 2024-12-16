@@ -8,6 +8,7 @@ import {ENDPOINTS} from '../../../../../constants/API.Constants';
 import {PastBoookingResponse} from '../../../../../Models/Booking/booking.modal';
 import {medium} from '../../../../../components/CustomFont/MyFont';
 import {moderateScale} from '../../../../../constants/Utils';
+import {t} from 'i18next';
 
 const Post = () => {
   const [oldBooking, setOldBooking] = useState<PastBoookingResponse[]>([]);
@@ -54,7 +55,7 @@ const Post = () => {
                   medium(20),
                   {alignSelf: 'center', marginTop: moderateScale(200)},
                 ]}>
-                No Booking Found
+                {t('No Booking Found')}
               </Text>
             </>
           );

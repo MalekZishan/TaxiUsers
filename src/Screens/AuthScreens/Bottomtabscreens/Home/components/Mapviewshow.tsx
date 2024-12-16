@@ -17,6 +17,7 @@ import {userByID, userCollection} from '../../../../../Firebase/firebaseCommon';
 import Colors from '../../../../../constants/Colors';
 import Fonts from '../../../../../constants/Fonts';
 import {calculateETA} from '../../../../../Hooks/useGetCurrentLocation';
+import {t} from 'i18next';
 
 const Mapviewshow = (bookingData: NewBookingResponse) => {
   const [routeCoordinates, setRouteCoordinates] = useState<LatLng[]>([]);
@@ -229,7 +230,9 @@ export const ETA = (bookingData: NewBookingResponse) => {
     <>
       {eta !== 0 && bookingData?.status == '2' && (
         <View style={styles.etaContainer}>
-          <Text style={styles.etaText}>ETA: {eta}</Text>
+          <Text style={styles.etaText}>
+            {t('ETA:')} {eta}
+          </Text>
         </View>
       )}
       {eta !== 0 && bookingData?.status == '3' && (

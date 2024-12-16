@@ -10,6 +10,7 @@ import {NavigationProps} from '../../../../../Models/Navigation/NavigationModels
 import {imgSrc} from '../../../../../ApiService/core/ApiRequest';
 import {navigate} from '../../../../../Services/NavigationService';
 import NewMessageCard from '../../../../../components/Card/NewMessageCard';
+import {t} from 'i18next';
 
 const DriverLocation = ({
   navigation,
@@ -69,13 +70,13 @@ const DriverLocation = ({
               </View>
               <View style={styles.addressContainer}>
                 <View style={styles.addressBlock}>
-                  <Text style={styles.labelText}>From</Text>
+                  <Text style={styles.labelText}>{t('From')}</Text>
                   <Text style={styles.addressText}>
                     {bookingData?.pick_up_adds}
                   </Text>
                 </View>
                 <View style={styles.addressBlockTo}>
-                  <Text style={styles.labelText}>To</Text>
+                  <Text style={styles.labelText}>{t('To')}</Text>
                   <Text style={styles.addressText} lineBreakMode="clip">
                     {bookingData?.drop_of_adds}
                   </Text>

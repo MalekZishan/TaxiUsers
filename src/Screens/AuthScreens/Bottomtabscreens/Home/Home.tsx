@@ -19,6 +19,7 @@ import {fetchCurrentLocation} from '../../../../Hooks/useGetCurrentLocation';
 import {useAppSelector} from '../../../../Hooks/ReduxHooks';
 import {userDataSelector} from '../../../../Store/Data/Auth/AuthSlice';
 import Images from '../../../../constants/Images';
+import {t} from 'i18next';
 
 const Home = () => {
   const data = useAppSelector(userDataSelector);
@@ -72,7 +73,7 @@ const Home = () => {
           backgroundColor: Colors.white,
         }}>
         <Usersreqestmodal {...{Visible, setVisible}} />
-        <NavHeader title="My Bookings" hideBackBtn />
+        <NavHeader title={t('My Bookings')} hideBackBtn />
         <View style={styles.statusContainer}>
           {StatusData.map((item, index) => (
             <View
@@ -87,7 +88,7 @@ const Home = () => {
                     item.name === Status ? Colors.blue : '#EFEFEF',
                 }}
                 key={index}
-                title={item.name}
+                title={t(item.name as any)}
                 onPress={() => {
                   setStatus(item?.name as any);
                   // navigate('BookingList', {status: item.name});

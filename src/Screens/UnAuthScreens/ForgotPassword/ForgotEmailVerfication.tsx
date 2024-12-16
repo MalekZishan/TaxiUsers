@@ -6,29 +6,33 @@ import Images from '../../../constants/Images';
 import {moderateScale, width} from '../../../constants/Utils';
 import Fonts from '../../../constants/Fonts';
 import Colors from '../../../constants/Colors';
+import InputFields from '../../../components/InputText/InputFields';
 import AuthButton from '../../../components/Button/AuthButton';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import {NavigationProps} from '../../../Models/Navigation/NavigationModels';
 import {ENDPOINTS} from '../../../constants/API.Constants';
 import {apiWithToken} from '../../../ApiService/core/ApiRequest';
+import {store} from '../../../Store/Store';
+import {goBack, navigate} from '../../../Services/NavigationService';
 import {
   setUserData,
   setUserToken,
   userDataSelector,
-  UserisUserAuthenticated,
 } from '../../../Store/Data/Auth/AuthSlice';
 import {useAppSelector} from '../../../Hooks/ReduxHooks';
-import {store} from '../../../Store/Store';
-import {t} from 'i18next';
+import axios from 'axios';
+import {API_BASE_URL} from '../../../Apis/Services/BaseUrl';
+import ProgressDialog from '../../../components/Modals/ProgressDIalog';
+import Toast from 'react-native-simple-toast';
 
-const EmailVerification = ({
+const ForgotEmailVerfication = ({
   route: {params},
-}: NavigationProps<'EmailVerification'>) => {
+}: NavigationProps<'ForgotEmailVerfication'>) => {
   const [otp, setOtp] = React.useState('');
   const {token} = useAppSelector(userDataSelector);
   const otpVerify = () => {
     apiWithToken(
-      ENDPOINTS.EmailOTPVerification,
+      ENDPOINTS.ForgotOtpVerification,
       'POST',
       {
         otp: otp,
@@ -37,22 +41,11 @@ const EmailVerification = ({
       true,
     )
       .then(res => {
-        // store.dispatch(setUserToken(res.token));
-        setTimeout(() => {
-          Register_Api(res.token);
-        }, 1000);
+        store.dispatch(setUserToken(res.token));
+        console.log(res.token);
+        navigate('NewPassword');
       })
       .catch(err => {});
-  };
-  const Register_Api = (token: string) => {
-    const data = {...params.data};
-    apiWithToken(ENDPOINTS.Register, 'POST', data, false, true, token).then(
-      res => {
-        store.dispatch(setUserToken(res?.token));
-        store.dispatch(setUserData(res?.data));
-        store.dispatch(UserisUserAuthenticated(true));
-      },
-    );
   };
 
   return (
@@ -69,9 +62,9 @@ const EmailVerification = ({
             style={styles.image}
           />
 
-          <Text style={styles.title}>{t('Email Verification')}</Text>
+          <Text style={styles.title}>Email Verification</Text>
           <Text style={styles.description}>
-            {t('Enter OTP Code sent to your email address')} {'\n'}
+            Enter OTP Code sent to your email address {'\n'}
             <Text
               style={{
                 fontFamily: Fonts.semiBold,
@@ -97,13 +90,14 @@ const EmailVerification = ({
               pinCount={6}
               codeInputFieldStyle={styles.underlineStyleBase}
               codeInputHighlightStyle={styles.underlineStyleHighLighted}
-              onCodeFilled={(code: any) => {
+              onCodeFilled={code => {
+                console.log(`Code is ${code}, you are good to go!`);
                 setOtp(code);
               }}
             />
           </View>
           <AuthButton
-            title={t('Verify otp')}
+            title="Verify otp"
             mt={20}
             onPress={otpVerify}
             disabled={otp.length !== 6}
@@ -120,7 +114,7 @@ const EmailVerification = ({
   );
 };
 
-export default EmailVerification;
+export default ForgotEmailVerfication;
 
 const styles = StyleSheet.create({
   container: {

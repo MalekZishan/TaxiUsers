@@ -3,34 +3,38 @@ import React from 'react';
 import MyKeyboardAvoidingScrollView from '../../../components/Scrollview/MyKeyboardAvoidingScrollView';
 import {useGetStatusBarHeight} from '../../../Hooks/dimentionHook';
 import Images from '../../../constants/Images';
-import {moderateScale} from '../../../constants/Utils';
+import {emailReg, moderateScale} from '../../../constants/Utils';
 import Fonts from '../../../constants/Fonts';
 import Colors from '../../../constants/Colors';
 import InputFields from '../../../components/InputText/InputFields';
 import AuthButton from '../../../components/Button/AuthButton';
-import {t} from 'i18next';
 import {useFormik} from 'formik';
 import {apiWithToken} from '../../../ApiService/core/ApiRequest';
+import {store} from '../../../Store/Store';
 import {ENDPOINTS} from '../../../constants/API.Constants';
 import {setUserToken} from '../../../Store/Data/Auth/AuthSlice';
-import {store} from '../../../Store/Store';
+import {
+  Email,
+  stringValidation,
+  yupObj,
+} from '../../../utils/schema/validation.schema';
 import {navigate} from '../../../Services/NavigationService';
-import {Email, yupObj} from '../../../utils/schema/validation.schema';
+import LabelInputField from '../../../components/InputText/LableInputField';
+import {t} from 'i18next';
 
-const ForgotPassword = () => {
+const NewPassword = () => {
   const initialValues = {
-    email: '',
+    new_password: '',
   };
   const formik = useFormik({
     initialValues,
     onSubmit: values => {
       // console.log(values);
-      apiWithToken(ENDPOINTS.ForgotOTP, 'POST', values)
+
+      apiWithToken(ENDPOINTS.NewPassword, 'POST', values)
         .then(res => {
-          store.dispatch(setUserToken(res.token));
-          navigate('ForgotEmailVerfication', {
-            email: values.email,
-          });
+          navigate('Login');
+          store.dispatch(setUserToken());
         })
         .catch(err => {
           console.log(err);
@@ -38,44 +42,42 @@ const ForgotPassword = () => {
     },
     validationSchema: () =>
       yupObj.shape({
-        email: Email,
+        new_password: stringValidation(t('New password')),
       }),
   });
+  //
   return (
     <View style={styles.container}>
       <MyKeyboardAvoidingScrollView>
-        <View
-          style={[
-            styles.innerContainer,
-            {marginTop: useGetStatusBarHeight() + 100},
-          ]}>
-          <Image source={Images.forgotPass} style={styles.image} />
-
-          <Text style={styles.title}>{t('Forgot Password')}</Text>
-          <Text style={styles.description}>
-            {t('Please enter email address associated with your account.')}
-          </Text>
-
-          <InputFields
-            lImg={Images.email}
-            containerStyle={styles.inputContainer}
-            placeholder={t('Email')}
-            keyboardType="email-address"
-            {...{formik}}
-            name="email"
-          />
-          <AuthButton
-            title={t('Submit')}
-            mt={10}
-            onPress={() => formik.handleSubmit()}
-          />
+        <View style={[styles.innerContainer]}>
+          <View
+            style={{
+              width: '100%',
+            }}>
+            <LabelInputField
+              label="Please enter your new password"
+              lImg={Images.Password}
+              containerStyle={styles.inputContainer}
+              placeholder="Reset Password"
+              rImg={Images.eye_close}
+              {...{formik}}
+              name="new_password"
+            />
+            <AuthButton
+              title="Reset your password"
+              mt={10}
+              onPress={() => {
+                formik.handleSubmit();
+              }}
+            />
+          </View>
         </View>
       </MyKeyboardAvoidingScrollView>
     </View>
   );
 };
 
-export default ForgotPassword;
+export default NewPassword;
 
 const styles = StyleSheet.create({
   container: {
@@ -84,7 +86,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: moderateScale(20),
   },
   innerContainer: {
-    marginTop: moderateScale(100), // This will be overridden by useGetStatusBarHeight() + 100
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   image: {
     width: moderateScale(157),

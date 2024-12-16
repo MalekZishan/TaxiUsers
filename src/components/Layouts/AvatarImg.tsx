@@ -13,6 +13,7 @@ import Images from '../../constants/Images';
 import Fonts from '../../constants/Fonts';
 import Colors from '../../constants/Colors';
 import {moderateScale} from '../../constants/Utils';
+import {t} from 'i18next';
 
 type Props = {
   img?: ImageSourcePropType;
@@ -82,7 +83,7 @@ const AvatarImg: React.FC<Props> = ({img, defaultSource, Onpress}) => {
               textAlign: 'center',
               fontSize: moderateScale(13),
             }}>
-            Upload profile pic or Company Logo
+            {t('Upload profile pic or Company Logo')}
           </Text>
         </>
       ) : (

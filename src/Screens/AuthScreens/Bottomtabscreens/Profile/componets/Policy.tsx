@@ -5,6 +5,7 @@ import {getApi} from '../../../../../ApiService/core/ApiRequest';
 import {Styles, width} from '../../../../../constants/Utils';
 import MyKeyboardAvoidingScrollView from '../../../../../components/Scrollview/MyKeyboardAvoidingScrollView';
 import NavHeader from '../../../../../components/Headers/NavHeader';
+import {t} from 'i18next';
 
 const TremCon = () => {
   const [Text, setText] = useState('');
@@ -28,7 +29,7 @@ const TremCon = () => {
 
   return (
     <View style={Styles.flex1}>
-      <NavHeader title="Trems And Conditions" />
+      <NavHeader title={t('Trems And Conditions')} />
       <MyKeyboardAvoidingScrollView
         style={{
           paddingHorizontal: 10,

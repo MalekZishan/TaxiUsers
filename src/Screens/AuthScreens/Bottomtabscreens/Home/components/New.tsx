@@ -1,5 +1,5 @@
 import {FlatList, StyleSheet, Text} from 'react-native';
-import React, {memo, useEffect, useState} from 'react';
+import React, {memo, useState} from 'react';
 import NewCard from '../card/NewCard';
 import {apiWithToken} from '../../../../../ApiService/core/ApiRequest';
 import {ENDPOINTS} from '../../../../../constants/API.Constants';
@@ -9,6 +9,7 @@ import Colors from '../../../../../constants/Colors';
 import {useFocusEffect} from '@react-navigation/native';
 import {medium} from '../../../../../components/CustomFont/MyFont';
 import {moderateScale} from '../../../../../constants/Utils';
+import {t} from 'i18next';
 
 const New = () => {
   const [newBooking, setNewBooking] = useState<NewBookingResponse[]>([]);
@@ -44,7 +45,7 @@ const New = () => {
                   medium(20),
                   {alignSelf: 'center', marginTop: moderateScale(200)},
                 ]}>
-                No Booking Found
+                {t('No Booking Found')}
               </Text>
             </>
           );

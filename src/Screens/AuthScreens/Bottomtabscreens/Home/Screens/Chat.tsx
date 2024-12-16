@@ -30,6 +30,7 @@ import {
 import {messageType} from '../../../../../Models/Chat/messageService';
 import {useAppSelector} from '../../../../../Hooks/ReduxHooks';
 import {userDataSelector} from '../../../../../Store/Data/Auth/AuthSlice';
+import {t} from 'i18next';
 
 const Chat = ({navigation, route}: NavigationProps<'Chat'>) => {
   const [message, setMessage] = React.useState('');
@@ -209,7 +210,7 @@ const Chat = ({navigation, route}: NavigationProps<'Chat'>) => {
                 flex: 1,
               }}>
               <InputFields
-                placeholder="Write here.."
+                placeholder={t('Write here..')}
                 rImg={Images.smile}
                 style={{
                   height: 40,

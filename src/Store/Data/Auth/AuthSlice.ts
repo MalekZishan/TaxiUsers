@@ -21,6 +21,8 @@ type userData = {
     latitude: number;
     longitude: number;
   };
+  lng: string;
+  isIntroDone?: boolean;
 };
 const initialState: userData = {
   data: '' as any,
@@ -29,7 +31,9 @@ const initialState: userData = {
   fcmToken: '',
   Location: {latitude: 0, longitude: 0},
   isUserAuthenticated: false,
+  lng: 'en',
   notificationCount: 0,
+  isIntroDone: false,
 };
 
 const UserSlice = createSlice({
@@ -93,6 +97,12 @@ const UserSlice = createSlice({
     ) => {
       state.isUserAuthenticated = action.payload;
     },
+    setGlobalLanguage: (state, action: PayloadAction<userData['lng']>) => {
+      state.lng = action.payload;
+    },
+    setIsIntroDone: (state, action: PayloadAction<userData['isIntroDone']>) => {
+      state.isIntroDone = action.payload;
+    },
   },
 });
 
@@ -106,5 +116,7 @@ export const {
   logOut,
   setIsSplash,
   UserisUserAuthenticated,
+  setGlobalLanguage,
   updateUserData,
+  setIsIntroDone,
 } = UserSlice.actions;

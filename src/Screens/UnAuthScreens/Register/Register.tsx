@@ -16,6 +16,7 @@ import {useFormik} from 'formik';
 import {apiWithToken} from '../../../ApiService/core/ApiRequest';
 import {ENDPOINTS} from '../../../constants/API.Constants';
 import {registerSchema} from '../../../utils/schema/Auth.schema';
+import {t} from 'i18next';
 
 const Register = () => {
   //for the formik
@@ -55,7 +56,7 @@ const Register = () => {
       //     console.log(err);
       //   });
     },
-    validationSchema: registerSchema,
+    validationSchema: registerSchema(),
   });
   return (
     <View
@@ -89,9 +90,9 @@ const Register = () => {
             lineHeight: moderateScale(33),
             fontSize: moderateScale(22),
           }}>
-          Create an Account
+          {t('Create an Account')}
         </Text>
-        <Text
+        {/* <Text
           style={{
             fontFamily: Fonts.regular,
             marginTop: 5,
@@ -100,44 +101,44 @@ const Register = () => {
           }}>
           Aliquam a lobortis erat. Curabitur nec leo sit amet leo mollis
           euismod.
-        </Text>
+        </Text> */}
         <MyKeyboardAvoidingScrollView style={{}}>
           <LabelInputField
-            label="Full Name"
-            placeholder="Full Name"
+            label={t('Full Name')}
+            placeholder={t('Full Name')}
             name="full_name"
             {...{formik}}
           />
           <LabelInputField
-            label="Company Name"
-            placeholder="Company Name"
+            label={t('Company Name')}
+            placeholder={t('Company Name')}
             name="company_name"
             {...{formik}}
           />
           <LabelInputField
-            label="Mobile Number"
-            placeholder="Mobile Number"
+            label={t('Mobile Number')}
+            placeholder={t('Mobile Number')}
             name="phone_number"
             TextInputProps={{keyboardType: 'phone-pad'}}
             {...{formik}}
           />
           <LabelInputField
-            label="Email Address"
-            placeholder="Email Address"
+            label={t('Email Address')}
+            placeholder={t('Email Address')}
             keyboardType="email-address"
             name="email"
             {...{formik}}
           />
           <LabelInputField
-            label="Create Password"
-            placeholder="Password"
+            label={t('Create Password')}
+            placeholder={t('Password')}
             rImg={Images.eye_close}
             name="password"
             secureTextEntry={true}
             {...{formik}}
           />
           <AuthButton
-            title="Register"
+            title={t('Register')}
             mt={20}
             Mystyle={{
               marginBottom: 20,
@@ -149,8 +150,8 @@ const Register = () => {
         </MyKeyboardAvoidingScrollView>
       </View>
       <NavigationText
-        title="Aready  have an account?"
-        Prestext="Login."
+        title={t('Aready  have an account?')}
+        Prestext={t('Login.')}
         onPress={() => {
           goBack();
         }}

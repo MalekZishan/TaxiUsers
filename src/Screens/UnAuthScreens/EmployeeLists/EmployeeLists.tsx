@@ -28,6 +28,7 @@ import {
   semiBold,
 } from '../../../components/CustomFont/MyFont';
 import Flex1 from '../../../components/Layouts/Flex1';
+import {t} from 'i18next';
 
 type Props = {};
 
@@ -51,14 +52,14 @@ const EmployeeLists = (props: Props) => {
           flex: 1,
           backgroundColor: Colors.white,
         }}>
-        <NavHeader title="Employees" />
+        <NavHeader title={t('Employees')} />
         <FlatList
           data={employees}
           ListHeaderComponent={() => {
             return (
               <>
                 <AuthButton
-                  title="Add Employee"
+                  title={t('Add Employee')}
                   Mystyle={{
                     width: '50%',
                     height: moderateScale(35),
@@ -75,7 +76,7 @@ const EmployeeLists = (props: Props) => {
                 <Flex1>
                   <Text
                     style={[medium(20), {textAlign: 'center'}, MT(HEIGHT / 3)]}>
-                    No Employee Added
+                    {t('No Employee Added')}
                   </Text>
                 </Flex1>
               </>

@@ -1,4 +1,4 @@
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {I18nManager, Platform, StyleSheet, Text, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Colors from '../../../../../constants/Colors';
 import NavHeader from '../../../../../components/Headers/NavHeader';
@@ -26,6 +26,7 @@ import fetchNearbyDrivers from '../../../../../Firebase/FindDrivers';
 import {apiWithToken} from '../../../../../ApiService/core/ApiRequest';
 import {ENDPOINTS} from '../../../../../constants/API.Constants';
 import LoadingIndicator from '../../../../../comman/LoadingIndicator';
+import {t} from 'i18next';
 
 const BookingRequirement = () => {
   const [pickLatitude, setPickLatitude] = useState<any>();
@@ -44,7 +45,7 @@ const BookingRequirement = () => {
       phone_number: '',
       price: '',
     },
-    validationSchema: BookingformSchema,
+    validationSchema: BookingformSchema(),
     onSubmit: async values => {
       const distance = 10; // 10 km radius
       if (pickAddress && dropAddress) {
@@ -98,21 +99,22 @@ const BookingRequirement = () => {
         flex: 1,
         backgroundColor: Colors.white,
       }}>
-      <NavHeader title="Booking Requirement" />
+      <NavHeader title={t('Booking Requirement')} />
       <MyKeyboardAvoidingScrollView
         style={{
-          paddingHorizontal: 20,
+          width: '90%',
+          alignSelf: 'center',
         }}
         keyboardShouldPersistTaps="always">
         <LabelInputField
-          label="Booking For"
-          placeholder="Full Name"
+          label={t('Booking For')}
+          placeholder={t('Full Name')}
           name="full_name"
           {...{formik}}
         />
         <LabelInputField
-          label="Mobile Number"
-          placeholder="Mobile Number"
+          label={t('Mobile Number')}
+          placeholder={t('Mobile Number')}
           name="phone_number"
           TextInputProps={{
             keyboardType: 'numeric',
@@ -121,8 +123,8 @@ const BookingRequirement = () => {
         />
         <DropDown
           items={CarData}
-          label="Car Type"
-          placeholder="Car Type"
+          label={t('Car Type')}
+          placeholder={t('Car Type')}
           name="car_type"
           value={formik.values.car_type}
           {...{formik}}
@@ -136,12 +138,12 @@ const BookingRequirement = () => {
                 color: Colors.black,
               },
             ]}>
-            Pickup Address*
+            {t('Pickup Address*')}
           </Text>
         </View>
         <View>
           <GooglePlacesAutocomplete
-            placeholder="Pickup Address"
+            placeholder={t('Pickup Address')}
             ref={googlePlacesRef}
             listViewDisplayed={false}
             onPress={(data, details) => {
@@ -173,6 +175,7 @@ const BookingRequirement = () => {
               style: {
                 borderRadius: moderateScale(37),
                 width: '100%',
+                textAlign: I18nManager.isRTL ? 'right' : 'left',
                 ...styles.inputStyle,
               },
               placeholderTextColor: Colors.placeholder,
@@ -190,12 +193,12 @@ const BookingRequirement = () => {
                 color: Colors.black,
               },
             ]}>
-            Drop Off Address*
+            {t('Drop Off Address*')}
           </Text>
         </View>
         <View>
           <GooglePlacesAutocomplete
-            placeholder="Drop Off Address"
+            placeholder={t('Drop Off Address')}
             ref={googlePlacesRef}
             listViewDisplayed={false}
             onPress={(data, details) => {
@@ -227,6 +230,7 @@ const BookingRequirement = () => {
               style: {
                 borderRadius: moderateScale(37),
                 width: '100%',
+                textAlign: I18nManager.isRTL ? 'right' : 'left',
                 ...styles.inputStyle,
               },
               placeholderTextColor: Colors.placeholder,
@@ -236,17 +240,17 @@ const BookingRequirement = () => {
           />
         </View>
         <LabelInputField
-          label="How Many Passengers?"
+          label={t('How Many Passengers?')}
           TextInputProps={{
             keyboardType: 'numeric',
             maxLength: 2,
           }}
           name="total_passenger"
           {...{formik}}
-          placeholder="How Many Passengers?"
+          placeholder={t('How Many Passengers?')}
         />
         <LabelInputField
-          label="Booking Price"
+          label={t('Booking Price')}
           TextInputProps={{
             keyboardType: 'numeric',
           }}
@@ -256,7 +260,7 @@ const BookingRequirement = () => {
         />
         {/* <DropDown items={data} label="Car Type" placeholder="Car Type" /> */}
       </MyKeyboardAvoidingScrollView>
-      <AuthButton title="Submit" isbottom onPress={formik.handleSubmit} />
+      <AuthButton title={t('Submit')} isbottom onPress={formik.handleSubmit} />
     </View>
   );
 };
@@ -268,7 +272,7 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.regular,
     flex: 1,
     color: '#1E1B1E',
-    paddingVertical: DEVICE_TYPE == 'android' ? 8 : 0,
+    paddingVertical: DEVICE_TYPE == 'android' ? 8 : 15,
     fontSize: moderateScale(14),
     includeFontPadding: false,
     backgroundColor: '#F8F8F8',

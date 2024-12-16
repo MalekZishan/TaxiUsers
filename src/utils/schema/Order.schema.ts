@@ -1,20 +1,21 @@
-import { addStrValidation, stringValidation, yupObj } from "./validation.schema";
+import {t} from 'i18next';
+import {addStrValidation, stringValidation, yupObj} from './validation.schema';
 
 export const createOfferSchema = () =>
   yupObj.shape({
-    booking_date: stringValidation("Date"),
-    booking_time: stringValidation("Time"),
-    pick_address: stringValidation("Pickup Route"),
+    booking_date: stringValidation(t('Date')),
+    booking_time: stringValidation(t('Time')),
+    pick_address: stringValidation(t('Pickup Route')),
     pick_lat: addStrValidation(),
     pick_long: addStrValidation(),
-    drop_address: stringValidation("Deliver Route"),
+    drop_address: stringValidation(t('Deliver Route')),
     drop_lat: addStrValidation(),
     drop_long: addStrValidation(),
-    price: stringValidation("Price"),
-    km: stringValidation("Km"),
-    description: stringValidation("Description"),
-    height: stringValidation("Height"),
-    weight: stringValidation("weight"),
-    width: stringValidation("width"),
-    city_name: stringValidation("City Name"),
+    price: stringValidation(t('Price')),
+    km: stringValidation(t('Km')),
+    description: stringValidation(t('Description')),
+    height: stringValidation(t('Height')),
+    weight: stringValidation(t('weight')),
+    width: stringValidation(t('width')),
+    city_name: stringValidation(t('City Name')),
   });

@@ -10,6 +10,7 @@ import Splash from '../Screens/UnAuthScreens/Spash/Spash';
 import {userDataSelector} from '../Store/Data/Auth/AuthSlice';
 import {useAppSelector} from '../Hooks/ReduxHooks';
 import LoadingIndicator from '../comman/LoadingIndicator';
+import i18next from 'i18next';
 
 type Props = {};
 
@@ -18,6 +19,10 @@ export const Stack = createStackNavigator<RootStackParamsList>();
 const RootNavigator = (props: Props) => {
   const [isSplashComplete, setIsSplashComplete] = useState(false);
   const {isUserAuthenticated} = useAppSelector(userDataSelector);
+  const {lng} = useAppSelector(userDataSelector);
+  useEffect(() => {
+    i18next.changeLanguage(lng);
+  }, []);
 
   //// * --> splash screen changing <--- ////
   useEffect(() => {

@@ -16,6 +16,7 @@ import {
   semiBold,
 } from '../../../../../components/CustomFont/MyFont';
 import FlexDirRow from '../../../../../components/Layouts/FlexDirRow';
+import {t} from 'i18next';
 
 interface PastCardProps extends PastBoookingResponse {}
 
@@ -50,7 +51,8 @@ const Postcard = (data: PastCardProps) => {
                 }
               </Text>
               <Text style={styles.paymentText}>
-                Payment: <Text style={styles.paymentMethodText}>Cash</Text>
+                {t('Payment:')}{' '}
+                <Text style={styles.paymentMethodText}>{t('Cash')}</Text>
               </Text>
             </View>
           </View>
@@ -65,11 +67,11 @@ const Postcard = (data: PastCardProps) => {
               </View>
               <View style={styles.addressContainer}>
                 <View style={styles.addressBlock}>
-                  <Text style={styles.labelText}>From</Text>
+                  <Text style={styles.labelText}>{t('From')}</Text>
                   <Text style={styles.addressText}>{data?.pick_up_adds}</Text>
                 </View>
                 <View style={styles.addressBlockTo}>
-                  <Text style={styles.labelText}>To</Text>
+                  <Text style={styles.labelText}>{t('To')}</Text>
                   <Text style={styles.addressText} lineBreakMode="clip">
                     {data?.drop_of_adds}
                   </Text>
@@ -83,7 +85,7 @@ const Postcard = (data: PastCardProps) => {
           <Pressable style={styles.detailsBlock}>
             <Image source={Images.Person} style={styles.detailIcon} />
             <View style={styles.detailTextContainer}>
-              <Text style={styles.detailLabelText}>Persons</Text>
+              <Text style={styles.detailLabelText}>{t('Persons')}</Text>
               <Text style={styles.detailValueText}>
                 {data?.total_passenger}
               </Text>
@@ -92,7 +94,7 @@ const Postcard = (data: PastCardProps) => {
           <Pressable style={[styles.detailsBlock, styles.detailsBlockMargin]}>
             <Image source={Images.car} style={styles.detailIcon} />
             <View style={styles.detailTextContainer}>
-              <Text style={styles.detailLabelText}>Car Type</Text>
+              <Text style={styles.detailLabelText}>{t('Car Type')}</Text>
               <Text style={styles.detailValueText}>
                 {
                   CarData?.filter(i => i?.value == parseInt(data?.car_type))[0]
@@ -105,12 +107,12 @@ const Postcard = (data: PastCardProps) => {
         <Pressable style={styles.bookingForContainer}>
           <Image source={Images.userblue} style={styles.detailIcon} />
           <View style={styles.bookingForTextContainer}>
-            <Text style={styles.detailLabelText}>Booking For</Text>
+            <Text style={styles.detailLabelText}>{t('Booking For')}</Text>
             <View style={styles.bookingForDetails}>
               <Text style={styles.bookingForName}>{data?.full_name}</Text>
               <View style={styles.divider} />
               <Text style={styles.bookingForContact}>
-                Mo: {data?.phone_number}
+                {t('Mo:')} {data?.phone_number}
               </Text>
             </View>
           </View>
@@ -138,7 +140,7 @@ const Postcard = (data: PastCardProps) => {
             <AuthButton
               textStyle={styles.authButtonText}
               onPress={() => setVisible(true)}
-              title={'Rate Now'}
+              title={t('Rate Now')}
               Mystyle={styles.authButton}
             />
           </View>
@@ -156,7 +158,7 @@ const Postcard = (data: PastCardProps) => {
                 },
               ]}>
               <FlexDirRow>
-                <Text style={medium(13, '#7B7B7B')}>You Rated</Text>
+                <Text style={medium(13, '#7B7B7B')}>{t('You Rated')}</Text>
                 <Image
                   source={Images.filledstar}
                   tintColor={Colors.yellow}

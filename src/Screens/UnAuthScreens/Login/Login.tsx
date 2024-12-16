@@ -1,5 +1,5 @@
 import {Image, Platform, Pressable, StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import Colors from '../../../constants/Colors';
 import {DEV_MODE, moderateScale} from '../../../constants/Utils';
 import MyKeyboardAvoidingScrollView from '../../../components/Scrollview/MyKeyboardAvoidingScrollView';
@@ -15,22 +15,27 @@ import {ENDPOINTS} from '../../../constants/API.Constants';
 import {useFormik} from 'formik';
 import {store} from '../../../Store/Store';
 import {
+  setIsIntroDone,
   setUserData,
   setUserToken,
   UserisUserAuthenticated,
 } from '../../../Store/Data/Auth/AuthSlice';
 import {loginSchema} from '../../../utils/schema/Auth.schema';
-import {generateToken} from '../../../Services/notificationServices';
+import {t} from 'i18next';
 
 const Login = () => {
   const initialValues = {
     email: DEV_MODE ? 'test@gmail.com' : '',
     password: DEV_MODE ? '123456789' : '',
   };
+  useEffect(() => {
+    store.dispatch(setIsIntroDone(true));
+  }, []);
   const formik = useFormik({
     initialValues,
     onSubmit: async values => {
-      let deviceId = await generateToken();
+      // let deviceId = await generateToken();
+      let deviceId = 'aff';
       // console.log(values);
       const data = {
         email: values.email,
@@ -48,7 +53,7 @@ const Login = () => {
           console.log(err);
         });
     },
-    validationSchema: loginSchema,
+    validationSchema: loginSchema(),
   });
   return (
     <View style={styles.container}>
@@ -63,18 +68,18 @@ const Login = () => {
             source={Images.intro}
             style={styles.logo}
           />
-          <Text style={styles.loginText}>Login</Text>
+          <Text style={styles.loginText}>{t('Login')}</Text>
 
           <View style={styles.inputContainer}>
             <InputFields
-              placeholder="Email"
+              placeholder={t('Email')}
               lImg={Images.email}
               keyboardType="email-address"
               {...{formik}}
               name="email"
             />
             <InputFields
-              placeholder="Password"
+              placeholder={t('Password')}
               lImg={Images.Password}
               rImg={Images.eye_close}
               {...{formik}}
@@ -85,10 +90,12 @@ const Login = () => {
               onPress={() => {
                 navigate('ForgotPassword');
               }}>
-              <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
+              <Text style={styles.forgotPasswordText}>
+                {t('Forgot Password?')}
+              </Text>
             </Pressable>
             <AuthButton
-              title="Login"
+              title={t('Login')}
               mt={moderateScale(20)}
               onPress={() => {
                 formik.handleSubmit();
@@ -98,8 +105,8 @@ const Login = () => {
         </View>
       </MyKeyboardAvoidingScrollView>
       <NavigationText
-        title="Don’t have an account?"
-        Prestext="Register."
+        title={t('Don’t have an account?')}
+        Prestext={t('Register.')}
         onPress={() => {
           navigate('Register');
         }}

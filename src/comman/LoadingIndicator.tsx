@@ -1,6 +1,5 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
-const {Dialog} = require('react-native-popup-dialog');
 import {BallIndicator} from 'react-native-indicators';
 import {Modal} from 'react-native';
 import Colors from '../constants/Colors';

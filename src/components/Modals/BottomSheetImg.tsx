@@ -22,6 +22,7 @@ import Colors from '../../constants/Colors';
 import Popup from './Popup';
 import Modal from 'react-native-modal';
 import {Options} from 'react-native-image-crop-picker';
+import {t} from 'i18next';
 
 type BottomSheetImgPropType = {
   bottomSheetVisible: boolean;
@@ -140,7 +141,7 @@ export const BottomSheetImg = ({
               color: 'black',
               paddingVertical: 15,
             }}>
-            Upload Photo
+            {t('Upload Photo')}
           </Text>
           <View style={{flexDirection: 'row'}}>
             <View>
@@ -157,7 +158,7 @@ export const BottomSheetImg = ({
                 }}>
                 <Image source={Images.Camera} style={{...SQUARE(WIDTH / 11)}} />
               </Pressable>
-              <Text style={styles.text2}>Camera</Text>
+              <Text style={styles.text2}>{t('Camera')}</Text>
             </View>
 
             <View>
@@ -176,7 +177,7 @@ export const BottomSheetImg = ({
                   style={[{...SQUARE(WIDTH / 11)}]}
                 />
               </Pressable>
-              <Text style={styles.text2}>Gallery</Text>
+              <Text style={styles.text2}>{t('Gallery')}</Text>
             </View>
           </View>
         </View>

@@ -24,6 +24,10 @@ export type UnUnAuthStackParamsList = {
   PersonalInformation: undefined;
   EmployeeLists: undefined;
   AddEmployee: undefined;
+  NewPassword: undefined;
+  ForgotEmailVerfication: {
+    email: string;
+  };
   EmailVerification: {
     email: string;
     data: any;

@@ -25,6 +25,7 @@ import {
 import {ENDPOINTS} from '../../../../../constants/API.Constants';
 import {store} from '../../../../../Store/Store';
 import {Options} from 'react-native-image-crop-picker';
+import {t} from 'i18next';
 
 const ImageOptions: Options = {
   mediaType: 'photo',
@@ -48,7 +49,7 @@ const EditProfile = () => {
       company_name: data?.company_name,
       email: data?.email,
     },
-    validationSchema: editProfileSchema,
+    validationSchema: editProfileSchema(),
     onSubmit: values => {
       const formData: ImageFormData = [];
       if (UserProfileImage?.path) {
@@ -79,7 +80,7 @@ const EditProfile = () => {
         flex: 1,
         backgroundColor: Colors.white,
       }}>
-      <NavHeader title="Edit Profile" />
+      <NavHeader title={t('Edit Profile')} />
       <BottomSheetImg
         {...{bottomSheetVisible, setBottomSheetVisible}}
         setUserProfileImage={setsetUserProfileImage}
@@ -87,7 +88,8 @@ const EditProfile = () => {
       />
       <MyKeyboardAvoidingScrollView
         style={{
-          paddingHorizontal: 20,
+          width: '90%',
+          alignSelf: 'center',
         }}>
         <AvatarImg
           defaultSource={
@@ -105,35 +107,35 @@ const EditProfile = () => {
             marginTop: moderateScale(60),
           }}>
           <LabelInputField
-            placeholder="Full Name"
-            label="Full Name"
+            placeholder={t('Full Name')}
+            label={t('Full Name')}
             name="full_name"
             {...{formik}}
           />
           <LabelInputField
-            placeholder="Company Name"
-            label="Company Name"
+            placeholder={t('Company Name')}
+            label={t('Company Name')}
             name="company_name"
             {...{formik}}
             TextInputProps={{editable: false}}
           />
           <LabelInputField
-            placeholder="Mobile Number"
-            label="Mobile Number"
+            placeholder={t('Mobile Number')}
+            label={t('Mobile Number')}
             {...{formik}}
             name="phone_number"
             TextInputProps={{editable: false}}
           />
           <LabelInputField
-            placeholder="Email Address"
-            label="Email Address"
+            placeholder={t('Email Address')}
+            label={t('Email Address')}
             {...{formik}}
             name="email"
             TextInputProps={{editable: false}}
           />
         </View>
       </MyKeyboardAvoidingScrollView>
-      <AuthButton title="Save" isbottom onPress={formik.handleSubmit} />
+      <AuthButton title={t('Save')} isbottom onPress={formik.handleSubmit} />
     </View>
   );
 };

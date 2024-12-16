@@ -12,6 +12,7 @@ import {
   Pressable,
   ImageStyle,
   Platform,
+  I18nManager,
 } from 'react-native';
 import React, {useEffect, useMemo, useState} from 'react';
 import {FormikErrors, FormikTouched, useFormik} from 'formik';
@@ -155,11 +156,18 @@ const InputFields: React.FC<InputFieldsProps> = ({
             placeholderTextColor={'#A2A2A4'}
             autoCapitalize="none"
             caretHidden={false}
+            i18nIsDynamicList={true}
             {...(keyboardType == 'email-address' && {
               textContentType: 'emailAddress',
               autoComplete: 'email',
             })}
-            style={[styles.textInputStyle, TextInputProps?.style]}
+            style={[
+              styles.textInputStyle,
+              TextInputProps?.style,
+              {
+                textAlign: I18nManager.isRTL ? 'right' : 'left',
+              },
+            ]}
             {...withoutStyleProps}
           />
 

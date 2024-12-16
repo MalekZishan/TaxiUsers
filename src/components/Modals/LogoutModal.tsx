@@ -33,6 +33,7 @@ import {store} from '../../Store/Store';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {regular, semiBold} from '../CustomFont/MyFont';
 import {UserisUserAuthenticated} from '../../Store/Data/Auth/AuthSlice';
+import {t} from 'i18next';
 
 type Props = {
   visible: boolean;
@@ -94,7 +95,7 @@ const LogoutModal = ({visible, setVisible}: Props) => {
                   paddingHorizontal: moderateScale(20),
                 },
               ]}>
-              {'Logout!'}
+              {t('Logout!')}
             </Text>
             <Text
               style={[
@@ -104,7 +105,7 @@ const LogoutModal = ({visible, setVisible}: Props) => {
                   // alignSelf: 'center',
                 },
               ]}>
-              Are you sure you want to logout?
+              {t('Are you sure you want to logout?')}
             </Text>
 
             <View
@@ -132,7 +133,7 @@ const LogoutModal = ({visible, setVisible}: Props) => {
                       setVisible(false);
                     }, 200);
                   }}
-                  title="Cancel"
+                  title={t('Cancel')}
                   Mystyle={{
                     backgroundColor: Colors.black,
                     height: 35,
@@ -151,10 +152,9 @@ const LogoutModal = ({visible, setVisible}: Props) => {
                   Mystyle={{
                     height: 35,
                   }}
-                  title="Logout"
+                  title={t('Logout')}
                   onPress={() => {
                     store.dispatch(UserisUserAuthenticated(false));
-
                     Scale.value = withSpring(0);
                     setTimeout(() => {
                       setVisible(false);

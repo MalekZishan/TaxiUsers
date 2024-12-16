@@ -8,9 +8,11 @@ import AuthButton from '../../../../../components/Button/AuthButton';
 import Drivercard from './Drivercard';
 import {NewBookingResponse} from '../../../../../Models/Booking/booking.modal';
 import {navigate} from '../../../../../Services/NavigationService';
+import {useTranslation} from 'react-i18next';
 
 interface NewCardProps extends NewBookingResponse {}
 const NewCard = (data: NewCardProps) => {
+  const {t} = useTranslation();
   const onGetDirection = () => {
     navigate('DriverLocation', {...data});
   };
@@ -22,7 +24,8 @@ const NewCard = (data: NewCardProps) => {
           <Text style={styles.priceText}>$ {data?.price}</Text>
         </View>
         <Text style={styles.bookingIdText}>
-          Booking ID: <Text style={styles.bookingIdValueText}>{data?.id}</Text>
+          {t('Booking ID:')}{' '}
+          <Text style={styles.bookingIdValueText}>{data?.id}</Text>
         </Text>
         <View style={styles.locationContainer}>
           <View style={styles.locationRow}>
@@ -41,13 +44,13 @@ const NewCard = (data: NewCardProps) => {
             </View>
             <View style={[styles.addressContainer, {flex: 1}]}>
               <View style={styles.addressBlock}>
-                <Text style={styles.labelText}>From</Text>
+                <Text style={styles.labelText}>{t('From')}</Text>
                 <Text style={[styles.addressText, {width: '100%', flex: 1}]}>
                   {data?.pick_up_adds}
                 </Text>
               </View>
               <View style={styles.addressBlockTo}>
-                <Text style={styles.labelText}>To</Text>
+                <Text style={styles.labelText}>{t('To')}</Text>
                 <Text style={[styles.addressText, {width: '100%'}]}>
                   {data?.drop_of_adds}
                 </Text>
@@ -59,7 +62,7 @@ const NewCard = (data: NewCardProps) => {
           <Pressable style={styles.detailsBlock}>
             <Image source={Images.Person} style={styles.detailIcon} />
             <View style={styles.detailTextContainer}>
-              <Text style={styles.detailLabelText}>Persons</Text>
+              <Text style={styles.detailLabelText}>{t('Persons')}</Text>
               <Text style={styles.detailValueText}>
                 {data?.total_passenger}
               </Text>
@@ -68,7 +71,7 @@ const NewCard = (data: NewCardProps) => {
           <Pressable style={[styles.detailsBlock, styles.detailsBlockMargin]}>
             <Image source={Images.car} style={styles.detailIcon} />
             <View style={styles.detailTextContainer}>
-              <Text style={styles.detailLabelText}>Car Type</Text>
+              <Text style={styles.detailLabelText}>{t('Car Type')}</Text>
               <Text style={styles.detailValueText}>{data?.car_type}</Text>
             </View>
           </Pressable>
@@ -76,14 +79,14 @@ const NewCard = (data: NewCardProps) => {
         <Pressable style={styles.bookingForContainer}>
           <Image source={Images.userblue} style={styles.detailIcon} />
           <View style={styles.bookingForTextContainer}>
-            <Text style={styles.detailLabelText}>Booking For</Text>
+            <Text style={styles.detailLabelText}>{t('Booking For')}</Text>
             <View style={styles.bookingForDetails}>
               <Text style={styles.bookingForName} numberOfLines={1}>
                 {data?.full_name}
               </Text>
               <View style={styles.divider} />
               <Text style={styles.bookingForContact}>
-                Mo: {data?.phone_number}
+                {t('Mo:')} {data?.phone_number}
               </Text>
             </View>
           </View>
@@ -91,7 +94,7 @@ const NewCard = (data: NewCardProps) => {
 
         {data?.driver_id == null && (
           <AuthButton
-            title="Driver details assigned soon"
+            title={t('Driver details assigned soon')}
             mt={20}
             textStyle={styles.authButtonText}
             Mystyle={styles.authButton}

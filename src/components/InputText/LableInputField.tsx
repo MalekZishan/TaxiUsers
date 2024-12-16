@@ -33,7 +33,13 @@ const LabelInputField: React.FC<PropsLabelInputFieldProps> = props => {
         props.pressableStyle,
       ]}
       onPress={props.TextInputProps?.onPressIn}>
-      <View style={[{flexDirection: 'row', justifyContent: 'space-between'}]}>
+      <View
+        style={[
+          {
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          },
+        ]}>
         <Text
           style={[
             {

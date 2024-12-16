@@ -11,6 +11,7 @@ import LogoutModal from '../../../../components/Modals/LogoutModal';
 import {useAppSelector} from '../../../../Hooks/ReduxHooks';
 import {userDataSelector} from '../../../../Store/Data/Auth/AuthSlice';
 import {imgSrc} from '../../../../ApiService/core/ApiRequest';
+import {t} from 'i18next';
 
 const Profile = () => {
   const userData = useAppSelector(userDataSelector).data;
@@ -20,12 +21,12 @@ const Profile = () => {
     {
       icon: Images.edit_Profile,
       screenName: 'EditProfile',
-      title: 'Edit Profile',
+      title: t('Edit Profile'),
     },
     {
       icon: Images.employee,
       screenName: 'EmployeeLists',
-      title: 'Employee List',
+      title: t('Employee List'),
     },
     // {
     //   icon: Images.wallet,
@@ -35,23 +36,22 @@ const Profile = () => {
     {
       icon: Images.settings,
       screenName: 'Setting',
-      title: 'Setting',
+      title: t('Setting'),
     },
     {
       icon: Images.terms_and_condition,
       screenName: 'TremCon',
-      title: 'Privacy Policy',
+      title: t('Privacy Policy'),
     },
     {
       icon: Images.logout,
       screenName: '',
-      title: 'Logout',
+      title: t('Logout'),
       onpress: () => {
         setVisible(true);
       },
     },
   ];
-  console.log(imgSrc(userData?.profile_pic));
   return (
     <View
       style={{
@@ -59,7 +59,7 @@ const Profile = () => {
         backgroundColor: Colors.white,
       }}>
       <LogoutModal {...{visible, setVisible}} />
-      <NavHeader hideBackBtn title="My Profile" />
+      <NavHeader hideBackBtn title={t('My Profile')} />
       <View style={styles.profileContainer}>
         <View style={styles.profileInfo}>
           <Image

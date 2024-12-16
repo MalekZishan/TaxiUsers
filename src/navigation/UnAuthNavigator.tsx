@@ -1,7 +1,6 @@
 import {StatusBar, StyleSheet} from 'react-native';
 import React from 'react';
 import {CardStyleInterpolators} from '@react-navigation/stack';
-import BottomTabs from './BottomTabs';
 import {Stack} from './RootNavigator';
 import {ScreenTypes} from '../Models/Navigation/NavigationModels';
 import Login from '../Screens/UnAuthScreens/Login/Login';
@@ -11,9 +10,11 @@ import Register from '../Screens/UnAuthScreens/Register/Register';
 import {userDataSelector} from '../Store/Data/Auth/AuthSlice';
 import {useAppSelector} from '../Hooks/ReduxHooks';
 import EmailVerification from '../Screens/UnAuthScreens/Register/EmailVerification';
+import ForgotEmailVerfication from '../Screens/UnAuthScreens/ForgotPassword/ForgotEmailVerfication';
+import NewPassword from '../Screens/UnAuthScreens/ForgotPassword/NewPassword';
 
 const UnAuthNavigator = () => {
-  const {Issplash} = useAppSelector(userDataSelector);
+  const {isIntroDone} = useAppSelector(userDataSelector);
 
   const Screens: ScreenTypes = [
     {
@@ -46,13 +47,25 @@ const UnAuthNavigator = () => {
       Component: OnBoardScreen,
       options: {headerShown: false},
     },
+    {
+      name: 'NewPassword',
+      title: 'NewPassword',
+      Component: NewPassword,
+      options: {headerShown: false},
+    },
+    {
+      name: 'ForgotEmailVerfication',
+      title: 'ForgotEmailVerfication',
+      Component: ForgotEmailVerfication,
+      options: {headerShown: false},
+    },
   ];
 
   return (
     <>
       <StatusBar translucent backgroundColor={'transparent'} />
       <Stack.Navigator
-        initialRouteName={'OnBoardScreen'}
+        initialRouteName={isIntroDone ? 'Login' : 'OnBoardScreen'}
         screenOptions={({}) => ({
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
           headerTitleAlign: 'center',

@@ -1,3 +1,4 @@
+require_relative '../node_modules/react-native-permissions/scripts/setup'
 # Resolve react_native_pods.rb with node to allow for hoisting
 require Pod::Executable.execute_command('node', ['-p',
   'require.resolve(
@@ -5,9 +6,8 @@ require Pod::Executable.execute_command('node', ['-p',
     {paths: [process.argv[1]]},
   )', __dir__]).strip
 
-platform :ios, min_ios_version_supported
+platform :ios, '15.4'
 prepare_react_native_project!
-require_relative '../node_modules/react-native-permissions/scripts/setup'
 
 setup_permissions([
   'Camera',
@@ -25,9 +25,11 @@ if linkage != nil
 end
 
 target 'TaxiUsers' do
-  rn_maps_path = '../node_modules/react-native-maps'
-pod 'react-native-google-maps', :path => rn_maps_path
   config = use_native_modules!
+  rn_maps_path = '../node_modules/react-native-maps'
+  pod 'react-native-google-maps', :path => rn_maps_path
+  pod 'GoogleMaps'
+  pod 'Google-Maps-iOS-Utils'
 
   use_react_native!(
     :path => config[:reactNativePath],
@@ -48,5 +50,29 @@ pod 'react-native-google-maps', :path => rn_maps_path
       :mac_catalyst_enabled => false,
       # :ccache_enabled => true
     )
+     # Fix for BoringSSL-GRPC issue
+     installer.pods_project.targets.each do |target|
+      if target.name == 'BoringSSL-GRPC'
+        target.source_build_phase.files.each do |file|
+          if file.settings && file.settings['COMPILER_FLAGS']
+            flags = file.settings['COMPILER_FLAGS'].split
+            flags.reject! { |flag| flag == '-GCC_WARN_INHIBIT_ALL_WARNINGS' }
+            file.settings['COMPILER_FLAGS'] = flags.join(' ')
+          end
+        end
+      end
+    end
   end
 end
+
+def node_require(script)
+  # Resolve script with node to allow for hoisting
+  require Pod::Executable.execute_command('node', ['-p',
+    "require.resolve(
+      '#{script}',
+      {paths: [process.argv[1]]},
+    )", __dir__]).strip
+end
+
+node_require('react-native/scripts/react_native_pods.rb')
+node_require('react-native-permissions/scripts/setup.rb')

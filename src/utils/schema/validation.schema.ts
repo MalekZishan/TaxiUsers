@@ -1,14 +1,18 @@
 import {object, string} from 'yup';
 import {emailReg} from '../../constants/Utils';
+import {t} from 'i18next';
 
 export const stringValidation = (name: string, min = 1, max = 255) => {
   return string()
-    .required(`${name as any} ${'is required'}`)
+    .required(`${name as any} ${t('is required')}`)
     .min(
       min,
-      `${name as any} ${'must be at least'} ${min} ${'characters long'}`,
+      `${name as any} ${t('must be at least')} ${min} ${t('characters long')}`,
     )
-    .max(max, `${name as any} ${'must be at most'} ${max} ${'characters long'}`)
+    .max(
+      max,
+      `${name as any} ${t('must be at most')} ${max} ${t('characters long')}`,
+    )
     .trim();
 };
 
@@ -17,11 +21,11 @@ export const customStringValidation = (message: string) => {
 };
 
 export const addStrValidation = () => {
-  return customStringValidation('Invalid Address Choose Different Address');
+  return customStringValidation(t('Invalid Address Choose Different Address'));
 };
 
 export const yupObj = object();
 
 export const Email = string()
-  .matches(emailReg, {message: 'Invalid Email'})
-  .required('Email is required');
+  .matches(emailReg, {message: t('Invalid Email')})
+  .required(t('Email is required'));

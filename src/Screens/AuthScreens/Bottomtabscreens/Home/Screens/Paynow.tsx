@@ -13,6 +13,7 @@ import LabelInputField from '../../../../../components/InputText/LableInputField
 import DropDown from '../../../../../components/DropDown';
 import {data} from './BookingRequirement';
 import Fonts from '../../../../../constants/Fonts';
+import {t} from 'i18next';
 
 const Paynow = () => {
   const [Status, setStatus] = useState<'Credit Card' | 'Cash'>('Credit Card');
@@ -28,7 +29,7 @@ const Paynow = () => {
   ];
   return (
     <View style={styles.container}>
-      <NavHeader title="Pay Now" />
+      <NavHeader title={t('Pay Now')} />
       <View style={styles.statusContainer}>
         {StatusData.map((item, index) => (
           <View
@@ -63,14 +64,14 @@ const Paynow = () => {
             style={styles.cardImage}
           />
           <LabelInputField
-            label="Name on Card"
-            placeholder="Name on Card"
+            label={t('Name on Card')}
+            placeholder={t('Name on Card')}
             lImg={Images.userblue}
             lImageStyle={styles.inputImageStyle}
           />
           <LabelInputField
-            label="Card Number"
-            placeholder="Card Number"
+            label={t('Card Number')}
+            placeholder={t('Card Number')}
             lImg={Images.card1}
             keyboardType="name-phone-pad"
             lImageStyle={styles.inputImageStyle}
@@ -79,23 +80,23 @@ const Paynow = () => {
           <View style={styles.expiryContainer}>
             <View style={styles.expiryRow}>
               <View style={styles.expiryBlock}>
-                <Text style={styles.labelText}>{'Expiry Date'}</Text>
-                <DropDown items={data} placeholder="MM" />
+                <Text style={styles.labelText}>{t('Expiry Date')}</Text>
+                <DropDown items={data} placeholder={t('MM')} />
               </View>
               <View style={styles.yearBlock}>
                 <Text style={styles.emptyLabelText}></Text>
-                <DropDown items={data} placeholder="YYYY" />
+                <DropDown items={data} placeholder={t('YYYY')} />
               </View>
               <View style={styles.cvvBlock}>
-                <LabelInputField placeholder="CVV" label="CVV" />
+                <LabelInputField placeholder={t('CVV')} label={t('CVV')} />
               </View>
             </View>
           </View>
-          <AuthButton mt={20} title="Pay Now" />
+          <AuthButton mt={20} title={t('Pay Now')} />
         </View>
 
         <View style={styles.billDetailContainer}>
-          <Text style={styles.billDetailTitle}>Bill Detail</Text>
+          <Text style={styles.billDetailTitle}>{t('Bill Detail')}</Text>
           <View style={styles.billRow}>
             <Text style={styles.billLabel}>Fare Price</Text>
             <Text style={styles.billValue}>$ 178</Text>

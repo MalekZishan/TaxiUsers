@@ -11,6 +11,7 @@ import {ENDPOINTS} from '../../../../../constants/API.Constants';
 import {goBack} from '../../../../../Services/NavigationService';
 import {apiWithToken} from '../../../../../ApiService/core/ApiRequest';
 import {useFormik} from 'formik';
+import {t} from 'i18next';
 
 const ChangePassword = () => {
   const initialValues = {
@@ -36,12 +37,12 @@ const ChangePassword = () => {
           );
         });
     },
-    validationSchema: changePassSchema,
+    validationSchema: changePassSchema(),
   });
 
   return (
     <View style={Styles.flex1}>
-      <NavHeader title="Change Password" />
+      <NavHeader title={t('Change Password')} />
       <MyKeyboardAvoidingScrollView
         style={{
           paddingHorizontal: 15,
@@ -64,21 +65,21 @@ const ChangePassword = () => {
             flex: 1,
           }}>
           <InputFields
-            placeholder="Current Password"
+            placeholder={t('Current Password')}
             lImg={Images.Password}
             {...{formik}}
             name="oldPassword"
             rImg={Images.eye_open}
           />
           <InputFields
-            placeholder="New Password"
+            placeholder={t('New Password')}
             rImg={Images.eye_open}
             {...{formik}}
             lImg={Images.Password}
             name={'newPassword'}
           />
           <InputFields
-            placeholder="Confirm New Password"
+            placeholder={t('Confirm New Password')}
             lImg={Images.Password}
             {...{formik}}
             name={'confirmPassword'}
@@ -87,7 +88,7 @@ const ChangePassword = () => {
       </MyKeyboardAvoidingScrollView>
 
       <AuthButton
-        title="Reset Password"
+        title={t('Reset Password')}
         isbottom
         onPress={() => {
           formik.handleSubmit();
