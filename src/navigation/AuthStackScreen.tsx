@@ -3,6 +3,7 @@ import BookingRequirement from '../Screens/AuthScreens/Bottomtabscreens/Home/Scr
 import Chat from '../Screens/AuthScreens/Bottomtabscreens/Home/Screens/Chat';
 import DriverLocation from '../Screens/AuthScreens/Bottomtabscreens/Home/Screens/DriverLocation';
 import Paynow from '../Screens/AuthScreens/Bottomtabscreens/Home/Screens/Paynow';
+import Notification from '../Screens/AuthScreens/Bottomtabscreens/Notification/Notification';
 import ChangePassword from '../Screens/AuthScreens/Bottomtabscreens/Profile/componets/ChangePassword';
 import EditProfile from '../Screens/AuthScreens/Bottomtabscreens/Profile/componets/EditProfile';
 import Setting from '../Screens/AuthScreens/Bottomtabscreens/Profile/componets/Setting';
@@ -77,6 +78,12 @@ export const Screens: ScreenTypes = [
     name: 'AddEmployee',
     title: 'AddEmployee',
     Component: AddEmployee,
+    options: {headerShown: false},
+  },
+  {
+    name: 'Notification',
+    title: 'Notification',
+    Component: Notification,
     options: {headerShown: false},
   },
 ];

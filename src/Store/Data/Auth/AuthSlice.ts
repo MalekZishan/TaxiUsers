@@ -103,6 +103,12 @@ const UserSlice = createSlice({
     setIsIntroDone: (state, action: PayloadAction<userData['isIntroDone']>) => {
       state.isIntroDone = action.payload;
     },
+    setNotificationCount: (
+      state,
+      action: PayloadAction<userData['notificationCount']>,
+    ) => {
+      state.notificationCount = action.payload;
+    },
   },
 });
 
@@ -118,5 +124,6 @@ export const {
   UserisUserAuthenticated,
   setGlobalLanguage,
   updateUserData,
+  setNotificationCount,
   setIsIntroDone,
 } = UserSlice.actions;

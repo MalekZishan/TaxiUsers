@@ -15,7 +15,10 @@ export const ENDPOINTS = {
   NewBookingList: '/NewBookingList',
   PastBookingList: '/PastBookingList',
   RateDriver: '/RateDriver',
-  ForgotOTP: '/driver/auth/ForgotOTP',
-  NewPassword: '/driver/auth/NewPassword',
-  ForgotOtpVerification: '/driver/auth/ForgotOtpVerification',
+  ForgotOTP: '/company/auth/ForgotOTP',
+  NewPassword: '/company/auth/NewPassword',
+  ForgotOtpVerification: '/company/auth/ForgotOtpVerification',
+
+  // Notifications
+  Notification: '/company/Notifications',
 };

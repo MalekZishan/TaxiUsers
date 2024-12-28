@@ -7,5 +7,5 @@ export interface UsersTypes {
   package_tier_id: string;
   phone_number: string;
   profile_pic: string;
-  user_type: string;
+  user_type: '1' | '2';
 }

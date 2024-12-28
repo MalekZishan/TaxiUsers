@@ -15,6 +15,7 @@ import {t} from 'i18next';
 
 const Profile = () => {
   const userData = useAppSelector(userDataSelector).data;
+  console.log('🚀 ~ Profile ~ userData:', userData);
 
   const [visible, setVisible] = useState(false);
   let Data = [
@@ -73,9 +74,15 @@ const Profile = () => {
       </View>
       <Flex1 style={{...Styles.container, backgroundColor: 'white'}}>
         <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
-          {Data.map(item => (
-            <SettingList {...item} key={item.title} />
-          ))}
+          {Data.map(item => {
+            if (
+              userData?.user_type === '2' &&
+              item.screenName === 'EmployeeLists'
+            ) {
+              return null;
+            }
+            return <SettingList {...item} key={item.title} />;
+          })}
         </ScrollView>
       </Flex1>
     </View>

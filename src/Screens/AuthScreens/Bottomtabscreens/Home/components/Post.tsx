@@ -7,56 +7,96 @@ import {apiWithToken} from '../../../../../ApiService/core/ApiRequest';
 import {ENDPOINTS} from '../../../../../constants/API.Constants';
 import {PastBoookingResponse} from '../../../../../Models/Booking/booking.modal';
 import {medium} from '../../../../../components/CustomFont/MyFont';
-import {moderateScale} from '../../../../../constants/Utils';
+import {moderateScale, MT} from '../../../../../constants/Utils';
+import {MaterialIndicator} from 'react-native-indicators';
 import {t} from 'i18next';
 
 const Post = () => {
-  const [oldBooking, setOldBooking] = useState<PastBoookingResponse[]>([]);
+  const [newBooking, setNewBooking] = useState<PastBoookingResponse[]>([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [last_id, setLast_id] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
   useFocusEffect(
     React.useCallback(() => {
-      fetchNewBooking();
+      fetchNewBooking({last_id});
     }, []),
   );
-
-  const fetchNewBooking = () => {
+  const fetchNewBooking = ({last_id}: {last_id: any}) => {
     const data = {
-      last_id: 0,
+      last_id: last_id,
     };
+    setIsLoading(true);
     apiWithToken(ENDPOINTS.PastBookingList, 'POST', data, true, true)
       .then(res => {
-        console.log('🚀 ~ fetchNewBooking ~ res:', res);
-        setOldBooking(res.data);
+        setHasMore(res?.pagination?.has_next);
+        setLast_id(res?.pagination?.next_id);
+        setNewBooking(prev => {
+          if (last_id == 0) {
+            return [...res?.data];
+          } else {
+            return [...(prev || []), ...res?.data];
+          }
+        });
+      })
+      .catch(() => {
+        setHasMore(false);
       })
       .finally(() => {
         setIsRefreshing(false);
+        setIsLoading(false);
       });
+  };
+
+  const handleNext = () => {
+    if (hasMore && !isLoading && newBooking?.length > 0) {
+      fetchNewBooking({last_id: last_id});
+    }
   };
 
   return (
     <>
       <FlatList
-        data={oldBooking}
+        data={newBooking}
+        ListEmptyComponent={() => {
+          return (
+            <>
+              {!isLoading && (
+                <Text
+                  style={[
+                    medium(20),
+                    {alignSelf: 'center', marginTop: moderateScale(200)},
+                  ]}>
+                  {t('No Booking Found')}
+                </Text>
+              )}
+            </>
+          );
+        }}
         refreshControl={
           <RefreshControl
             refreshing={isRefreshing}
             tintColor={Colors.blue}
             onRefresh={() => {
               setIsRefreshing(true);
-              fetchNewBooking();
+              fetchNewBooking({last_id: 0});
             }}
           />
         }
-        ListEmptyComponent={() => {
+        onEndReached={handleNext}
+        keyExtractor={(item, index) => index.toString()}
+        ListFooterComponent={() => {
           return (
             <>
-              <Text
-                style={[
-                  medium(20),
-                  {alignSelf: 'center', marginTop: moderateScale(200)},
-                ]}>
-                {t('No Booking Found')}
-              </Text>
+              {isLoading && (
+                <View style={MT(20)}>
+                  <MaterialIndicator
+                    size={50}
+                    color={Colors.blue}
+                    trackWidth={1}
+                  />
+                </View>
+              )}
             </>
           );
         }}

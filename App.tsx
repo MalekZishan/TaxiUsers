@@ -29,7 +29,6 @@ const App: React.FC<Props> = ({}) => {
               translucent
               animated={true}
             />
-
             <RootNavigator key={'Drive Easy'} />
           </PersistGate>
         </Provider>

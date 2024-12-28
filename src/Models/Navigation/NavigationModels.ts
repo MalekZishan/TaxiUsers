@@ -44,6 +44,7 @@ export type AuthStack = {
   Chat: NewBookingResponse;
   DriverLocation: NewBookingResponse;
   Paynow: undefined;
+  Notification: undefined;
 };
 
 export type BottomTabStackParamsList = {

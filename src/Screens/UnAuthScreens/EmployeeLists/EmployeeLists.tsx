@@ -2,7 +2,6 @@ import {FlatList, Image, StyleSheet, Text, View} from 'react-native';
 import React, {useState} from 'react';
 import NavHeader from '../../../components/Headers/NavHeader';
 import Colors from '../../../constants/Colors';
-import Images from '../../../constants/Images';
 import AuthButton from '../../../components/Button/AuthButton';
 import {
   CIRCLE,
@@ -29,21 +28,28 @@ import {
 } from '../../../components/CustomFont/MyFont';
 import Flex1 from '../../../components/Layouts/Flex1';
 import {t} from 'i18next';
+import {MaterialIndicator} from 'react-native-indicators';
 
 type Props = {};
 
 const EmployeeLists = (props: Props) => {
   const [employees, setEmployeesLists] = useState<EmployeeList[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
   useFocusEffect(
     React.useCallback(() => {
+      setIsLoading(true);
       fetcEmployees();
     }, []),
   );
   const fetcEmployees = () => {
-    const showLoader = employees.length !== 0;
-    apiWithToken(ENDPOINTS.GetEmployees, 'GET', '', showLoader).then(res => {
-      setEmployeesLists(res?.data);
-    });
+    apiWithToken(ENDPOINTS.GetEmployees, 'GET', '', true)
+      .then(res => {
+        setEmployeesLists(res?.data);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
   return (
     <>
@@ -73,12 +79,33 @@ const EmployeeLists = (props: Props) => {
           ListEmptyComponent={() => {
             return (
               <>
-                <Flex1>
-                  <Text
-                    style={[medium(20), {textAlign: 'center'}, MT(HEIGHT / 3)]}>
-                    {t('No Employee Added')}
-                  </Text>
-                </Flex1>
+                {!isLoading && (
+                  <Flex1>
+                    <Text
+                      style={[
+                        medium(20),
+                        {textAlign: 'center'},
+                        MT(HEIGHT / 3),
+                      ]}>
+                      {t('No Employee Added')}
+                    </Text>
+                  </Flex1>
+                )}
+              </>
+            );
+          }}
+          ListFooterComponent={() => {
+            return (
+              <>
+                {isLoading && (
+                  <View style={MT(20)}>
+                    <MaterialIndicator
+                      size={50}
+                      color={Colors.blue}
+                      trackWidth={1}
+                    />
+                  </View>
+                )}
               </>
             );
           }}

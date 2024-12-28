@@ -20,8 +20,10 @@ import {useAppSelector} from '../../../../Hooks/ReduxHooks';
 import {userDataSelector} from '../../../../Store/Data/Auth/AuthSlice';
 import Images from '../../../../constants/Images';
 import {t} from 'i18next';
+import {UseNotificationCount} from '../../../../Hooks/API/UseNotification';
 
 const Home = () => {
+  UseNotificationCount();
   const data = useAppSelector(userDataSelector);
   const [Visible, setVisible] = useState(false);
   const [Status, setStatus] = useState<'New' | 'Past'>('New');
@@ -73,7 +75,12 @@ const Home = () => {
           backgroundColor: Colors.white,
         }}>
         <Usersreqestmodal {...{Visible, setVisible}} />
-        <NavHeader title={t('My Bookings')} hideBackBtn />
+        <NavHeader
+          title={t('My Bookings')}
+          hideBackBtn
+          rImg={Images.notification}
+          onrPress={() => navigate('Notification')}
+        />
         <View style={styles.statusContainer}>
           {StatusData.map((item, index) => (
             <View
@@ -101,10 +108,10 @@ const Home = () => {
             </View>
           ))}
         </View>
-        <MyKeyboardAvoidingScrollView>
-          {/* <New /> */}
-          {Status === 'New' ? <New /> : <Post />}
-        </MyKeyboardAvoidingScrollView>
+        {/* <MyKeyboardAvoidingScrollView> */}
+        {/* <New /> */}
+        {Status === 'New' ? <New /> : <Post />}
+        {/* </MyKeyboardAvoidingScrollView> */}
       </View>
       <Pressable
         style={[

@@ -125,7 +125,6 @@ const InputFields: React.FC<InputFieldsProps> = ({
               borderColor: '#F8F8F8',
               flexDirection: 'row',
               height: moderateScale(48),
-
               alignItems: 'center',
               borderRadius: moderateScale(50),
             },

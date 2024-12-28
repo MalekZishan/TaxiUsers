@@ -20,6 +20,8 @@ import Animated, {FadeInDown} from 'react-native-reanimated';
 import Fonts from '../../constants/Fonts';
 import Images from '../../constants/Images';
 import {navigate} from '../../Services/NavigationService';
+import {useAppSelector} from '../../Hooks/ReduxHooks';
+import {userDataSelector} from '../../Store/Data/Auth/AuthSlice';
 
 export type BackNavigationHeaderProps = {
   title?: string;
@@ -33,7 +35,6 @@ export type BackNavigationHeaderProps = {
   notificationCount?: number;
   hideBackBtn?: boolean;
   titlelcr?: string;
-
   righttitle?: string;
   onTitlePress?: () => void;
 };
@@ -45,7 +46,6 @@ const BackNavigationHeader: React.FC<BackNavigationHeaderProps> = ({
   leftImgColor = Colors.black,
   onLeftPress,
   lImg,
-  notificationCount,
   CenterImg,
   hideBackBtn,
   righttitle,
@@ -53,6 +53,7 @@ const BackNavigationHeader: React.FC<BackNavigationHeaderProps> = ({
   rImgChat,
   titlelcr = Colors.black,
 }) => {
+  const {notificationCount} = useAppSelector(userDataSelector);
   return (
     <FlexDirRow
       style={{

@@ -29,12 +29,16 @@ import LoadingIndicator from '../../../../../comman/LoadingIndicator';
 import {t} from 'i18next';
 
 const BookingRequirement = () => {
-  const [pickLatitude, setPickLatitude] = useState<any>();
-  const [pickLongitude, setPickLongitude] = useState<any>();
-  const [pickAddress, setPickAddress] = useState('');
-  const [dropLatitude, setDropLatitude] = useState<any>();
-  const [dropLongitude, setDropLongitude] = useState<any>();
-  const [dropAddress, setDropAddress] = useState('');
+  const [pickLatitude, setPickLatitude] = useState<any>(22.9929455);
+  const [pickLongitude, setPickLongitude] = useState<any>(72.543773);
+  const [pickAddress, setPickAddress] = useState(
+    'Vishala, Ahmedabad, Gujarat, India',
+  );
+  const [dropLatitude, setDropLatitude] = useState<any>(22.9962406);
+  const [dropLongitude, setDropLongitude] = useState<any>(72.5817855);
+  const [dropAddress, setDropAddress] = useState(
+    'Danilimda, Ahmedabad, Gujarat, India',
+  );
   const googlePlacesRef = React.useRef<GooglePlacesAutocompleteRef>(null);
 
   const formik = useFormik({
@@ -47,7 +51,7 @@ const BookingRequirement = () => {
     },
     validationSchema: BookingformSchema(),
     onSubmit: async values => {
-      const distance = 10; // 10 km radius
+      const distance = 100; // 10 km radius
       if (pickAddress && dropAddress) {
         LoadingIndicator.show();
         try {
@@ -169,7 +173,10 @@ const BookingRequirement = () => {
             }}
             fetchDetails={true}
             textInputProps={{
-              onChangeText: text => setPickAddress(text),
+              onChange(e) {
+                setPickAddress(e.nativeEvent.text);
+              },
+              // onChangeText: text => setPickAddress(text),
               multiline: true,
               value: pickAddress,
               style: {
@@ -182,6 +189,7 @@ const BookingRequirement = () => {
             }}
             onFail={error => console.log(error)}
             onNotFound={() => console.log('no results')}
+            onTimeout={() => console.log('timeout')}
           />
         </View>
         <View style={[{flexDirection: 'row', justifyContent: 'space-between'}]}>
@@ -224,7 +232,9 @@ const BookingRequirement = () => {
             }}
             fetchDetails={true}
             textInputProps={{
-              onChangeText: text => setDropAddress(text),
+              onChange(e) {
+                setPickAddress(e.nativeEvent.text);
+              },
               multiline: true,
               value: dropAddress,
               style: {

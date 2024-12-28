@@ -22,6 +22,7 @@ import {
 } from '../../../Store/Data/Auth/AuthSlice';
 import {loginSchema} from '../../../utils/schema/Auth.schema';
 import {t} from 'i18next';
+import {generateToken} from '../../../Services/notificationServices';
 
 const Login = () => {
   const initialValues = {
@@ -34,8 +35,8 @@ const Login = () => {
   const formik = useFormik({
     initialValues,
     onSubmit: async values => {
-      // let deviceId = await generateToken();
-      let deviceId = 'aff';
+      let deviceId = await generateToken();
+      // let deviceId = 'adfadfa';
       // console.log(values);
       const data = {
         email: values.email,
@@ -43,6 +44,7 @@ const Login = () => {
         device_token: deviceId,
         device_type: Platform.OS === 'ios' ? '2' : '1',
       };
+      console.log(data, 'data');
       apiWithToken(ENDPOINTS.login, 'POST', data)
         .then(res => {
           store.dispatch(setUserToken(res.token));

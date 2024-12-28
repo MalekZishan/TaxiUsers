@@ -52,4 +52,6 @@ export default {
   Verify: require('../assets/images/Verify.png'),
   employee: require('../assets/images/employee.png'),
   add: require('../assets/images/add.png'),
+  notification: require('../assets/images/notification.png'),
+  notificationBell: require('../assets/images/notificationBell.png'),
 };

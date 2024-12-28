@@ -38,7 +38,6 @@ const fetchNearbyDrivers = async (
   try {
     const driversRef = firestore().collection('Users'); // Adjust your collection name
     const snapshot = await driversRef.get();
-
     const drivers: any[] = [];
     snapshot.forEach(doc => {
       const driverData = doc.data();
